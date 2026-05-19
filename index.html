@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>笨笨的の歌单</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+SC:wght@200;300;400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,22 +16,29 @@
     box-sizing:border-box;
 }
 
-body{
+html,body{
 
+    width:100%;
+    height:100%;
     overflow:auto;
+    scroll-behavior:smooth;
+}
 
-    width:100vw;
-    height:100vh;
+body{
 
     background:
     radial-gradient(circle at center,
-    rgba(236,232,255,0.78),
-    rgba(250,246,248,1) 70%);
+    #f8f3ff 0%,
+    #f7f1f6 35%,
+    #f3f4ff 70%,
+    #f9f6f8 100%);
 
     font-family:
-    'Cormorant Garamond',
-    'Noto Serif SC',
+    "Cormorant Garamond",
+    "Noto Serif SC",
     serif;
+
+    overflow:auto;
 }
 
 .world{
@@ -43,138 +49,141 @@ body{
     height:1700px;
 
     overflow:hidden;
-
-    animation:
-    worldBreath 14s ease-in-out infinite alternate;
 }
 
-@keyframes worldBreath{
+.soft-light{
 
-    from{
-        transform:scale(1);
-    }
+    position:absolute;
 
-    to{
-        transform:scale(1.02);
-    }
+    width:900px;
+    height:900px;
+
+    background:
+    radial-gradient(circle,
+    rgba(225,220,255,0.28),
+    transparent 70%);
+
+    left:50%;
+    top:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    filter:blur(70px);
+
+    pointer-events:none;
 }
 
 .title{
 
-    position:fixed;
+    position:absolute;
 
-    top:55px;
-    left:60px;
+    top:90px;
+    left:90px;
 
-    z-index:100;
-
-    font-size:68px;
+    font-size:82px;
 
     font-weight:300;
 
+    color:#9d8d92;
+
+    letter-spacing:4px;
+
+    z-index:20;
+
     font-style:italic;
-
-    color:#9e8f97;
-
-    letter-spacing:2px;
 }
 
-.search{
+.search-box{
 
-    position:fixed;
+    position:absolute;
 
-    top:155px;
-    left:60px;
+    top:210px;
+    left:90px;
 
-    z-index:100;
-}
-
-.search input{
-
-    width:240px;
+    width:260px;
     height:48px;
 
     border:none;
-    outline:none;
 
     border-radius:999px;
 
-    padding:0 22px;
-
-    background:
-    rgba(255,255,255,0.62);
-
-    backdrop-filter:blur(10px);
-
-    box-shadow:
-    0 0 24px rgba(255,255,255,0.5);
-
-    color:#a1939b;
+    padding:0 28px;
 
     font-size:17px;
 
-    font-family:
-    'Noto Serif SC',
-    serif;
+    outline:none;
+
+    background:
+    rgba(255,255,255,0.55);
+
+    backdrop-filter:blur(10px);
+
+    color:#85787d;
+
+    z-index:20;
+
+    box-shadow:
+    0 8px 30px rgba(230,220,230,0.25);
+}
+
+.search-box::placeholder{
+    color:#b8aeb3;
 }
 
 .tip{
 
-    position:fixed;
+    position:absolute;
 
-    top:120px;
-    right:90px;
-
-    z-index:100;
+    top:110px;
+    right:130px;
 
     font-size:24px;
 
-    color:#d2b9ff;
+    color:#ceb8ff;
 
     font-style:italic;
+
+    letter-spacing:2px;
+
+    z-index:20;
 }
 
 .song{
 
     position:absolute;
 
-    text-decoration:none;
-
-    font-weight:300;
-
-    white-space:nowrap;
+    cursor:pointer;
 
     transition:
-    transform .8s ease,
-    opacity .8s ease;
+    transform 1.5s ease,
+    opacity 1.5s ease,
+    text-shadow 1.5s ease;
 
     animation:
-    floaty ease-in-out infinite alternate;
+    floatSong 7s ease-in-out infinite;
+
+    transform-origin:center;
+
+    white-space:nowrap;
 }
 
 .song:hover{
 
     transform:
-    scale(1.08);
+    scale(1.22)
+    translateY(-10px);
 
-    opacity:1;
+    text-shadow:
+    0 0 25px rgba(210,190,255,0.7);
+
+    z-index:50;
 }
 
-@keyframes floaty{
+.song a{
 
-    from{
-
-        transform:
-        translateY(0px)
-        translateX(0px);
-    }
-
-    to{
-
-        transform:
-        translateY(-12px)
-        translateX(5px);
-    }
+    text-decoration:none;
+    font-weight:300;
 }
 
 .note{
@@ -185,8 +194,32 @@ body{
 
     color:#eadfff;
 
+    mix-blend-mode:screen;
+
     animation:
     depthFloat linear infinite;
+
+    will-change:
+    transform,
+    opacity;
+}
+
+@keyframes floatSong{
+
+    0%{
+        transform:
+        translateY(0px);
+    }
+
+    50%{
+        transform:
+        translateY(-12px);
+    }
+
+    100%{
+        transform:
+        translateY(0px);
+    }
 }
 
 @keyframes depthFloat{
@@ -194,21 +227,27 @@ body{
     0%{
 
         transform:
-        translateZ(-600px)
-        scale(0.2);
+        translate3d(0,120px,-600px)
+        scale(0.15)
+        rotate(0deg);
 
         opacity:0;
     }
 
     20%{
-        opacity:0.22;
+        opacity:0.12;
+    }
+
+    60%{
+        opacity:0.2;
     }
 
     100%{
 
         transform:
-        translateZ(300px)
-        scale(1.6);
+        translate3d(0,-120px,300px)
+        scale(1.8)
+        rotate(120deg);
 
         opacity:0;
     }
@@ -219,45 +258,76 @@ body{
 
 <body>
 
+<div class="world" id="world">
+
+<div class="soft-light"></div>
+
 <div class="title">
 笨笨的の歌单
 </div>
 
-<div class="search">
-<input id="searchInput" placeholder="试试搜索">
-</div>
+<input
+class="search-box"
+id="searchInput"
+placeholder="试试搜索"
+/>
 
 <div class="tip">
 点击歌名可以试听～
 </div>
 
-<div class="world" id="world"></div>
+</div>
 
 <script>
 
 const songs = [
 
-"东京不太热","怪物","宠坏","如果爱忘了","红色高跟鞋",
-"第57次取消发送","爱我你就抱抱我","公主殿下","心愿便利贴",
-"一滴泪的时间","Doll","你的crush降临了吗","天赋","有雨有雨",
-"空空","半壶纱","我们","南泥湾","粉雾海","AlwaysOnline",
-"绿色","怪我咯","左手右手","凑热闹","野火一季","红昭愿",
-"宝贝","after17","梁山伯与朱丽叶","宠爱","失眠了",
-"奇妙能力歌","夏天的风","走马","怎么了","末日不落",
-"天龙八部之宿敌","不要忘记我爱你","几分之几","take me hand"
+"东京不太热",
+"如果爱忘了",
+"第57次取消发送",
+"你的crush降临了吗",
+"一滴泪的时间",
+"红昭愿",
+"心愿便利贴",
+"公主殿下",
+"夏天的风",
+"怪物",
+"野火一季",
+"爱我你就抱抱我",
+"宠坏",
+"空空",
+"左手右手",
+"粉雾海",
+"怎么了",
+"Doll",
+"AlwaysOnline",
+"梁山伯与朱丽叶",
+"失眠了",
+"湊熱闹",
+"有雨有雨",
+"take me hand",
+"末日不落",
+"不要忘记我爱你",
+"我们",
+"绿色",
+"南泥湾",
+"小公主",
+"宝贝",
+"半壶纱",
+"天赋"
 
 ];
 
 const colors = [
 
-"#caa7ff",
-"#b6c8ff",
-"#d8b6ff",
-"#c6b8d4",
-"#adc6ff",
-"#e0c2ff",
-"#cdb6ff",
-"#bfc9ef"
+"#d9c2ff",
+"#c9d6ff",
+"#f1c7f6",
+"#cdb8ff",
+"#bfcfff",
+"#e3c7ff",
+"#b8cfff",
+"#ead2ff"
 
 ];
 
@@ -266,49 +336,76 @@ document.getElementById("world");
 
 songs.forEach(song=>{
 
-    const a =
-    document.createElement("a");
+    const div =
+    document.createElement("div");
 
-    a.className="song";
+    div.className="song";
 
-    a.innerText=song;
+    const size =
+    18 + Math.random()*42;
 
-    a.href=
-    "song.html?song="+encodeURIComponent(song);
+    div.style.fontSize =
+    size + "px";
 
-    a.style.left =
-    Math.random()*1900 + "px";
+    div.style.left =
+    150 + Math.random()*1800 + "px";
 
-    a.style.top =
-    Math.random()*1450 + "px";
+    div.style.top =
+    120 + Math.random()*1350 + "px";
 
-    a.style.fontSize =
-    (18 + Math.random()*34) + "px";
+    div.style.opacity =
+    0.45 + Math.random()*0.45;
 
-    a.style.color =
-    colors[Math.floor(Math.random()*colors.length)];
+    div.style.animationDelay =
+    (-Math.random()*8) + "s";
 
-    a.style.opacity =
-    0.45 + Math.random()*0.35;
+    const color =
+    colors[
+    Math.floor(
+    Math.random()*colors.length
+    )
+    ];
 
-    a.style.animationDuration =
-    (4 + Math.random()*6) + "s";
+    div.innerHTML = `
 
-    world.appendChild(a);
+    <a href="song.html?song=${encodeURIComponent(song)}"
+    style="color:${color}">
+    ${song}
+    </a>
+
+    `;
+
+    world.appendChild(div);
 });
 
-const symbols =
-["♫","♪","♬","♩","𝄞"];
+const musicElements = [
 
-for(let i=0;i<90;i++){
+"♫",
+"♪",
+"♬",
+"♩",
+"𝄞",
+"◌",
+"◍",
+"⊹",
+"☾",
+"♡"
+
+];
+
+for(let i=0;i<120;i++){
 
     const note =
     document.createElement("div");
 
-    note.className="note";
+    note.className = "note";
 
     note.innerHTML =
-    symbols[Math.floor(Math.random()*symbols.length)];
+    musicElements[
+    Math.floor(
+    Math.random()*musicElements.length
+    )
+    ];
 
     note.style.left =
     Math.random()*2200 + "px";
@@ -317,33 +414,37 @@ for(let i=0;i<90;i++){
     Math.random()*1700 + "px";
 
     note.style.fontSize =
-    (16 + Math.random()*40) + "px";
+    (10 + Math.random()*55) + "px";
 
     note.style.animationDuration =
-    (2 + Math.random()*5) + "s";
+    (3 + Math.random()*7) + "s";
 
     note.style.animationDelay =
-    (-Math.random()*10) + "s";
+    (-Math.random()*15) + "s";
 
     note.style.opacity =
-    Math.random()*0.18;
+    0.05 + Math.random()*0.18;
+
+    note.style.filter =
+    "blur(" + Math.random()*1.5 + "px)";
 
     world.appendChild(note);
 }
 
-document
-.getElementById("searchInput")
-.addEventListener("keypress",function(e){
+const searchInput =
+document.getElementById("searchInput");
+
+searchInput.addEventListener("keydown",e=>{
 
     if(e.key==="Enter"){
 
         const value =
-        this.value.trim();
+        searchInput.value.trim();
 
         if(songs.includes(value)){
 
             window.location.href =
-            "song.html?song="+encodeURIComponent(value);
+            `song.html?song=${encodeURIComponent(value)}`;
 
         }else{
 
