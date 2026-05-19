@@ -282,6 +282,154 @@ audio{
     opacity:0.74;
 }
 
+/* volume */
+
+.volume-wrap{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:22px;
+
+    opacity:0.72;
+}
+
+.volume-icon{
+
+    color:#c7b8c2;
+
+    font-size:14px;
+
+    font-style:italic;
+}
+
+.volume-slider{
+
+    width:180px;
+
+    height:6px;
+
+    appearance:none;
+
+    background:
+    rgba(255,255,255,0.34);
+
+    border-radius:999px;
+
+    outline:none;
+
+    box-shadow:
+
+    0 0 10px rgba(255,255,255,0.16),
+
+    inset 0 0 4px rgba(255,255,255,0.4);
+}
+
+.volume-slider::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:
+    rgba(255,255,255,0.3);
+
+    border-radius:999px;
+}
+
+.volume-slider::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:#fffdfd;
+
+    margin-top:-4px;
+
+    box-shadow:
+
+    0 0 12px rgba(255,255,255,0.75);
+}
+    
+/* volume */
+
+.volume-wrap{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:22px;
+
+    opacity:0.72;
+}
+
+.volume-icon{
+
+    color:#c7b8c2;
+
+    font-size:14px;
+
+    font-style:italic;
+}
+
+.volume-slider{
+
+    width:180px;
+
+    height:6px;
+
+    appearance:none;
+
+    background:
+    rgba(255,255,255,0.34);
+
+    border-radius:999px;
+
+    outline:none;
+
+    box-shadow:
+
+    0 0 10px rgba(255,255,255,0.16),
+
+    inset 0 0 4px rgba(255,255,255,0.4);
+}
+
+.volume-slider::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:
+    rgba(255,255,255,0.3);
+
+    border-radius:999px;
+}
+
+.volume-slider::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:#fffdfd;
+
+    margin-top:-4px;
+
+    box-shadow:
+
+    0 0 12px rgba(255,255,255,0.75);
+}
+
 /* 音符 */
 
 .note{
@@ -392,6 +540,38 @@ audio{
     margin-top:28px;
 }
 
+.volume-wrap{
+
+    margin-top:16px;
+
+    gap:10px;
+}
+
+.volume-slider{
+
+    width:120px;
+
+    height:5px;
+}
+
+.volume-slider::-webkit-slider-runnable-track{
+
+    height:5px;
+}
+
+.volume-slider::-webkit-slider-thumb{
+
+    width:12px;
+    height:12px;
+
+    margin-top:-3.5px;
+}
+
+.volume-icon{
+
+    font-size:12px;
+}
+
 .note{
 
     opacity:0.12;
@@ -428,6 +608,22 @@ id="songTitle">
 
 <audio controls id="player">
 </audio>
+
+<div class="volume-wrap">
+
+    <span class="volume-icon">
+    ♫
+    </span>
+
+    <input
+    type="range"
+    min="0"
+    max="100"
+    value="45"
+    class="volume-slider"
+    id="volumeSlider">
+
+</div>
 
 </div>
 
@@ -523,6 +719,22 @@ for(let i=0;i<26;i++){
 
     document.body.appendChild(note);
 }
+
+const volumeSlider =
+document.getElementById("volumeSlider");
+
+volumeSlider.addEventListener(
+
+"input",
+
+()=>{
+
+    player.volume =
+    volumeSlider.value / 100;
+}
+);
+
+player.volume = 0.45;
 
 </script>
 
