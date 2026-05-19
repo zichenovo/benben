@@ -34,7 +34,7 @@ body{
     min-height:1900px;
 }
 
-/* 整体柔和边框 */
+/* 柔和边框 */
 
 body::before{
 
@@ -81,7 +81,7 @@ body::before{
     0 0 30px rgba(220,210,220,0.2);
 }
 
-/* 左上区域 */
+/* 左上 */
 
 .header{
 
@@ -104,7 +104,7 @@ body::before{
     letter-spacing:2px;
 }
 
-/* 搜索框 */
+/* 搜索 */
 
 .search-box{
 
@@ -133,7 +133,7 @@ body::before{
     0 8px 30px rgba(0,0,0,0.04);
 }
 
-/* 右上小字 */
+/* 右上 */
 
 .tip{
 
@@ -175,8 +175,6 @@ body::before{
 
     cursor:pointer;
 
-    color:#a08f97;
-
     transition:
     transform 0.45s ease,
     color 0.45s ease,
@@ -194,15 +192,45 @@ body::before{
     floaty ease-in-out infinite;
 }
 
+/* 和谐颜色 */
+
+.song:nth-child(7n+1){
+    color:#a98bc7;
+}
+
+.song:nth-child(7n+2){
+    color:#8fa7c9;
+}
+
+.song:nth-child(7n+3){
+    color:#b49ab7;
+}
+
+.song:nth-child(7n+4){
+    color:#9e8fa1;
+}
+
+.song:nth-child(7n+5){
+    color:#c4a0d8;
+}
+
+.song:nth-child(7n+6){
+    color:#8ea1b8;
+}
+
+.song:nth-child(7n){
+    color:#b7a2b0;
+}
+
 /* hover */
 
 .song:hover{
 
-    color:#a889d8;
+    color:#c084fc;
 
     transform:
-    scale(1.15)
-    translateY(-5px);
+    scale(1.08)
+    translateY(-4px);
 
     opacity:1;
 
@@ -210,23 +238,24 @@ body::before{
 }
 
 /* 字体大小 */
+/* 已经限制最大字体 */
 
 .small{
 
-    font-size:24px;
-    opacity:0.42;
+    font-size:22px;
+    opacity:0.4;
 }
 
 .medium{
 
-    font-size:42px;
-    opacity:0.68;
+    font-size:40px;
+    opacity:0.65;
 }
 
 .large{
 
-    font-size:72px;
-    opacity:0.9;
+    font-size:58px;
+    opacity:0.82;
 }
 
 /* 漂浮 */
@@ -274,7 +303,7 @@ body::before{
     }
 }
 
-/* 飘动音乐元素 */
+/* 音符 */
 
 .note{
 
@@ -394,7 +423,7 @@ const songs = [
 const songArea =
 document.getElementById("songArea");
 
-/* 随机生成歌名 */
+/* 歌名 */
 
 songs.forEach(songName=>{
 
@@ -404,11 +433,17 @@ songs.forEach(songName=>{
     const sizes =
     ["small","medium","large"];
 
+    /* large概率减少 */
+
+    const randomIndex =
+    Math.random() < 0.15
+    ? 2
+    : Math.random() < 0.5
+    ? 1
+    : 0;
+
     const randomSize =
-    sizes[
-    Math.floor(
-    Math.random()*sizes.length
-    )];
+    sizes[randomIndex];
 
     song.className =
     "song " + randomSize;
@@ -466,7 +501,7 @@ document
     }
 });
 
-/* 飘动音符 */
+/* 音符 */
 
 for(let i=0;i<55;i++){
 
