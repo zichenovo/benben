@@ -863,6 +863,38 @@ songs.forEach(songName=>{
     song.style.top =
     y + "px";
 
+    /* title区域透明 */
+
+let fade = 1;
+
+if(isMobile){
+
+    if(y < 220){
+
+        fade =
+        Math.max(
+        0.08,
+        (y - 120) / 100
+        );
+    }
+
+}else{
+
+    if(y < 260){
+
+        fade =
+        Math.max(
+        0.08,
+        (y - 140) / 120
+        );
+    }
+}
+
+song.style.setProperty(
+"--fadeOpacity",
+fade
+);
+
     song.style.animationDuration =
     10 + Math.random()*8 + "s";
 
