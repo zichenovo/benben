@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>笨笨的の歌单</title>
 
@@ -15,78 +16,106 @@
 }
 
 body{
-    width:100%;
-    height:100vh;
-    overflow:hidden;
 
     background:
-    radial-gradient(circle at top left,#f8ecee 0%,transparent 35%),
-    radial-gradient(circle at bottom right,#f1efea 0%,transparent 35%),
-    linear-gradient(135deg,#f7f3f2,#f3efec,#f6f4f1);
+    radial-gradient(circle at top left,#f8e9ef 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#ebe7ff 0%,transparent 30%),
+    #f6f1f0;
 
-    font-family: "Helvetica Neue", sans-serif;
+    overflow:auto;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+
+    color:#8f7f84;
+
+    min-width:2200px;
+    min-height:1800px;
 }
 
-/* 标题 */
+/* 左上标题 */
+
+.header{
+    position:fixed;
+
+    top:50px;
+    left:60px;
+
+    z-index:999;
+}
 
 .title{
-    position:absolute;
-    left:55px;
-    top:40px;
 
-    font-size:78px;
-    font-weight:900;
+    font-size:92px;
 
-    color:#7d6e68;
+    font-weight:700;
+
+    color:#8d7d7b;
 
     letter-spacing:2px;
-
-    z-index:10;
 }
 
 /* 搜索框 */
 
 .search-box{
-    position:absolute;
 
-    left:55px;
-    top:155px;
+    margin-top:25px;
 
-    width:360px;
-    height:56px;
+    width:370px;
+    height:58px;
+
+    border-radius:40px;
 
     border:none;
-    outline:none;
-
-    border-radius:999px;
-
-    background:rgba(255,255,255,0.6);
 
     padding-left:28px;
 
-    font-size:22px;
+    font-size:30px;
 
-    color:#8a7d78;
+    background:rgba(255,255,255,0.62);
 
     backdrop-filter:blur(10px);
 
+    outline:none;
+
+    color:#8f7f84;
+
     box-shadow:
-    0 5px 20px rgba(0,0,0,0.03);
-
-    z-index:10;
+    0 8px 25px rgba(0,0,0,0.05);
 }
 
-.search-box::placeholder{
-    color:#c1b5b0;
+/* 右上角文字 */
+
+.tip{
+
+    position:fixed;
+
+    top:70px;
+    right:90px;
+
+    font-size:24px;
+
+    color:#c4aee7;
+
+    font-style:italic;
+
+    letter-spacing:2px;
+
+    z-index:999;
 }
 
-/* 歌词散落区域 */
+/* 歌单区域 */
 
-.song-container{
+.song-area{
+
     position:relative;
-    width:100%;
-    height:100vh;
-    overflow:hidden;
+
+    width:2200px;
+    height:1800px;
+
+    padding-top:180px;
 }
 
 /* 歌名 */
@@ -95,76 +124,132 @@ body{
 
     position:absolute;
 
-    font-size:30px;
-
-    color:rgba(120,105,120,0.72);
-
-    font-family:"Times New Roman", serif;
-
     font-style:italic;
+
+    color:#9f8f97;
 
     cursor:pointer;
 
     transition:
-    color 0.35s ease,
-    transform 0.35s ease,
-    opacity 0.35s ease;
+    transform 0.5s ease,
+    color 0.5s ease,
+    opacity 0.5s ease;
 
     user-select:none;
 
-    letter-spacing:1px;
+    white-space:nowrap;
+
+    opacity:0.82;
+
+    animation:floaty ease-in-out infinite;
 }
+
+/* 大小 */
+
+.song.small{
+    font-size:24px;
+    opacity:0.55;
+}
+
+.song.medium{
+    font-size:38px;
+    opacity:0.72;
+}
+
+.song.large{
+    font-size:58px;
+    opacity:0.96;
+}
+
+/* hover */
 
 .song:hover{
 
-    color:rgba(185,145,210,0.95);
+    color:#a98ad6;
 
     transform:
-    translate(-50%, -50%)
-    scale(1.8);
+    scale(1.18)
+    translateY(-6px);
 
-    z-index:999;
+    opacity:1;
+
+    z-index:99;
 }
 
-/* 小装饰 */
+/* 漂浮动画 */
 
-.sparkle{
+.song:nth-child(odd){
+    animation-duration:7s;
+}
+
+.song:nth-child(even){
+    animation-duration:11s;
+}
+
+@keyframes floaty{
+
+    0%{
+        transform:
+        translateY(0px)
+        translateX(0px);
+    }
+
+    25%{
+        transform:
+        translateY(-10px)
+        translateX(8px);
+    }
+
+    50%{
+        transform:
+        translateY(4px)
+        translateX(-10px);
+    }
+
+    75%{
+        transform:
+        translateY(-8px)
+        translateX(6px);
+    }
+
+    100%{
+        transform:
+        translateY(0px)
+        translateX(0px);
+    }
+}
+
+/* 飘动音符 */
+
+.note{
+
     position:absolute;
-    width:8px;
-    height:8px;
-    background:#d9c2eb;
-    opacity:0.4;
+
+    color:#dbcdf6;
+
+    opacity:0.35;
+
+    animation:
+    drift linear infinite;
+
+    pointer-events:none;
 }
 
-.sparkle:nth-child(1){
-    left:10%;
-    top:20%;
-}
+@keyframes drift{
 
-.sparkle:nth-child(2){
-    left:80%;
-    top:15%;
-}
+    from{
+        transform:
+        translateY(0px)
+        translateX(0px)
+        rotate(0deg);
+    }
 
-.sparkle:nth-child(3){
-    left:60%;
-    top:70%;
-}
-
-.sparkle:nth-child(4){
-    left:30%;
-    top:80%;
-}
-
-.tip{
-    position:absolute;
-    top:55px;
-    right:70px;
-
-    color:#b8a6c8;
-    font-size:15px;
-    letter-spacing:2px;
-    font-style:italic;
+    to{
+        transform:
+        translateY(-120px)
+        translateX(40px)
+        rotate(20deg);
+    }
 }
 
 </style>
@@ -172,30 +257,28 @@ body{
 
 <body>
 
-<div class="title">笨笨的の歌单</div>
+<div class="header">
 
-<input
-class="search-box"
-id="searchInput"
-placeholder="试试搜索"
-/>
+    <div class="title">
+        笨笨的の歌单
+    </div>
+
+    <input
+    class="search-box"
+    id="searchInput"
+    placeholder="试试搜索">
+
+</div>
 
 <div class="tip">
-click a song to explore
+    click a song to explore
 </div>
 
-<div class="song-container" id="songs">
-
-<div class="sparkle"></div>
-<div class="sparkle"></div>
-<div class="sparkle"></div>
-<div class="sparkle"></div>
-
-</div>
+<div class="song-area" id="songArea"></div>
 
 <script>
 
-const songNames = [
+const songs = [
 
 "末日",
 "走马",
@@ -233,7 +316,6 @@ const songNames = [
 "粉雾海",
 "宠爱",
 "红昭愿",
-"等",
 "Doll",
 "日不落",
 "怎么了",
@@ -252,33 +334,53 @@ const songNames = [
 
 ];
 
-const container = document.getElementById("songs");
+const songArea =
+document.getElementById("songArea");
 
-/* 散落位置 */
+/* 生成歌名 */
 
-songNames.forEach(song => {
+songs.forEach(songName=>{
 
-    const div = document.createElement("div");
+    const song =
+    document.createElement("div");
 
-    div.className = "song";
+    const sizes =
+    ["small","medium","large"];
 
-    div.innerText = song;
+    const randomSize =
+    sizes[
+    Math.floor(
+    Math.random()*sizes.length
+    )];
 
-    const x = Math.random() * 80 + 8;
-    const y = Math.random() * 72 + 18;
+    song.className =
+    "song " + randomSize;
 
-    div.style.left = x + "%";
-    div.style.top = y + "%";
+    song.innerText =
+    songName;
 
-    div.onclick = () => {
+    const x =
+    200 + Math.random()*1700;
+
+    const y =
+    200 + Math.random()*1300;
+
+    song.style.left =
+    x + "px";
+
+    song.style.top =
+    y + "px";
+
+    /* 点击跳转 */
+
+    song.onclick = ()=>{
 
         window.location.href =
-        `song.html?song=${encodeURIComponent(song)}`;
-
+        "song.html?song=" +
+        encodeURIComponent(songName);
     };
 
-    container.appendChild(div);
-
+    songArea.appendChild(song);
 });
 
 /* 搜索 */
@@ -289,24 +391,58 @@ document
 
     if(e.key==="Enter"){
 
-        const value = this.value.trim();
+        const value =
+        this.value.trim();
 
-        if(songNames.includes(value)){
+        if(songs.includes(value)){
 
             window.location.href =
-            `song.html?song=${encodeURIComponent(value)}`;
+            "song.html?song=" +
+            encodeURIComponent(value);
 
         }else{
 
             alert(
-            "不好意思 笨笨的还没学会这首歌 已加入待学歌单～"
+            "不好意思 笨笨的还没学会《"
+            + value +
+            "》 已加入待学歌单～"
             );
-
         }
-
     }
-
 });
+
+/* 音符漂浮 */
+
+for(let i=0;i<40;i++){
+
+    const note =
+    document.createElement("div");
+
+    note.className = "note";
+
+    const symbols =
+    ["♪","♫","♬","♩"];
+
+    note.innerText =
+    symbols[
+    Math.floor(
+    Math.random()*symbols.length
+    )];
+
+    note.style.left =
+    Math.random()*2200 + "px";
+
+    note.style.top =
+    Math.random()*1800 + "px";
+
+    note.style.fontSize =
+    20 + Math.random()*45 + "px";
+
+    note.style.animationDuration =
+    10 + Math.random()*20 + "s";
+
+    songArea.appendChild(note);
+}
 
 </script>
 
