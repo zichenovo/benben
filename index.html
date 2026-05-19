@@ -257,7 +257,12 @@ body::before{
     transition:
     transform 0.35s ease,
     opacity 0.35s ease,
-    color 0.35s ease;
+    color 0.35s ease,
+    filter 0.35s ease;
+
+    --fadeOpacity:1;
+
+    opacity:calc(var(--fadeOpacity) * 0.75);
 
     font-style:italic;
 
