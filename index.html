@@ -156,7 +156,7 @@ body::before{
 
     margin-top:14px;
 
-    opacity:0.55;
+    opacity:0.7;
 
     transition:0.3s;
 }
@@ -175,16 +175,18 @@ body::before{
     font-style:italic;
 }
 
+/* 电脑版 volume */
+
 .volume-slider{
 
-    width:110px;
+    width:160px;
 
-    height:2px;
+    height:6px;
 
     appearance:none;
 
     background:
-    rgba(255,255,255,0.32);
+    rgba(255,255,255,0.42);
 
     border-radius:999px;
 
@@ -193,10 +195,10 @@ body::before{
 
 .volume-slider::-webkit-slider-runnable-track{
 
-    height:2px;
+    height:6px;
 
     background:
-    rgba(255,255,255,0.28);
+    rgba(255,255,255,0.36);
 
     border-radius:999px;
 }
@@ -205,17 +207,17 @@ body::before{
 
     appearance:none;
 
-    width:9px;
-    height:9px;
+    width:14px;
+    height:14px;
 
     border-radius:50%;
 
     background:#fff7fb;
 
-    margin-top:-3.5px;
+    margin-top:-4px;
 
     box-shadow:
-    0 0 10px rgba(255,255,255,0.55);
+    0 0 12px rgba(255,255,255,0.7);
 }
 
 /* tip */
@@ -553,14 +555,86 @@ body::before{
     color:#f1d9ff;
 }
 
+/* 手机版竖着音量 */
+
 .mobile .volume-wrap{
 
-    margin-top:10px;
+    position:fixed;
+
+    right:18px;
+    bottom:92px;
+
+    margin-top:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:12px;
+
+    z-index:9999;
 }
 
 .mobile .volume-slider{
 
-    width:90px;
+    -webkit-appearance:none;
+
+    appearance:none;
+
+    width:5px;
+    height:110px;
+
+    background:
+    rgba(255,255,255,0.38);
+
+    border-radius:999px;
+
+    outline:none;
+
+    writing-mode:bt-lr;
+
+    transform:
+    rotate(180deg);
+}
+
+.mobile .volume-slider::-webkit-slider-runnable-track{
+
+    width:5px;
+    height:110px;
+
+    background:
+    rgba(255,255,255,0.32);
+
+    border-radius:999px;
+}
+
+.mobile .volume-slider::-webkit-slider-thumb{
+
+    -webkit-appearance:none;
+
+    appearance:none;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:#fffafc;
+
+    border:none;
+
+    box-shadow:
+
+    0 0 12px rgba(255,255,255,0.7),
+
+    0 0 20px rgba(236,210,255,0.4);
+}
+
+.mobile .volume-icon{
+
+    font-size:11px;
 }
 
 </style>
