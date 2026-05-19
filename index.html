@@ -329,31 +329,31 @@ body::before{
     0%{
 
         transform:
-        translateY(140px)
-        scale(0.7);
+        translate3d(0,300px,-400px)
+        scale(0.2);
 
         opacity:0;
     }
 
-    30%{
+    20%{
 
-        opacity:0.45;
+        opacity:0.18;
     }
 
-    60%{
+    50%{
 
         transform:
-        translateY(-120px)
-        scale(1.05);
+        translate3d(0,0px,0px)
+        scale(1);
 
-        opacity:0.75;
+        opacity:0.4;
     }
 
     100%{
 
         transform:
-        translateY(-260px)
-        scale(1.4);
+        translate3d(0,-500px,300px)
+        scale(1.9);
 
         opacity:0;
     }
@@ -454,7 +454,7 @@ songs.forEach(songName=>{
     /* 动快一点 */
 
     song.style.animationDuration =
-    4 + Math.random()*5 + "s";
+    10 + Math.random()*8 + "s";
 
     song.onclick = ()=>{
 
@@ -524,7 +524,7 @@ for(let i=0;i<95;i++){
     16 + Math.random()*55 + "px";
 
     note.style.animationDuration =
-    3 + Math.random()*5 + "s";
+    8 + Math.random()*8 + "s";
 
     songArea.appendChild(note);
 }
