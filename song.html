@@ -297,8 +297,7 @@ audio{
 
 <div class="record"></div>
 
-<audio controls>
-<source src="">
+<audio controls id="player">
 </audio>
 
 </div>
@@ -316,6 +315,26 @@ params.get("song") || "歌曲";
 document.getElementById("songTitle")
 .innerText =
 "正在播放：《" + song + "》";
+
+/* 音频 */
+
+if(song === "take me hand"){
+
+    document
+    .getElementById("player")
+    .innerHTML =
+
+    '<source src="audioSource/take me hand.mp3" type="audio/mpeg">';
+}
+
+if(song === "空空"){
+
+    document
+    .getElementById("player")
+    .innerHTML =
+
+    '<source src="audioSource/空空.mp3" type="audio/mpeg">';
+}
 
 const symbols =
 ["♫","♪","♬","♩"];
