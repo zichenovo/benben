@@ -93,21 +93,23 @@ body{
 
     position:absolute;
 
-    top:110px;
+    top:52px;
+    left:140px;
 
-    width:100%;
-
-    text-align:center;
-
-    font-size:82px;
+    font-size:30px;
 
     font-style:italic;
 
     font-weight:300;
 
-    color:#b09ea7;
+    color:#a998a2;
 
-    letter-spacing:2px;
+    letter-spacing:1px;
+
+    z-index:999;
+
+    text-shadow:
+    0 0 18px rgba(255,255,255,0.45);
 }
 
 .center{
@@ -312,7 +314,8 @@ const song =
 params.get("song") || "歌曲";
 
 document.getElementById("songTitle")
-.innerText = song;
+.innerText =
+"正在播放：《" + song + "》";
 
 const symbols =
 ["♫","♪","♬","♩"];
