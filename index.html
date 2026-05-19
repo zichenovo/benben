@@ -17,10 +17,9 @@
 
 body{
 
-    background:
-    radial-gradient(circle at top left,#f8e9ef 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#ebe7ff 0%,transparent 30%),
-    #f6f1f0;
+    margin:0;
+
+    background:#f7f2f2;
 
     overflow:auto;
 
@@ -31,17 +30,65 @@ body{
 
     color:#8f7f84;
 
-    min-width:2200px;
-    min-height:1800px;
+    min-width:2400px;
+    min-height:1900px;
 }
 
-/* 左上标题 */
+/* 整体柔和边框 */
 
-.header{
+body::before{
+
+    content:"";
+
     position:fixed;
 
-    top:50px;
-    left:60px;
+    inset:18px;
+
+    border-radius:38px;
+
+    border:2px solid rgba(255,255,255,0.55);
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    background:
+
+    radial-gradient(
+    circle at top left,
+    rgba(255,232,240,0.9) 0%,
+    transparent 30%
+    ),
+
+    radial-gradient(
+    circle at bottom center,
+    rgba(231,227,255,0.75) 0%,
+    transparent 35%
+    ),
+
+    radial-gradient(
+    circle at right top,
+    rgba(255,255,255,0.7) 0%,
+    transparent 40%
+    ),
+
+    #f6f1f0;
+
+    box-shadow:
+
+    inset 0 0 120px rgba(255,255,255,0.5),
+
+    0 0 30px rgba(220,210,220,0.2);
+}
+
+/* 左上区域 */
+
+.header{
+
+    position:fixed;
+
+    top:55px;
+    left:65px;
 
     z-index:999;
 }
@@ -61,61 +108,63 @@ body{
 
 .search-box{
 
-    margin-top:25px;
+    margin-top:24px;
 
-    width:370px;
-    height:58px;
-
-    border-radius:40px;
+    width:380px;
+    height:62px;
 
     border:none;
 
-    padding-left:28px;
+    border-radius:40px;
+
+    padding-left:30px;
 
     font-size:30px;
 
     background:rgba(255,255,255,0.62);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 
     outline:none;
 
-    color:#8f7f84;
+    color:#9b8f92;
 
     box-shadow:
-    0 8px 25px rgba(0,0,0,0.05);
+    0 8px 30px rgba(0,0,0,0.04);
 }
 
-/* 右上角文字 */
+/* 右上小字 */
 
 .tip{
 
     position:fixed;
 
-    top:70px;
-    right:90px;
+    top:85px;
+    right:110px;
 
-    font-size:24px;
+    font-size:25px;
 
-    color:#c4aee7;
+    color:#c7b1ea;
+
+    letter-spacing:2px;
 
     font-style:italic;
 
-    letter-spacing:2px;
+    opacity:0.9;
 
     z-index:999;
 }
 
-/* 歌单区域 */
+/* 整体区域 */
 
 .song-area{
 
     position:relative;
 
-    width:2200px;
-    height:1800px;
+    width:2400px;
+    height:1900px;
 
-    padding-top:180px;
+    overflow:hidden;
 }
 
 /* 歌名 */
@@ -124,66 +173,72 @@ body{
 
     position:absolute;
 
-    font-style:italic;
-
-    color:#9f8f97;
-
     cursor:pointer;
 
+    color:#a08f97;
+
     transition:
-    transform 0.5s ease,
-    color 0.5s ease,
-    opacity 0.5s ease;
+    transform 0.45s ease,
+    color 0.45s ease,
+    opacity 0.45s ease;
 
     user-select:none;
 
     white-space:nowrap;
 
-    opacity:0.82;
+    mix-blend-mode:multiply;
 
-    animation:floaty ease-in-out infinite;
-}
+    font-style:italic;
 
-/* 大小 */
-
-.song.small{
-    font-size:24px;
-    opacity:0.55;
-}
-
-.song.medium{
-    font-size:38px;
-    opacity:0.72;
-}
-
-.song.large{
-    font-size:58px;
-    opacity:0.96;
+    animation:
+    floaty ease-in-out infinite;
 }
 
 /* hover */
 
 .song:hover{
 
-    color:#a98ad6;
+    color:#a889d8;
 
     transform:
-    scale(1.18)
-    translateY(-6px);
+    scale(1.15)
+    translateY(-5px);
 
     opacity:1;
 
     z-index:99;
 }
 
-/* 漂浮动画 */
+/* 字体大小 */
+
+.small{
+
+    font-size:24px;
+    opacity:0.42;
+}
+
+.medium{
+
+    font-size:42px;
+    opacity:0.68;
+}
+
+.large{
+
+    font-size:72px;
+    opacity:0.9;
+}
+
+/* 漂浮 */
 
 .song:nth-child(odd){
-    animation-duration:7s;
+
+    animation-duration:9s;
 }
 
 .song:nth-child(even){
-    animation-duration:11s;
+
+    animation-duration:13s;
 }
 
 @keyframes floaty{
@@ -197,19 +252,19 @@ body{
     25%{
         transform:
         translateY(-10px)
-        translateX(8px);
+        translateX(7px);
     }
 
     50%{
         transform:
-        translateY(4px)
-        translateX(-10px);
+        translateY(6px)
+        translateX(-8px);
     }
 
     75%{
         transform:
-        translateY(-8px)
-        translateX(6px);
+        translateY(-7px)
+        translateX(5px);
     }
 
     100%{
@@ -219,25 +274,26 @@ body{
     }
 }
 
-/* 飘动音符 */
+/* 飘动音乐元素 */
 
 .note{
 
     position:absolute;
 
-    color:#dbcdf6;
+    color:#e4d8ff;
 
     opacity:0.35;
 
+    pointer-events:none;
+
     animation:
     drift linear infinite;
-
-    pointer-events:none;
 }
 
 @keyframes drift{
 
     from{
+
         transform:
         translateY(0px)
         translateX(0px)
@@ -245,10 +301,11 @@ body{
     }
 
     to{
+
         transform:
-        translateY(-120px)
-        translateX(40px)
-        rotate(20deg);
+        translateY(-140px)
+        translateX(50px)
+        rotate(18deg);
     }
 }
 
@@ -271,7 +328,7 @@ body{
 </div>
 
 <div class="tip">
-    click a song to explore
+    点击歌名可以试听～
 </div>
 
 <div class="song-area" id="songArea"></div>
@@ -337,7 +394,7 @@ const songs = [
 const songArea =
 document.getElementById("songArea");
 
-/* 生成歌名 */
+/* 随机生成歌名 */
 
 songs.forEach(songName=>{
 
@@ -360,18 +417,16 @@ songs.forEach(songName=>{
     songName;
 
     const x =
-    200 + Math.random()*1700;
+    120 + Math.random()*2000;
 
     const y =
-    200 + Math.random()*1300;
+    180 + Math.random()*1500;
 
     song.style.left =
     x + "px";
 
     song.style.top =
     y + "px";
-
-    /* 点击跳转 */
 
     song.onclick = ()=>{
 
@@ -411,9 +466,9 @@ document
     }
 });
 
-/* 音符漂浮 */
+/* 飘动音符 */
 
-for(let i=0;i<40;i++){
+for(let i=0;i<55;i++){
 
     const note =
     document.createElement("div");
@@ -421,7 +476,7 @@ for(let i=0;i<40;i++){
     note.className = "note";
 
     const symbols =
-    ["♪","♫","♬","♩"];
+    ["♪","♫","♬","♩","𝄞"];
 
     note.innerText =
     symbols[
@@ -430,16 +485,16 @@ for(let i=0;i<40;i++){
     )];
 
     note.style.left =
-    Math.random()*2200 + "px";
+    Math.random()*2400 + "px";
 
     note.style.top =
-    Math.random()*1800 + "px";
+    Math.random()*1900 + "px";
 
     note.style.fontSize =
-    20 + Math.random()*45 + "px";
+    18 + Math.random()*50 + "px";
 
     note.style.animationDuration =
-    10 + Math.random()*20 + "s";
+    12 + Math.random()*20 + "s";
 
     songArea.appendChild(note);
 }
