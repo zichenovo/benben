@@ -17,9 +17,7 @@
 
 body{
 
-    margin:0;
-
-    background:#f7f2f2;
+    background:#f7f3f2;
 
     overflow:auto;
 
@@ -28,13 +26,11 @@ body{
     "STSong",
     serif;
 
-    color:#8f7f84;
-
-    min-width:2400px;
-    min-height:1900px;
+    min-width:2100px;
+    min-height:1700px;
 }
 
-/* 柔和边框 */
+/* 柔和背景 */
 
 body::before{
 
@@ -44,41 +40,38 @@ body::before{
 
     inset:18px;
 
-    border-radius:38px;
-
-    border:2px solid rgba(255,255,255,0.55);
-
-    pointer-events:none;
-
-    z-index:-1;
+    border-radius:36px;
 
     background:
 
     radial-gradient(
     circle at top left,
-    rgba(255,232,240,0.9) 0%,
-    transparent 30%
+    rgba(255,233,241,0.9),
+    transparent 28%
     ),
 
     radial-gradient(
     circle at bottom center,
-    rgba(231,227,255,0.75) 0%,
+    rgba(232,228,255,0.75),
     transparent 35%
     ),
 
     radial-gradient(
-    circle at right top,
-    rgba(255,255,255,0.7) 0%,
-    transparent 40%
+    circle at top right,
+    rgba(255,255,255,0.7),
+    transparent 30%
     ),
 
-    #f6f1f0;
+    #f7f2f2;
+
+    border:2px solid rgba(255,255,255,0.5);
+
+    z-index:-1;
+
+    pointer-events:none;
 
     box-shadow:
-
-    inset 0 0 120px rgba(255,255,255,0.5),
-
-    0 0 30px rgba(220,210,220,0.2);
+    inset 0 0 120px rgba(255,255,255,0.45);
 }
 
 /* 左上 */
@@ -99,18 +92,18 @@ body::before{
 
     font-weight:700;
 
-    color:#8d7d7b;
+    color:#8e7d7f;
 
     letter-spacing:2px;
 }
 
-/* 搜索 */
+/* 搜索框 */
 
 .search-box{
 
     margin-top:24px;
 
-    width:380px;
+    width:370px;
     height:62px;
 
     border:none;
@@ -127,10 +120,10 @@ body::before{
 
     outline:none;
 
-    color:#9b8f92;
+    color:#9f8f92;
 
     box-shadow:
-    0 8px 30px rgba(0,0,0,0.04);
+    0 10px 30px rgba(0,0,0,0.04);
 }
 
 /* 右上 */
@@ -140,31 +133,27 @@ body::before{
     position:fixed;
 
     top:85px;
-    right:110px;
+    right:100px;
 
-    font-size:25px;
+    font-size:24px;
 
-    color:#c7b1ea;
+    color:#c8afe9;
 
     letter-spacing:2px;
 
     font-style:italic;
 
-    opacity:0.9;
-
     z-index:999;
 }
 
-/* 整体区域 */
+/* 歌词区域 */
 
 .song-area{
 
     position:relative;
 
-    width:2400px;
-    height:1900px;
-
-    overflow:hidden;
+    width:2100px;
+    height:1700px;
 }
 
 /* 歌名 */
@@ -175,16 +164,12 @@ body::before{
 
     cursor:pointer;
 
-    transition:
-    transform 0.45s ease,
-    color 0.45s ease,
-    opacity 0.45s ease;
-
-    user-select:none;
-
     white-space:nowrap;
 
-    mix-blend-mode:multiply;
+    transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    color 0.35s ease;
 
     font-style:italic;
 
@@ -192,82 +177,80 @@ body::before{
     floaty ease-in-out infinite;
 }
 
-/* 和谐颜色 */
-
-.song:nth-child(7n+1){
-    color:#a98bc7;
-}
-
-.song:nth-child(7n+2){
-    color:#8fa7c9;
-}
-
-.song:nth-child(7n+3){
-    color:#b49ab7;
-}
-
-.song:nth-child(7n+4){
-    color:#9e8fa1;
-}
-
-.song:nth-child(7n+5){
-    color:#c4a0d8;
-}
-
-.song:nth-child(7n+6){
-    color:#8ea1b8;
-}
-
-.song:nth-child(7n){
-    color:#b7a2b0;
-}
-
 /* hover */
 
 .song:hover{
 
-    color:#c084fc;
-
     transform:
-    scale(1.08)
+    scale(1.06)
     translateY(-4px);
 
-    opacity:1;
+    color:#b17fff;
 
     z-index:99;
 }
 
 /* 字体大小 */
-/* 已经限制最大字体 */
+/* 全部整体缩小 */
 
 .small{
 
-    font-size:22px;
-    opacity:0.4;
+    font-size:20px;
+    opacity:0.38;
 }
 
 .medium{
 
-    font-size:40px;
-    opacity:0.65;
+    font-size:34px;
+    opacity:0.58;
 }
 
 .large{
 
-    font-size:58px;
-    opacity:0.82;
+    font-size:52px;
+    opacity:0.75;
 }
 
-/* 漂浮 */
+/* 配色 */
+
+.song:nth-child(7n+1){
+    color:#b59dcf;
+}
+
+.song:nth-child(7n+2){
+    color:#95a9c7;
+}
+
+.song:nth-child(7n+3){
+    color:#b7a3b5;
+}
+
+.song:nth-child(7n+4){
+    color:#c2a7d8;
+}
+
+.song:nth-child(7n+5){
+    color:#9c8f97;
+}
+
+.song:nth-child(7n+6){
+    color:#b0a0be;
+}
+
+.song:nth-child(7n){
+    color:#8ea0b7;
+}
+
+/* 浮动 */
 
 .song:nth-child(odd){
 
-    animation-duration:9s;
+    animation-duration:10s;
 }
 
 .song:nth-child(even){
 
-    animation-duration:13s;
+    animation-duration:14s;
 }
 
 @keyframes floaty{
@@ -280,20 +263,20 @@ body::before{
 
     25%{
         transform:
-        translateY(-10px)
-        translateX(7px);
+        translateY(-8px)
+        translateX(6px);
     }
 
     50%{
         transform:
-        translateY(6px)
-        translateX(-8px);
+        translateY(5px)
+        translateX(-5px);
     }
 
     75%{
         transform:
-        translateY(-7px)
-        translateX(5px);
+        translateY(-5px)
+        translateX(4px);
     }
 
     100%{
@@ -309,9 +292,9 @@ body::before{
 
     position:absolute;
 
-    color:#e4d8ff;
+    color:#e7dcff;
 
-    opacity:0.35;
+    opacity:0.32;
 
     pointer-events:none;
 
@@ -332,9 +315,9 @@ body::before{
     to{
 
         transform:
-        translateY(-140px)
-        translateX(50px)
-        rotate(18deg);
+        translateY(-130px)
+        translateX(45px)
+        rotate(16deg);
     }
 }
 
@@ -366,96 +349,63 @@ body::before{
 
 const songs = [
 
-"末日",
-"走马",
-"天赋",
-"空空",
-"半壶纱",
-"要爱我",
-"失眠了",
-"小公主",
-"after17",
-"野火一季",
-"心愿便利贴",
-"梁山伯与朱丽叶",
-"AlwaysOnline",
-"你的crush降临了吗",
-"绿色",
-"爱我你就抱抱我",
-"那时雨",
-"东京不太热",
-"一滴泪的时间",
-"夏天的风",
-"怪我咯",
-"虚拟",
-"宠坏",
-"不要忘记我爱你",
-"树的花语",
-"奇妙能力歌",
-"左手右手",
-"天龙八部之宿敌",
-"南泥湾",
-"越来越不懂",
-"公主殿下",
-"宝贝",
-"有雨有雨",
-"粉雾海",
-"宠爱",
-"红昭愿",
-"Doll",
-"日不落",
-"怎么了",
-"我们",
-"红色高跟鞋",
-"关键词",
-"怪物",
-"第57次取消发送",
-"凑热闹",
-"嗯哼",
-"不怕",
-"如果爱忘了",
-"摆",
-"几分之几",
-"take me hand"
+"末日","走马","天赋","空空","半壶纱",
+"要爱我","失眠了","小公主","after17",
+"野火一季","心愿便利贴","梁山伯与朱丽叶",
+"AlwaysOnline","你的crush降临了吗",
+"绿色","爱我你就抱抱我","那时雨",
+"东京不太热","一滴泪的时间",
+"夏天的风","怪我咯","虚拟","宠坏",
+"不要忘记我爱你","树的花语",
+"奇妙能力歌","左手右手",
+"天龙八部之宿敌","南泥湾",
+"越来越不懂","公主殿下","宝贝",
+"有雨有雨","粉雾海","宠爱",
+"红昭愿","Doll","日不落","怎么了",
+"我们","红色高跟鞋","关键词",
+"怪物","第57次取消发送",
+"凑热闹","嗯哼","不怕",
+"如果爱忘了","摆",
+"几分之几","take me hand"
 
 ];
 
 const songArea =
 document.getElementById("songArea");
 
-/* 歌名 */
+/* 生成歌名 */
 
 songs.forEach(songName=>{
 
     const song =
     document.createElement("div");
 
-    const sizes =
-    ["small","medium","large"];
+    const random =
+    Math.random();
 
-    /* large概率减少 */
+    let sizeClass = "small";
 
-    const randomIndex =
-    Math.random() < 0.15
-    ? 2
-    : Math.random() < 0.5
-    ? 1
-    : 0;
+    if(random > 0.7){
+        sizeClass = "medium";
+    }
 
-    const randomSize =
-    sizes[randomIndex];
+    if(random > 0.9){
+        sizeClass = "large";
+    }
 
     song.className =
-    "song " + randomSize;
+    "song " + sizeClass;
 
     song.innerText =
     songName;
 
+    /* 不那么分散 */
+
     const x =
-    120 + Math.random()*2000;
+    180 + Math.random()*1600;
 
     const y =
-    180 + Math.random()*1500;
+    240 + Math.random()*1150;
 
     song.style.left =
     x + "px";
@@ -503,7 +453,7 @@ document
 
 /* 音符 */
 
-for(let i=0;i<55;i++){
+for(let i=0;i<42;i++){
 
     const note =
     document.createElement("div");
@@ -520,16 +470,16 @@ for(let i=0;i<55;i++){
     )];
 
     note.style.left =
-    Math.random()*2400 + "px";
+    Math.random()*2100 + "px";
 
     note.style.top =
-    Math.random()*1900 + "px";
+    Math.random()*1700 + "px";
 
     note.style.fontSize =
-    18 + Math.random()*50 + "px";
+    20 + Math.random()*42 + "px";
 
     note.style.animationDuration =
-    12 + Math.random()*20 + "s";
+    13 + Math.random()*18 + "s";
 
     songArea.appendChild(note);
 }
