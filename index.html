@@ -479,14 +479,93 @@ body::before{
     color:#f1d9ff;
 }
 
+/* music button */
+
+.music-control{
+
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,0.16);
+
+    backdrop-filter:blur(10px);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    color:#ffffff;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    z-index:999999;
+
+    transition:0.35s;
+
+    box-shadow:
+    0 0 18px rgba(255,255,255,0.15);
+}
+
+.music-control:hover{
+
+    transform:scale(1.08);
+
+    background:
+    rgba(255,255,255,0.24);
+}
+
+.music-text{
+
+    position:absolute;
+
+    bottom:-18px;
+
+    font-size:8px;
+
+    color:#b8aebb;
+
+    white-space:nowrap;
+
+    opacity:0.7;
+}
+
+.mobile .music-control{
+
+    width:52px;
+    height:52px;
+
+    right:16px;
+    bottom:18px;
+
+    font-size:18px;
+}
+
+.mobile .music-text{
+
+    font-size:7px;
+}
+
 </style>
 
 </head>
 
 <body id="body">
 
-<audio id="bgm" autoplay loop>
+<audio id="bgm" loop preload="auto">
+
     <source src="bgm.mp3" type="audio/mpeg">
+
 </audio>
 
 <div class="header">
@@ -510,16 +589,18 @@ body::before{
 
 <script>
 
+/* ====================== */
 /* background music */
+/* ====================== */
 
 const bgm =
 document.getElementById("bgm");
 
 /* 音量 */
 
-bgm.volume = 0.08;
+bgm.volume = 0.045;
 
-/* 读取之前播放进度 */
+/* 恢复进度 */
 
 const savedTime =
 localStorage.getItem("bgmTime");
@@ -527,18 +608,36 @@ localStorage.getItem("bgmTime");
 if(savedTime){
 
     bgm.currentTime =
-    savedTime;
+    parseFloat(savedTime);
 }
 
 /* 自动播放 */
 
-document.body.addEventListener(
+async function startMusic(){
+
+    try{
+
+        await bgm.play();
+
+    }catch(e){
+
+        console.log("autoplay blocked");
+    }
+}
+
+/* 页面一加载 */
+
+startMusic();
+
+/* 第一次点击 */
+
+document.addEventListener(
 
 "click",
 
 ()=>{
 
-    bgm.play();
+    startMusic();
 
 },
 
@@ -546,7 +645,7 @@ document.body.addEventListener(
 
 );
 
-/* 实时保存进度 */
+/* 保存进度 */
 
 bgm.addEventListener(
 
@@ -555,13 +654,73 @@ bgm.addEventListener(
 ()=>{
 
     localStorage.setItem(
-    "bgmTime",
-    bgm.currentTime
+
+        "bgmTime",
+
+        bgm.currentTime
+
     );
 
 }
 
 );
+
+/* ====================== */
+/* music button */
+/* ====================== */
+
+const musicControl =
+document.createElement("div");
+
+musicControl.className =
+"music-control";
+
+musicControl.innerHTML =
+
+`
+⏸
+<div class="music-text">
+点击这里暂停背景音乐
+</div>
+`;
+
+document.body.appendChild(
+musicControl
+);
+
+let isPlaying = true;
+
+musicControl.onclick = ()=>{
+
+    if(isPlaying){
+
+        bgm.pause();
+
+        musicControl.innerHTML =
+
+        `
+        ▶
+        <div class="music-text">
+        点击这里播放背景音乐
+        </div>
+        `;
+
+    }else{
+
+        bgm.play();
+
+        musicControl.innerHTML =
+
+        `
+        ⏸
+        <div class="music-text">
+        点击这里暂停背景音乐
+        </div>
+        `;
+    }
+
+    isPlaying = !isPlaying;
+};
 
 /* device detect */
 
