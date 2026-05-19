@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>笨笨的の歌单</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+SC:wght@200;300;400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,138 +15,178 @@
     box-sizing:border-box;
 }
 
-html,body{
-
-    width:100%;
-    height:100%;
-    overflow:auto;
-    scroll-behavior:smooth;
-}
-
 body{
 
-    background:
-    radial-gradient(circle at center,
-    #f8f3ff 0%,
-    #f7f1f6 35%,
-    #f3f4ff 70%,
-    #f9f6f8 100%);
-
-    font-family:
-    "Cormorant Garamond",
-    "Noto Serif SC",
-    serif;
+    background:#f7f3f2;
 
     overflow:auto;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+
+    min-width:2200px;
+    min-height:1800px;
 }
 
-.world{
+/* 背景 */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:18px;
+
+    border-radius:38px;
+
+    background:
+
+    radial-gradient(
+    circle at top left,
+    rgba(255,233,241,0.9),
+    transparent 28%
+    ),
+
+    radial-gradient(
+    circle at bottom center,
+    rgba(232,228,255,0.78),
+    transparent 35%
+    ),
+
+    radial-gradient(
+    circle at right top,
+    rgba(255,255,255,0.7),
+    transparent 30%
+    ),
+
+    #f7f2f2;
+
+    border:2px solid rgba(255,255,255,0.55);
+
+    z-index:-1;
+
+    pointer-events:none;
+
+    box-shadow:
+    inset 0 0 120px rgba(255,255,255,0.45);
+}
+
+/* 左上 */
+
+.header{
+
+    position:fixed;
+
+    top:58px;
+    left:68px;
+
+    z-index:999;
+}
+
+/* 标题 */
+
+.title{
+
+    font-size:84px;
+
+    font-weight:500;
+
+    color:#8f7e82;
+
+    letter-spacing:2px;
+
+    font-style:italic;
+
+    line-height:1;
+
+    font-family:
+    "Times New Roman",
+    "Kaiti SC",
+    serif;
+}
+
+/* 搜索框 */
+/* 更细 更小 */
+
+.search-box{
+
+    margin-top:20px;
+
+    width:250px;
+    height:42px;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding-left:22px;
+
+    font-size:20px;
+
+    font-style:italic;
+
+    background:rgba(255,255,255,0.55);
+
+    backdrop-filter:blur(10px);
+
+    outline:none;
+
+    color:#a39296;
+
+    box-shadow:
+    0 4px 18px rgba(0,0,0,0.03);
+
+    transition:0.3s;
+}
+
+.search-box::placeholder{
+
+    color:#c8bcc0;
+}
+
+.search-box:focus{
+
+    background:rgba(255,255,255,0.72);
+}
+
+/* 右上 */
+
+.tip{
+
+    position:fixed;
+
+    top:88px;
+    right:105px;
+
+    font-size:24px;
+
+    color:#c8afe9;
+
+    letter-spacing:2px;
+
+    font-style:italic;
+
+    z-index:999;
+}
+
+/* 区域 */
+
+.song-area{
 
     position:relative;
 
     width:2200px;
-    height:1700px;
+    height:1800px;
+
+    perspective:1200px;
 
     overflow:hidden;
 }
 
-.soft-light{
-
-    position:absolute;
-
-    width:900px;
-    height:900px;
-
-    background:
-    radial-gradient(circle,
-    rgba(225,220,255,0.28),
-    transparent 70%);
-
-    left:50%;
-    top:50%;
-
-    transform:
-    translate(-50%,-50%);
-
-    filter:blur(70px);
-
-    pointer-events:none;
-}
-
-.title{
-
-    position:absolute;
-
-    top:90px;
-    left:90px;
-
-    font-size:82px;
-
-    font-weight:300;
-
-    color:#9d8d92;
-
-    letter-spacing:4px;
-
-    z-index:20;
-
-    font-style:italic;
-}
-
-.search-box{
-
-    position:absolute;
-
-    top:210px;
-    left:90px;
-
-    width:260px;
-    height:48px;
-
-    border:none;
-
-    border-radius:999px;
-
-    padding:0 28px;
-
-    font-size:17px;
-
-    outline:none;
-
-    background:
-    rgba(255,255,255,0.55);
-
-    backdrop-filter:blur(10px);
-
-    color:#85787d;
-
-    z-index:20;
-
-    box-shadow:
-    0 8px 30px rgba(230,220,230,0.25);
-}
-
-.search-box::placeholder{
-    color:#b8aeb3;
-}
-
-.tip{
-
-    position:absolute;
-
-    top:110px;
-    right:130px;
-
-    font-size:24px;
-
-    color:#ceb8ff;
-
-    font-style:italic;
-
-    letter-spacing:2px;
-
-    z-index:20;
-}
+/* 歌名 */
 
 .song{
 
@@ -155,99 +194,166 @@ body{
 
     cursor:pointer;
 
+    white-space:nowrap;
+
     transition:
-    transform 1.5s ease,
-    opacity 1.5s ease,
-    text-shadow 1.5s ease;
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    color 0.35s ease;
+
+    font-style:italic;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
 
     animation:
-    floatSong 7s ease-in-out infinite;
-
-    transform-origin:center;
-
-    white-space:nowrap;
+    floatDepth linear infinite;
 }
+
+/* hover */
 
 .song:hover{
 
     transform:
-    scale(1.22)
-    translateY(-10px);
+    scale(1.08);
 
-    text-shadow:
-    0 0 25px rgba(210,190,255,0.7);
+    color:#b17fff;
 
-    z-index:50;
+    z-index:999;
 }
 
-.song a{
+/* 大小 */
 
-    text-decoration:none;
-    font-weight:300;
+.small{
+
+    font-size:18px;
+    opacity:0.34;
 }
+
+.medium{
+
+    font-size:30px;
+    opacity:0.55;
+}
+
+.large{
+
+    font-size:46px;
+    opacity:0.72;
+}
+
+/* 配色 */
+
+.song:nth-child(7n+1){
+    color:#b59dcf;
+}
+
+.song:nth-child(7n+2){
+    color:#95a9c7;
+}
+
+.song:nth-child(7n+3){
+    color:#b7a3b5;
+}
+
+.song:nth-child(7n+4){
+    color:#c2a7d8;
+}
+
+.song:nth-child(7n+5){
+    color:#9c8f97;
+}
+
+.song:nth-child(7n+6){
+    color:#b0a0be;
+}
+
+.song:nth-child(7n){
+    color:#8ea0b7;
+}
+
+/* 纵深漂浮 */
+
+@keyframes floatDepth{
+
+    0%{
+
+        transform:
+        translateZ(0px)
+        translateY(0px);
+
+        opacity:0.45;
+    }
+
+    50%{
+
+        transform:
+        translateZ(120px)
+        translateY(-20px);
+
+        opacity:0.9;
+    }
+
+    100%{
+
+        transform:
+        translateZ(0px)
+        translateY(0px);
+
+        opacity:0.45;
+    }
+}
+
+/* 音符 */
 
 .note{
 
     position:absolute;
 
-    pointer-events:none;
-
     color:#eadfff;
 
-    mix-blend-mode:screen;
+    opacity:0.32;
+
+    pointer-events:none;
 
     animation:
-    depthFloat linear infinite;
-
-    will-change:
-    transform,
-    opacity;
+    musicMove linear infinite;
 }
 
-@keyframes floatSong{
+/* 更有纵深感 */
 
-    0%{
-        transform:
-        translateY(0px);
-    }
-
-    50%{
-        transform:
-        translateY(-12px);
-    }
-
-    100%{
-        transform:
-        translateY(0px);
-    }
-}
-
-@keyframes depthFloat{
+@keyframes musicMove{
 
     0%{
 
         transform:
-        translate3d(0,120px,-600px)
-        scale(0.15)
-        rotate(0deg);
+        translateY(140px)
+        scale(0.7);
 
         opacity:0;
     }
 
-    20%{
-        opacity:0.12;
+    30%{
+
+        opacity:0.45;
     }
 
     60%{
-        opacity:0.2;
+
+        transform:
+        translateY(-120px)
+        scale(1.05);
+
+        opacity:0.75;
     }
 
     100%{
 
         transform:
-        translate3d(0,-120px,300px)
-        scale(1.8)
-        rotate(120deg);
+        translateY(-260px)
+        scale(1.4);
 
         opacity:0;
     }
@@ -258,202 +364,170 @@ body{
 
 <body>
 
-<div class="world" id="world">
+<div class="header">
 
-<div class="soft-light"></div>
+    <div class="title">
+        笨笨的の歌单
+    </div>
 
-<div class="title">
-笨笨的の歌单
+    <input
+    class="search-box"
+    id="searchInput"
+    placeholder="试试搜索">
+
 </div>
-
-<input
-class="search-box"
-id="searchInput"
-placeholder="试试搜索"
-/>
 
 <div class="tip">
-点击歌名可以试听～
+    点击歌名可以试听～
 </div>
 
-</div>
+<div class="song-area" id="songArea"></div>
 
 <script>
 
 const songs = [
 
-"东京不太热",
-"如果爱忘了",
-"第57次取消发送",
-"你的crush降临了吗",
-"一滴泪的时间",
-"红昭愿",
-"心愿便利贴",
-"公主殿下",
-"夏天的风",
-"怪物",
-"野火一季",
-"爱我你就抱抱我",
-"宠坏",
-"空空",
-"左手右手",
-"粉雾海",
-"怎么了",
-"Doll",
-"AlwaysOnline",
-"梁山伯与朱丽叶",
-"失眠了",
-"湊熱闹",
-"有雨有雨",
-"take me hand",
-"末日不落",
-"不要忘记我爱你",
-"我们",
-"绿色",
-"南泥湾",
-"小公主",
-"宝贝",
-"半壶纱",
-"天赋"
+"末日","走马","天赋","空空","半壶纱",
+"要爱我","失眠了","小公主","after17",
+"野火一季","心愿便利贴","梁山伯与朱丽叶",
+"AlwaysOnline","你的crush降临了吗",
+"绿色","爱我你就抱抱我","那时雨",
+"东京不太热","一滴泪的时间",
+"夏天的风","怪我咯","虚拟","宠坏",
+"不要忘记我爱你","树的花语",
+"奇妙能力歌","左手右手",
+"天龙八部之宿敌","南泥湾",
+"越来越不懂","公主殿下","宝贝",
+"有雨有雨","粉雾海","宠爱",
+"红昭愿","Doll","日不落","怎么了",
+"我们","红色高跟鞋","关键词",
+"怪物","第57次取消发送",
+"凑热闹","嗯哼","不怕",
+"如果爱忘了","摆",
+"几分之几","take me hand"
 
 ];
 
-const colors = [
+const songArea =
+document.getElementById("songArea");
 
-"#d9c2ff",
-"#c9d6ff",
-"#f1c7f6",
-"#cdb8ff",
-"#bfcfff",
-"#e3c7ff",
-"#b8cfff",
-"#ead2ff"
+/* 歌名 */
 
-];
+songs.forEach(songName=>{
 
-const world =
-document.getElementById("world");
-
-songs.forEach(song=>{
-
-    const div =
+    const song =
     document.createElement("div");
 
-    div.className="song";
+    const random =
+    Math.random();
 
-    const size =
-    18 + Math.random()*42;
+    let sizeClass = "small";
 
-    div.style.fontSize =
-    size + "px";
+    if(random > 0.7){
+        sizeClass = "medium";
+    }
 
-    div.style.left =
-    150 + Math.random()*1800 + "px";
+    if(random > 0.92){
+        sizeClass = "large";
+    }
 
-    div.style.top =
-    120 + Math.random()*1350 + "px";
+    song.className =
+    "song " + sizeClass;
 
-    div.style.opacity =
-    0.45 + Math.random()*0.45;
+    song.innerText =
+    songName;
 
-    div.style.animationDelay =
-    (-Math.random()*8) + "s";
+    /* 更集中 */
 
-    const color =
-    colors[
-    Math.floor(
-    Math.random()*colors.length
-    )
-    ];
+    const x =
+    220 + Math.random()*1500;
 
-    div.innerHTML = `
+    const y =
+    230 + Math.random()*1200;
 
-    <a href="song.html?song=${encodeURIComponent(song)}"
-    style="color:${color}">
-    ${song}
-    </a>
+    song.style.left =
+    x + "px";
 
-    `;
+    song.style.top =
+    y + "px";
 
-    world.appendChild(div);
+    /* 动快一点 */
+
+    song.style.animationDuration =
+    4 + Math.random()*5 + "s";
+
+    song.onclick = ()=>{
+
+        window.location.href =
+        "song.html?song=" +
+        encodeURIComponent(songName);
+    };
+
+    songArea.appendChild(song);
 });
 
-const musicElements = [
+/* 搜索 */
 
-"♫",
-"♪",
-"♬",
-"♩",
-"𝄞",
-"◌",
-"◍",
-"⊹",
-"☾",
-"♡"
+document
+.getElementById("searchInput")
+.addEventListener("keypress",function(e){
 
-];
+    if(e.key==="Enter"){
 
-for(let i=0;i<120;i++){
+        const value =
+        this.value.trim();
+
+        if(songs.includes(value)){
+
+            window.location.href =
+            "song.html?song=" +
+            encodeURIComponent(value);
+
+        }else{
+
+            alert(
+            "不好意思 笨笨的还没学会《"
+            + value +
+            "》 已加入待学歌单～"
+            );
+        }
+    }
+});
+
+/* 音符 */
+/* 数量更多 */
+/* 更快 */
+
+for(let i=0;i<95;i++){
 
     const note =
     document.createElement("div");
 
     note.className = "note";
 
-    note.innerHTML =
-    musicElements[
+    const symbols =
+    ["♪","♫","♬","♩","𝄞"];
+
+    note.innerText =
+    symbols[
     Math.floor(
-    Math.random()*musicElements.length
-    )
-    ];
+    Math.random()*symbols.length
+    )];
 
     note.style.left =
     Math.random()*2200 + "px";
 
     note.style.top =
-    Math.random()*1700 + "px";
+    Math.random()*1900 + "px";
 
     note.style.fontSize =
-    (10 + Math.random()*55) + "px";
+    16 + Math.random()*55 + "px";
 
     note.style.animationDuration =
-    (3 + Math.random()*7) + "s";
+    3 + Math.random()*5 + "s";
 
-    note.style.animationDelay =
-    (-Math.random()*15) + "s";
-
-    note.style.opacity =
-    0.05 + Math.random()*0.18;
-
-    note.style.filter =
-    "blur(" + Math.random()*1.5 + "px)";
-
-    world.appendChild(note);
+    songArea.appendChild(note);
 }
-
-const searchInput =
-document.getElementById("searchInput");
-
-searchInput.addEventListener("keydown",e=>{
-
-    if(e.key==="Enter"){
-
-        const value =
-        searchInput.value.trim();
-
-        if(songs.includes(value)){
-
-            window.location.href =
-            `song.html?song=${encodeURIComponent(value)}`;
-
-        }else{
-
-            alert(
-            "不好意思 笨笨的还没学会这首歌～"
-            );
-        }
-    }
-});
 
 </script>
 
