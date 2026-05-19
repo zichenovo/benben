@@ -485,30 +485,30 @@ body::before{
 
     position:fixed;
 
-    right:22px;
-    bottom:22px;
+    right:18px;
+    bottom:24px;
 
-    width:64px;
-    height:64px;
+    width:50px;
+    height:50px;
 
     border-radius:50%;
 
     background:
-    rgba(255,255,255,0.32);
+    rgba(255,245,250,0.45);
 
     border:
-    1px solid rgba(255,255,255,0.4);
+    1px solid rgba(255,240,248,0.7);
 
-    backdrop-filter:blur(16px);
+    backdrop-filter:blur(18px);
 
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
 
-    color:#ffffff;
+    color:#b89cab;
 
-    font-size:22px;
+    font-size:16px;
 
     cursor:pointer;
 
@@ -518,48 +518,48 @@ body::before{
 
     box-shadow:
 
-    0 0 30px rgba(255,255,255,0.25),
+    0 0 18px rgba(255,255,255,0.18),
 
-    inset 0 0 18px rgba(255,255,255,0.22);
+    inset 0 0 12px rgba(255,255,255,0.25);
 }
 
 .music-control:hover{
 
-    transform:scale(1.1);
+    transform:scale(1.08);
 
     background:
-    rgba(255,255,255,0.42);
+    rgba(255,250,252,0.62);
 }
 
 .music-text{
 
     position:absolute;
 
-    bottom:-18px;
+    bottom:-15px;
 
-    font-size:8px;
+    font-size:6px;
 
-    color:#b8aebb;
+    color:#c2b4bc;
 
     white-space:nowrap;
 
-    opacity:0.7;
+    opacity:0.82;
 }
 
 .mobile .music-control{
 
-    width:58px;
-    height:58px;
+    width:46px;
+    height:46px;
 
-    right:18px;
-    bottom:20px;
+    right:14px;
+    bottom:22px;
 
-    font-size:20px;
+    font-size:15px;
 }
 
 .mobile .music-text{
 
-    font-size:7px;
+    font-size:5px;
 }
 
 </style>
@@ -595,18 +595,12 @@ body::before{
 
 <script>
 
-/* ====================== */
 /* background music */
-/* ====================== */
 
 const bgm =
 document.getElementById("bgm");
 
-/* 音量 */
-
 bgm.volume = 0.045;
-
-/* 恢复进度 */
 
 const savedTime =
 localStorage.getItem("bgmTime");
@@ -616,8 +610,6 @@ if(savedTime){
     bgm.currentTime =
     parseFloat(savedTime);
 }
-
-/* 自动播放 */
 
 async function startMusic(){
 
@@ -631,11 +623,7 @@ async function startMusic(){
     }
 }
 
-/* 页面一加载 */
-
 startMusic();
-
-/* 第一次点击 */
 
 document.addEventListener(
 
@@ -650,8 +638,6 @@ document.addEventListener(
 { once:true }
 
 );
-
-/* 保存进度 */
 
 bgm.addEventListener(
 
@@ -671,9 +657,7 @@ bgm.addEventListener(
 
 );
 
-/* ====================== */
 /* music button */
-/* ====================== */
 
 const musicControl =
 document.createElement("div");
@@ -684,7 +668,7 @@ musicControl.className =
 musicControl.innerHTML =
 
 `
-⏸
+❚❚
 <div class="music-text">
 点击这里暂停背景音乐
 </div>
@@ -705,7 +689,7 @@ musicControl.onclick = ()=>{
         musicControl.innerHTML =
 
         `
-        ▶
+        ▷
         <div class="music-text">
         点击这里播放背景音乐
         </div>
@@ -718,7 +702,7 @@ musicControl.onclick = ()=>{
         musicControl.innerHTML =
 
         `
-        ⏸
+        ❚❚
         <div class="music-text">
         点击这里暂停背景音乐
         </div>
@@ -769,8 +753,6 @@ const songs = [
 
 const songArea =
 document.getElementById("songArea");
-
-/* render */
 
 songs.forEach(songName=>{
 
