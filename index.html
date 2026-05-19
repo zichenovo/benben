@@ -212,6 +212,8 @@ body::before{
     floatDepth linear infinite;
 
     filter:blur(0.2px);
+
+    mix-blend-mode:screen;
 }
 
 /* hover */
@@ -219,24 +221,31 @@ body::before{
 .song:hover{
 
     transform:
-    scale(1.28)
-    translateY(-6px);
+    scale(1.55)
+    translateY(-12px)
+    translateZ(180px);
 
-    color:#d7b6ff;
+    color:#f1d9ff;
 
     opacity:1;
 
-    z-index:999;
+    z-index:9999;
 
     text-shadow:
 
-    0 0 10px rgba(255,255,255,0.9),
+    0 0 12px rgba(255,255,255,1),
 
-    0 0 25px rgba(215,182,255,0.8),
+    0 0 30px rgba(232,190,255,1),
 
-    0 0 45px rgba(215,182,255,0.45);
+    0 0 60px rgba(214,170,255,0.95),
 
-    filter:blur(0px);
+    0 0 120px rgba(214,170,255,0.55);
+
+    filter:
+
+    blur(0px)
+
+    brightness(1.25);
 }
 
 /* 大小 */
