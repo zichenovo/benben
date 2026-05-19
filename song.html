@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>歌曲详情</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 
@@ -15,167 +17,205 @@
     box-sizing:border-box;
 }
 
-html,body{
-
-    width:100%;
-    height:100%;
+body{
 
     overflow:hidden;
 
-    font-family:
-    "Times New Roman",
-    "STSong",
-    serif;
-}
-
-/* 背景 */
-
-body{
+    width:100vw;
+    height:100vh;
 
     background:
     radial-gradient(circle at center,
-    #f8edf4 0%,
-    #f6f1f7 30%,
-    #f1f3fa 70%,
-    #edf3ff 100%);
+    rgba(236,230,255,0.7),
+    rgba(250,245,248,1) 70%);
 
-    position:relative;
+    font-family:
+    'Cormorant Garamond',
+    'Noto Serif SC',
+    serif;
+
+    animation:
+    bgMove 10s ease-in-out infinite alternate;
 }
 
-/* 外框 */
+@keyframes bgMove{
+
+    from{
+        filter:hue-rotate(0deg);
+    }
+
+    to{
+        filter:hue-rotate(8deg);
+    }
+}
 
 .container{
 
-    position:absolute;
+    width:92%;
+    height:88vh;
 
-    inset:22px;
+    position:relative;
+
+    margin:auto;
+    margin-top:4vh;
 
     border-radius:42px;
 
-    border:1px solid rgba(255,255,255,0.5);
-
-    box-shadow:
-    inset 0 0 100px rgba(255,255,255,0.3);
-
     overflow:hidden;
-}
-
-/* 柔光 */
-
-.glow{
-
-    position:absolute;
-
-    width:700px;
-    height:700px;
-
-    border-radius:50%;
-
-    left:50%;
-    top:72%;
-
-    transform:translate(-50%,-50%);
 
     background:
-    radial-gradient(circle,
-    rgba(232,223,255,0.34),
-    transparent 70%);
-}
+    rgba(255,255,255,0.34);
 
-/* 返回 */
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 60px rgba(230,210,255,0.15) inset,
+    0 0 40px rgba(255,255,255,0.4);
+}
 
 .back{
 
     position:absolute;
 
-    top:46px;
-    left:56px;
+    top:40px;
+    left:55px;
 
     text-decoration:none;
 
-    color:#8f7f86;
+    color:#a5959e;
 
-    font-size:24px;
+    font-size:34px;
 
-    font-style:italic;
-
-    z-index:20;
+    z-index:50;
 }
-
-/* 歌名 */
 
 .song-title{
 
     position:absolute;
 
     top:110px;
-    left:50%;
 
-    transform:translateX(-50%);
+    width:100%;
 
-    font-size:76px;
+    text-align:center;
 
-    color:#9d8a93;
+    font-size:82px;
 
     font-style:italic;
 
-    font-weight:500;
+    font-weight:300;
 
-    white-space:nowrap;
+    color:#b09ea7;
 
-    z-index:20;
+    letter-spacing:2px;
 }
 
-/* 中间区域 */
-
-.center-box{
+.center{
 
     position:absolute;
 
     left:50%;
-    top:54%;
+    top:55%;
 
     transform:translate(-50%,-50%);
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
 }
 
-/* 唱片 */
+.glow{
 
-.vinyl{
+    position:absolute;
 
-    width:380px;
-    height:380px;
+    width:520px;
+    height:520px;
 
     border-radius:50%;
 
     background:
+    radial-gradient(circle,
+    rgba(228,215,255,0.42),
+    rgba(255,255,255,0));
 
-    radial-gradient(
-    circle,
-    #111 0%,
-    #111 10%,
-    #f6f6f6 11%,
-    #eaeaea 24%,
-    #fafafa 38%,
-    #e3e3e3 52%,
-    #f8f8f8 66%,
-    #ececec 82%,
-    #ffffff 100%
-    );
-
-    box-shadow:
-    0 18px 40px rgba(0,0,0,0.08);
+    filter:blur(50px);
 
     animation:
-    spin 8s linear infinite;
+    pulse 5s ease-in-out infinite alternate;
 }
 
-/* 转动 */
+@keyframes pulse{
+
+    from{
+        transform:scale(0.9);
+        opacity:0.5;
+    }
+
+    to{
+        transform:scale(1.08);
+        opacity:0.9;
+    }
+}
+
+.record{
+
+    width:360px;
+    height:360px;
+
+    border-radius:50%;
+
+    position:relative;
+
+    animation:
+    spin 12s linear infinite;
+
+    background:
+    radial-gradient(circle,
+    #111 0%,
+    #111 12%,
+    #f6f6f6 13%,
+    #ececec 32%,
+    #fafafa 52%,
+    #efefef 74%,
+    #ffffff 100%);
+
+    box-shadow:
+    0 0 60px rgba(255,255,255,0.8),
+    0 0 40px rgba(220,220,255,0.5);
+}
+
+.record::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border-radius:50%;
+
+    border:
+    1px solid rgba(255,255,255,0.45);
+}
+
+.record::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:26px;
+    height:26px;
+
+    border-radius:50%;
+
+    background:#111;
+}
 
 @keyframes spin{
 
@@ -188,15 +228,50 @@ body{
     }
 }
 
-/* 播放器 */
-
 audio{
 
     margin-top:42px;
 
     width:360px;
 
-    opacity:0.8;
+    opacity:0.74;
+}
+
+.note{
+
+    position:absolute;
+
+    color:#eadfff;
+
+    pointer-events:none;
+
+    animation:
+    depthMove linear infinite;
+}
+
+@keyframes depthMove{
+
+    0%{
+
+        transform:
+        translateZ(-500px)
+        scale(0.3);
+
+        opacity:0;
+    }
+
+    20%{
+        opacity:0.24;
+    }
+
+    100%{
+
+        transform:
+        translateZ(300px)
+        scale(1.8);
+
+        opacity:0;
+    }
 }
 
 </style>
@@ -206,25 +281,25 @@ audio{
 
 <div class="container">
 
-    <div class="glow"></div>
+<a href="index.html" class="back">
+← 返回歌单
+</a>
 
-    <a href="index.html" class="back">
-        ← 返回歌单
-    </a>
+<div class="song-title" id="songTitle">
+歌曲
+</div>
 
-    <div class="song-title" id="songTitle">
-        歌曲
-    </div>
+<div class="center">
 
-    <div class="center-box">
+<div class="glow"></div>
 
-        <div class="vinyl"></div>
+<div class="record"></div>
 
-        <audio controls>
-            <source src="">
-        </audio>
+<audio controls>
+<source src="">
+</audio>
 
-    </div>
+</div>
 
 </div>
 
@@ -234,10 +309,44 @@ const params =
 new URLSearchParams(window.location.search);
 
 const song =
-params.get("song");
+params.get("song") || "歌曲";
 
 document.getElementById("songTitle")
-.innerText = song || "歌曲";
+.innerText = song;
+
+const symbols =
+["♫","♪","♬","♩"];
+
+for(let i=0;i<26;i++){
+
+    const note =
+    document.createElement("div");
+
+    note.className="note";
+
+    note.innerHTML=
+    symbols[Math.floor(Math.random()*symbols.length)];
+
+    note.style.left=
+    Math.random()*100+"vw";
+
+    note.style.top=
+    Math.random()*100+"vh";
+
+    note.style.fontSize=
+    (18+Math.random()*60)+"px";
+
+    note.style.animationDuration=
+    (4+Math.random()*6)+"s";
+
+    note.style.animationDelay=
+    (-Math.random()*10)+"s";
+
+    note.style.opacity=
+    Math.random()*0.24;
+
+    document.body.appendChild(note);
+}
 
 </script>
 
