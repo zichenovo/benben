@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>笨笨的の歌单</title>
 
@@ -15,9 +15,11 @@
 }
 
 html,body{
+
     width:100%;
     height:100%;
-    overflow:hidden;
+
+    overflow:auto;
 
     font-family:
     "Times New Roman",
@@ -25,42 +27,44 @@ html,body{
     serif;
 }
 
-/* 背景 */
+/* 整体背景 */
 
 body{
 
+    min-width:2200px;
+    min-height:1600px;
+
     background:
     radial-gradient(circle at center,
-    #f7edf5 0%,
-    #f4f0f5 30%,
-    #f3f1f6 55%,
-    #edf2fb 100%);
+    #f8edf4 0%,
+    #f6f1f7 30%,
+    #f1f3fa 70%,
+    #edf3ff 100%);
 
     position:relative;
 }
 
-/* 外框 */
+/* 边界 */
 
 .main{
 
     position:relative;
 
-    width:98vw;
-    height:96vh;
+    width:2100px;
+    height:1500px;
 
-    margin:auto;
-    margin-top:2vh;
+    margin:30px;
 
-    border-radius:38px;
+    border-radius:42px;
 
-    overflow:hidden;
+    overflow:visible;
 
-    perspective:1200px;
+    perspective:1400px;
 
-    border:1px solid rgba(255,255,255,0.45);
+    border:1px solid rgba(255,255,255,0.55);
 
     box-shadow:
-    inset 0 0 120px rgba(255,255,255,0.35);
+    inset 0 0 100px rgba(255,255,255,0.3);
 }
 
 /* 柔光 */
@@ -69,44 +73,42 @@ body{
 
     position:absolute;
 
-    width:700px;
-    height:700px;
+    width:900px;
+    height:900px;
 
     border-radius:50%;
-
-    background:
-    radial-gradient(circle,
-    rgba(235,220,255,0.35),
-    transparent 70%);
 
     left:50%;
     top:50%;
 
     transform:translate(-50%,-50%);
 
+    background:
+    radial-gradient(circle,
+    rgba(236,222,255,0.32),
+    transparent 72%);
+
     pointer-events:none;
 }
 
-/* title */
+/* 标题 */
 
 .title{
 
     position:absolute;
 
-    top:44px;
-    left:46px;
+    left:60px;
+    top:42px;
 
-    font-size:76px;
+    font-size:78px;
+
+    color:#917f87;
 
     font-style:italic;
 
     font-weight:500;
 
-    color:#8e7d84;
-
-    letter-spacing:2px;
-
-    z-index:20;
+    z-index:50;
 }
 
 /* 搜索框 */
@@ -115,11 +117,11 @@ body{
 
     position:absolute;
 
-    top:165px;
-    left:46px;
+    left:60px;
+    top:170px;
 
-    width:330px;
-    height:58px;
+    width:300px;
+    height:52px;
 
     border:none;
 
@@ -127,25 +129,26 @@ body{
 
     border-radius:999px;
 
-    padding-left:28px;
-
-    font-size:18px;
-
-    color:#95858b;
-
     background:
     rgba(255,255,255,0.62);
 
     backdrop-filter:blur(10px);
 
-    box-shadow:
-    0 10px 30px rgba(255,255,255,0.28);
+    padding-left:26px;
 
-    z-index:20;
+    font-size:18px;
+
+    color:#9a8c92;
+
+    box-shadow:
+    0 10px 30px rgba(255,255,255,0.26);
+
+    z-index:50;
 }
 
 .search::placeholder{
-    color:#b8adb2;
+
+    color:#bcaeb6;
 }
 
 /* 右上角 */
@@ -154,18 +157,16 @@ body{
 
     position:absolute;
 
-    right:60px;
-    top:72px;
+    top:76px;
+    right:80px;
 
-    font-size:18px;
+    font-size:20px;
 
-    color:#ccb5ff;
+    color:#d0b7ff;
 
     font-style:italic;
 
     letter-spacing:1px;
-
-    z-index:20;
 }
 
 /* 歌名 */
@@ -183,12 +184,14 @@ body{
     white-space:nowrap;
 
     transition:
-    transform 0.7s ease,
-    opacity 0.7s ease,
-    filter 0.7s ease;
+    transform 0.8s ease,
+    opacity 0.8s ease,
+    filter 0.8s ease;
 
     animation:
-    floaty 10s ease-in-out infinite;
+    floaty 7s ease-in-out infinite;
+
+    transform-origin:center;
 }
 
 /* hover */
@@ -196,47 +199,69 @@ body{
 .song:hover{
 
     transform:
-    scale(1.22)
-    translateZ(90px);
-
-    filter:
-    blur(0px);
+    scale(1.25)
+    translateZ(80px);
 
     z-index:999;
+
+    filter:blur(0px);
 }
 
-/* 颜色 */
-
-.c1{color:#b28fd7;}
-.c2{color:#9caed9;}
-.c3{color:#c7a6d9;}
-.c4{color:#d0b4cc;}
-.c5{color:#b8a0b4;}
-.c6{color:#aebde1;}
-
-/* 大小 */
-
-.s1{font-size:28px;}
-.s2{font-size:36px;}
-.s3{font-size:44px;}
-.s4{font-size:52px;}
-
-/* 漂浮 */
+/* 浮动 */
 
 @keyframes floaty{
 
     0%{
-        transform:translateY(0px);
+
+        transform:
+        translateY(0px)
+        translateX(0px);
+    }
+
+    25%{
+
+        transform:
+        translateY(-8px)
+        translateX(5px);
     }
 
     50%{
-        transform:translateY(-8px);
+
+        transform:
+        translateY(-14px)
+        translateX(-6px);
+    }
+
+    75%{
+
+        transform:
+        translateY(-5px)
+        translateX(4px);
     }
 
     100%{
-        transform:translateY(0px);
+
+        transform:
+        translateY(0px)
+        translateX(0px);
     }
 }
+
+/* 字体大小 */
+
+.s1{font-size:26px;}
+.s2{font-size:34px;}
+.s3{font-size:44px;}
+.s4{font-size:52px;}
+
+/* 颜色 */
+
+.c1{color:#b39adf;}
+.c2{color:#9fb3dc;}
+.c3{color:#d0b4cf;}
+.c4{color:#b7a6b6;}
+.c5{color:#cab1eb;}
+.c6{color:#aebee5;}
 
 /* 音符 */
 
@@ -244,69 +269,19 @@ body{
 
     position:absolute;
 
-    color:rgba(208,190,255,0.20);
+    color:rgba(212,194,255,0.22);
 
     pointer-events:none;
 
     user-select:none;
 
-    font-size:30px;
+    font-size:34px;
 
     animation:
     depthFloat linear infinite;
 }
 
-/* 不同位置 */
-
-.music-note:nth-child(1){
-    left:8%;
-    top:18%;
-    animation-duration:18s;
-}
-
-.music-note:nth-child(2){
-    left:20%;
-    top:72%;
-    animation-duration:24s;
-}
-
-.music-note:nth-child(3){
-    left:38%;
-    top:28%;
-    animation-duration:20s;
-}
-
-.music-note:nth-child(4){
-    left:52%;
-    top:82%;
-    animation-duration:26s;
-}
-
-.music-note:nth-child(5){
-    left:63%;
-    top:14%;
-    animation-duration:22s;
-}
-
-.music-note:nth-child(6){
-    left:74%;
-    top:64%;
-    animation-duration:19s;
-}
-
-.music-note:nth-child(7){
-    left:86%;
-    top:32%;
-    animation-duration:27s;
-}
-
-.music-note:nth-child(8){
-    left:92%;
-    top:78%;
-    animation-duration:21s;
-}
-
-/* 纵深 */
+/* 纵深动画 */
 
 @keyframes depthFloat{
 
@@ -327,7 +302,7 @@ body{
         translateZ(0px)
         scale(1);
 
-        opacity:0.26;
+        opacity:0.25;
 
         filter:blur(0px);
     }
@@ -335,13 +310,63 @@ body{
     100%{
 
         transform:
-        translateZ(280px)
+        translateZ(300px)
         scale(1.8);
 
         opacity:0;
 
         filter:blur(5px);
     }
+}
+
+/* 音符位置 */
+
+.note1{
+    left:8%;
+    top:18%;
+    animation-duration:18s;
+}
+
+.note2{
+    left:20%;
+    top:72%;
+    animation-duration:24s;
+}
+
+.note3{
+    left:38%;
+    top:28%;
+    animation-duration:20s;
+}
+
+.note4{
+    left:52%;
+    top:82%;
+    animation-duration:26s;
+}
+
+.note5{
+    left:63%;
+    top:14%;
+    animation-duration:22s;
+}
+
+.note6{
+    left:74%;
+    top:64%;
+    animation-duration:19s;
+}
+
+.note7{
+    left:86%;
+    top:32%;
+    animation-duration:27s;
+}
+
+.note8{
+    left:92%;
+    top:78%;
+    animation-duration:21s;
 }
 
 </style>
@@ -368,50 +393,58 @@ body{
 
     <!-- 音符 -->
 
-    <div class="music-note">♫</div>
-    <div class="music-note">♪</div>
-    <div class="music-note">♬</div>
-    <div class="music-note">♩</div>
-    <div class="music-note">♫</div>
-    <div class="music-note">♪</div>
-    <div class="music-note">♬</div>
-    <div class="music-note">♩</div>
+    <div class="music-note note1">♫</div>
+    <div class="music-note note2">♪</div>
+    <div class="music-note note3">♬</div>
+    <div class="music-note note4">♩</div>
+    <div class="music-note note5">♫</div>
+    <div class="music-note note6">♪</div>
+    <div class="music-note note7">♬</div>
+    <div class="music-note note8">♩</div>
 
     <!-- 歌名 -->
 
-    <a class="song c1 s4" style="left:14%;top:34%;" href="song.html?song=你的crush降临了吗">你的crush降临了吗</a>
+    <a class="song c1 s4" style="left:10%;top:26%;" href="song.html?song=你的crush降临了吗">你的crush降临了吗</a>
 
-    <a class="song c2 s3" style="left:58%;top:66%;" href="song.html?song=宠坏">宠坏</a>
+    <a class="song c2 s3" style="left:58%;top:64%;" href="song.html?song=宠坏">宠坏</a>
 
-    <a class="song c3 s4" style="left:73%;top:74%;" href="song.html?song=南泥湾">南泥湾</a>
+    <a class="song c5 s4" style="left:73%;top:76%;" href="song.html?song=南泥湾">南泥湾</a>
 
-    <a class="song c4 s3" style="left:68%;top:30%;" href="song.html?song=如果爱忘了">如果爱忘了</a>
+    <a class="song c6 s3" style="left:70%;top:20%;" href="song.html?song=如果爱忘了">如果爱忘了</a>
 
-    <a class="song c5 s2" style="left:34%;top:22%;" href="song.html?song=东京不太热">东京不太热</a>
+    <a class="song c4 s3" style="left:22%;top:16%;" href="song.html?song=东京不太热">东京不太热</a>
 
-    <a class="song c6 s3" style="left:44%;top:80%;" href="song.html?song=我们">我们</a>
+    <a class="song c2 s2" style="left:40%;top:82%;" href="song.html?song=我们">我们</a>
 
-    <a class="song c2 s2" style="left:18%;top:56%;" href="song.html?song=心愿便利贴">心愿便利贴</a>
+    <a class="song c3 s2" style="left:14%;top:54%;" href="song.html?song=心愿便利贴">心愿便利贴</a>
 
-    <a class="song c3 s1" style="left:76%;top:46%;" href="song.html?song=第57次取消发送">第57次取消发送</a>
+    <a class="song c6 s1" style="left:74%;top:48%;" href="song.html?song=第57次取消发送">第57次取消发送</a>
 
-    <a class="song c1 s2" style="left:24%;top:82%;" href="song.html?song=粉雾海">粉雾海</a>
+    <a class="song c4 s2" style="left:18%;top:86%;" href="song.html?song=粉雾海">粉雾海</a>
 
-    <a class="song c5 s3" style="left:70%;top:56%;" href="song.html?song=爱我你就抱抱我">爱我你就抱抱我</a>
+    <a class="song c5 s3" style="left:62%;top:54%;" href="song.html?song=爱我你就抱抱我">爱我你就抱抱我</a>
 
-    <a class="song c4 s2" style="left:50%;top:16%;" href="song.html?song=天赋">天赋</a>
+    <a class="song c2 s1" style="left:48%;top:18%;" href="song.html?song=天赋">天赋</a>
 
-    <a class="song c2 s1" style="left:82%;top:20%;" href="song.html?song=失眠了">失眠了</a>
+    <a class="song c3 s1" style="left:82%;top:14%;" href="song.html?song=失眠了">失眠了</a>
 
-    <a class="song c3 s2" style="left:39%;top:66%;" href="song.html?song=公主殿下">公主殿下</a>
+    <a class="song c1 s3" style="left:34%;top:66%;" href="song.html?song=公主殿下">公主殿下</a>
 
-    <a class="song c6 s1" style="left:12%;top:88%;" href="song.html?song=空空">空空</a>
+    <a class="song c4 s1" style="left:8%;top:92%;" href="song.html?song=空空">空空</a>
 
-    <a class="song c5 s2" style="left:55%;top:46%;" href="song.html?song=红色高跟鞋">红色高跟鞋</a>
+    <a class="song c6 s2" style="left:58%;top:40%;" href="song.html?song=红色高跟鞋">红色高跟鞋</a>
 
-    <a class="song c1 s3" style="left:61%;top:84%;" href="song.html?song=take me hand">take me hand</a>
+    <a class="song c5 s3" style="left:64%;top:90%;" href="song.html?song=take me hand">take me hand</a>
 
-    <a class="song c2 s1" style="left:28%;top:48%;" href="song.html?song=Doll">Doll</a>
+    <a class="song c2 s1" style="left:26%;top:48%;" href="song.html?song=Doll">Doll</a>
+
+    <a class="song c3 s2" style="left:44%;top:30%;" href="song.html?song=一滴泪的时间">一滴泪的时间</a>
+
+    <a class="song c1 s3" style="left:50%;top:10%;" href="song.html?song=AlwaysOnline">AlwaysOnline</a>
+
+    <a class="song c6 s2" style="left:82%;top:66%;" href="song.html?song=那时雨">那时雨</a>
+
+    <a class="song c4 s3" style="left:30%;top:36%;" href="song.html?song=怪物">怪物</a>
 
 </div>
 
