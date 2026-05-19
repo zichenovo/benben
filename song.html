@@ -15,139 +15,127 @@
     box-sizing:border-box;
 }
 
-body{
+html,body{
 
-    background:#f7f3f2;
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
 
     font-family:
     "Times New Roman",
     "STSong",
     serif;
-
-    overflow:hidden;
 }
 
 /* 背景 */
 
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    inset:18px;
-
-    border-radius:38px;
+body{
 
     background:
+    radial-gradient(circle at center,
+    #f8edf4 0%,
+    #f6f1f7 30%,
+    #f1f3fa 70%,
+    #edf3ff 100%);
 
-    radial-gradient(
-    circle at top left,
-    rgba(255,233,241,0.9),
-    transparent 28%
-    ),
-
-    radial-gradient(
-    circle at bottom center,
-    rgba(232,228,255,0.78),
-    transparent 35%
-    ),
-
-    #f7f2f2;
-
-    border:2px solid rgba(255,255,255,0.55);
-
-    z-index:-1;
-
-    box-shadow:
-    inset 0 0 120px rgba(255,255,255,0.45);
+    position:relative;
 }
 
-/* 整体 */
+/* 外框 */
 
 .container{
 
-    width:86vw;
-    height:78vh;
+    position:absolute;
 
-    margin:auto;
+    inset:22px;
 
-    margin-top:9vh;
+    border-radius:42px;
 
-    border-radius:40px;
+    border:1px solid rgba(255,255,255,0.5);
+
+    box-shadow:
+    inset 0 0 100px rgba(255,255,255,0.3);
+
+    overflow:hidden;
+}
+
+/* 柔光 */
+
+.glow{
+
+    position:absolute;
+
+    width:700px;
+    height:700px;
+
+    border-radius:50%;
+
+    left:50%;
+    top:72%;
+
+    transform:translate(-50%,-50%);
 
     background:
-    rgba(255,255,255,0.18);
-
-    backdrop-filter:blur(18px);
-
-    padding:48px 52px;
-
-    position:relative;
+    radial-gradient(circle,
+    rgba(232,223,255,0.34),
+    transparent 70%);
 }
 
 /* 返回 */
 
 .back{
 
+    position:absolute;
+
+    top:46px;
+    left:56px;
+
     text-decoration:none;
 
-    color:#8f7e82;
+    color:#8f7f86;
 
-    font-size:26px;
+    font-size:24px;
 
     font-style:italic;
+
+    z-index:20;
 }
 
 /* 歌名 */
 
 .song-title{
 
-    margin-top:26px;
+    position:absolute;
 
-    font-size:78px;
+    top:110px;
+    left:50%;
 
-    color:#9c8b92;
+    transform:translateX(-50%);
+
+    font-size:76px;
+
+    color:#9d8a93;
 
     font-style:italic;
 
     font-weight:500;
+
+    white-space:nowrap;
+
+    z-index:20;
 }
 
-/* 内容 */
-/* 这里改了 gap */
+/* 中间区域 */
 
-.content{
+.center-box{
 
-    margin-top:34px;
+    position:absolute;
 
-    display:flex;
+    left:50%;
+    top:54%;
 
-    justify-content:center;
-
-    align-items:center;
-
-    gap:160px;
-}
-
-/* 左边图片 */
-
-.cover{
-
-    width:480px;
-    height:480px;
-
-    object-fit:cover;
-
-    border-radius:34px;
-
-    box-shadow:
-    0 12px 30px rgba(0,0,0,0.08);
-}
-
-/* 右边 */
-
-.right{
+    transform:translate(-50%,-50%);
 
     display:flex;
 
@@ -160,8 +148,8 @@ body::before{
 
 .vinyl{
 
-    width:340px;
-    height:340px;
+    width:380px;
+    height:380px;
 
     border-radius:50%;
 
@@ -170,24 +158,26 @@ body::before{
     radial-gradient(
     circle,
     #111 0%,
-    #111 14%,
-    #f4f4f4 15%,
-    #e7e7e7 28%,
-    #f8f8f8 42%,
-    #dfdfdf 58%,
-    #f6f6f6 72%,
-    #ececec 86%,
-    #fafafa 100%
+    #111 10%,
+    #f6f6f6 11%,
+    #eaeaea 24%,
+    #fafafa 38%,
+    #e3e3e3 52%,
+    #f8f8f8 66%,
+    #ececec 82%,
+    #ffffff 100%
     );
 
     box-shadow:
-    0 12px 35px rgba(0,0,0,0.08);
+    0 18px 40px rgba(0,0,0,0.08);
 
     animation:
-    rotate 10s linear infinite;
+    spin 8s linear infinite;
 }
 
-@keyframes rotate{
+/* 转动 */
+
+@keyframes spin{
 
     from{
         transform:rotate(0deg);
@@ -198,13 +188,13 @@ body::before{
     }
 }
 
-/* 音频 */
+/* 播放器 */
 
 audio{
 
-    margin-top:34px;
+    margin-top:42px;
 
-    width:340px;
+    width:360px;
 
     opacity:0.8;
 }
@@ -216,33 +206,23 @@ audio{
 
 <div class="container">
 
+    <div class="glow"></div>
+
     <a href="index.html" class="back">
         ← 返回歌单
     </a>
 
     <div class="song-title" id="songTitle">
-        歌曲名
+        歌曲
     </div>
 
-    <div class="content">
+    <div class="center-box">
 
-        <!-- 左边图片 -->
+        <div class="vinyl"></div>
 
-        <img
-        src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop"
-        class="cover">
-
-        <!-- 右边 -->
-
-        <div class="right">
-
-            <div class="vinyl"></div>
-
-            <audio controls>
-                <source src="">
-            </audio>
-
-        </div>
+        <audio controls>
+            <source src="">
+        </audio>
 
     </div>
 
