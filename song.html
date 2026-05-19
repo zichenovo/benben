@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="
+width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
 
 <title>歌曲详情</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="
+https://fonts.googleapis.com/css2?
+family=Cormorant+Garamond:wght@300;400;500&
+family=Noto+Serif+SC:wght@300;400&
+display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -25,7 +41,8 @@ body{
     height:100vh;
 
     background:
-    radial-gradient(circle at center,
+    radial-gradient(
+    circle at center,
     rgba(236,230,255,0.7),
     rgba(250,245,248,1) 70%);
 
@@ -48,6 +65,8 @@ body{
         filter:hue-rotate(8deg);
     }
 }
+
+/* 主区域 */
 
 .container{
 
@@ -73,6 +92,8 @@ body{
     0 0 40px rgba(255,255,255,0.4);
 }
 
+/* 返回 */
+
 .back{
 
     position:absolute;
@@ -88,6 +109,8 @@ body{
 
     z-index:50;
 }
+
+/* 标题 */
 
 .song-title{
 
@@ -112,6 +135,8 @@ body{
     0 0 18px rgba(255,255,255,0.45);
 }
 
+/* 中间 */
+
 .center{
 
     position:absolute;
@@ -119,12 +144,15 @@ body{
     left:50%;
     top:55%;
 
-    transform:translate(-50%,-50%);
+    transform:
+    translate(-50%,-50%);
 
     display:flex;
     flex-direction:column;
     align-items:center;
 }
+
+/* glow */
 
 .glow{
 
@@ -136,7 +164,8 @@ body{
     border-radius:50%;
 
     background:
-    radial-gradient(circle,
+    radial-gradient(
+    circle,
     rgba(228,215,255,0.42),
     rgba(255,255,255,0));
 
@@ -149,15 +178,19 @@ body{
 @keyframes pulse{
 
     from{
+
         transform:scale(0.9);
         opacity:0.5;
     }
 
     to{
+
         transform:scale(1.08);
         opacity:0.9;
     }
 }
+
+/* 黑胶 */
 
 .record{
 
@@ -209,7 +242,8 @@ body{
     top:50%;
     left:50%;
 
-    transform:translate(-50%,-50%);
+    transform:
+    translate(-50%,-50%);
 
     width:26px;
     height:26px;
@@ -230,6 +264,8 @@ body{
     }
 }
 
+/* 播放器 */
+
 audio{
 
     margin-top:42px;
@@ -238,6 +274,8 @@ audio{
 
     opacity:0.74;
 }
+
+/* 音符 */
 
 .note{
 
@@ -276,6 +314,88 @@ audio{
     }
 }
 
+/* ====================== */
+/* 手机版适配 */
+/* ====================== */
+
+@media (max-width:768px){
+
+.container{
+
+    width:94%;
+    height:92vh;
+
+    margin-top:2vh;
+
+    border-radius:26px;
+}
+
+.back{
+
+    top:28px;
+    left:22px;
+
+    font-size:20px;
+}
+
+.song-title{
+
+    top:30px;
+
+    right:18px;
+    left:auto;
+
+    width:100px;
+
+    text-align:right;
+
+    line-height:1.5;
+
+    font-size:18px;
+}
+
+.center{
+
+    top:54%;
+}
+
+.glow{
+
+    width:300px;
+    height:300px;
+}
+
+.record{
+
+    width:220px;
+    height:220px;
+}
+
+.record::before{
+
+    inset:12px;
+}
+
+.record::after{
+
+    width:18px;
+    height:18px;
+}
+
+audio{
+
+    width:280px;
+
+    margin-top:28px;
+}
+
+.note{
+
+    opacity:0.12;
+}
+
+}
+
 </style>
 </head>
 
@@ -283,12 +403,18 @@ audio{
 
 <div class="container">
 
-<a href="index.html" class="back">
+<a href="index.html"
+class="back">
+
 ← 返回歌单
+
 </a>
 
-<div class="song-title" id="songTitle">
+<div class="song-title"
+id="songTitle">
+
 歌曲
+
 </div>
 
 <div class="center">
@@ -306,35 +432,54 @@ audio{
 
 <script>
 
+/* 获取歌曲名 */
+
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 const song =
 params.get("song") || "歌曲";
 
-document.getElementById("songTitle")
+/* 设置标题 */
+
+document
+.getElementById("songTitle")
 .innerText =
 "正在播放：《" + song + "》";
 
-/* 音频 */
+/* 获取播放器 */
 
-if(song === "take me hand"){
+const player =
+document.getElementById("player");
 
-    document
-    .getElementById("player")
-    .innerHTML =
+/* 音频映射 */
 
-    '<source src="audioSource/take me hand.mp3" type="audio/mpeg">';
+const songMap = {
+
+    "take me hand":
+    "audioSource/take me hand.mp3",
+
+    "空空":
+    "audioSource/空空.mp3"
+
+};
+
+/* 如果存在音频 */
+
+if(songMap[song]){
+
+    player.innerHTML =
+
+    '<source src="' +
+    songMap[song] +
+    '" type="audio/mpeg">';
+
+    player.load();
 }
 
-if(song === "空空"){
-
-    document
-    .getElementById("player")
-    .innerHTML =
-
-    '<source src="audioSource/空空.mp3" type="audio/mpeg">';
-}
+/* 音符 */
 
 const symbols =
 ["♫","♪","♬","♩"];
@@ -346,25 +491,28 @@ for(let i=0;i<26;i++){
 
     note.className="note";
 
-    note.innerHTML=
-    symbols[Math.floor(Math.random()*symbols.length)];
+    note.innerHTML =
+    symbols[
+    Math.floor(
+    Math.random()*symbols.length
+    )];
 
-    note.style.left=
-    Math.random()*100+"vw";
+    note.style.left =
+    Math.random()*100 + "vw";
 
-    note.style.top=
-    Math.random()*100+"vh";
+    note.style.top =
+    Math.random()*100 + "vh";
 
-    note.style.fontSize=
-    (18+Math.random()*60)+"px";
+    note.style.fontSize =
+    (18+Math.random()*60) + "px";
 
-    note.style.animationDuration=
-    (4+Math.random()*6)+"s";
+    note.style.animationDuration =
+    (4+Math.random()*6) + "s";
 
-    note.style.animationDelay=
-    (-Math.random()*10)+"s";
+    note.style.animationDelay =
+    (-Math.random()*10) + "s";
 
-    note.style.opacity=
+    note.style.opacity =
     Math.random()*0.24;
 
     document.body.appendChild(note);
