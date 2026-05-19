@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>笨笨的の歌单</title>
+
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:#f5f1ed;
+
+overflow:hidden;
+
+font-family:
+"PingFang SC",
+sans-serif;
+
+width:100vw;
+height:100vh;
+
+position:relative;
+}
+
+/* 背景模糊 */
+
+body::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+
+radial-gradient(circle at 20% 20%, rgba(255,220,220,0.4), transparent 30%),
+
+radial-gradient(circle at 80% 30%, rgba(220,220,255,0.35), transparent 30%),
+
+radial-gradient(circle at 40% 80%, rgba(255,240,210,0.3), transparent 30%);
+
+filter:blur(60px);
+
+z-index:0;
+}
+
+/* 标题 */
+
+.title{
+
+position:absolute;
+
+top:40px;
+left:50px;
+
+font-family:'ZCOOL KuaiLe',cursive;
+
+font-size:72px;
+
+color:#6f655e;
+
+z-index:5;
+}
+
+/* 搜索框 */
+
+.search{
+
+position:absolute;
+
+top:140px;
+left:55px;
+
+width:360px;
+
+z-index:5;
+}
+
+.search input{
+
+width:100%;
+
+padding:18px 24px;
+
+border:none;
+
+outline:none;
+
+border-radius:999px;
+
+background:rgba(255,255,255,0.7);
+
+backdrop-filter:blur(10px);
+
+font-size:18px;
+
+color:#6f655e;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.05);
+}
+
+.search input::placeholder{
+
+color:#aaa;
+}
+
+/* 歌名 */
+
+.song{
+
+position:absolute;
+
+font-size:24px;
+
+color:#6b625c;
+
+text-decoration:none;
+
+transition:
+0.45s ease;
+
+z-index:2;
+
+cursor:pointer;
+
+opacity:0.78;
+}
+
+/* hover */
+
+.song:hover{
+
+left:50% !important;
+
+top:50% !important;
+
+transform:
+translate(-50%,-50%)
+scale(2.1);
+
+z-index:100;
+
+opacity:1;
+
+color:#000;
+}
+
+/* 小漂浮感 */
+
+@keyframes floaty{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-6px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.song{
+
+animation:
+floaty 4s ease-in-out infinite;
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+.title{
+
+font-size:48px;
+
+left:24px;
+top:24px;
+}
+
+.search{
+
+left:24px;
+
+top:100px;
+
+width:280px;
+}
+
+.song{
+
+font-size:18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="title">
+笨笨的の歌单
+</div>
+
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="试试搜索"
+/>
+
+</div>
+
+<!-- 歌名 -->
+
+<a class="song" style="left:12%;top:30%;" href="song.html?song=末日">末日</a>
+
+<a class="song" style="left:28%;top:42%;" href="song.html?song=走马">走马</a>
+
+<a class="song" style="left:45%;top:25%;" href="song.html?song=天赋">天赋</a>
+
+<a class="song" style="left:60%;top:35%;" href="song.html?song=空空">空空</a>
+
+<a class="song" style="left:75%;top:20%;" href="song.html?song=半壶纱">半壶纱</a>
+
+<a class="song" style="left:18%;top:58%;" href="song.html?song=AlwaysOnline">AlwaysOnline</a>
+
+<a class="song" style="left:40%;top:65%;" href="song.html?song=怪物">怪物</a>
+
+<a class="song" style="left:68%;top:60%;" href="song.html?song=东京不太热">东京不太热</a>
+
+<a class="song" style="left:82%;top:48%;" href="song.html?song=夏天的风">夏天的风</a>
+
+<a class="song" style="left:15%;top:78%;" href="song.html?song=粉雾海">粉雾海</a>
+
+<a class="song" style="left:36%;top:82%;" href="song.html?song=绿色">绿色</a>
+
+<a class="song" style="left:58%;top:80%;" href="song.html?song=红昭愿">红昭愿</a>
+
+<a class="song" style="left:78%;top:74%;" href="song.html?song=梁山伯与朱丽叶">梁山伯与朱丽叶</a>
+
+<script>
+
+const songs = [
+
+"末日","走马","天赋","空空","半壶纱","AlwaysOnline",
+
+"怪物","东京不太热","夏天的风","粉雾海","绿色",
+
+"红昭愿","梁山伯与朱丽叶"
+
+];
+
+const input =
+document.getElementById("searchInput");
+
+input.addEventListener("keypress",function(e){
+
+if(e.key==="Enter"){
+
+const value =
+input.value.trim();
+
+if(!value) return;
+
+if(songs.includes(value)){
+
+window.location.href =
+"song.html?song=" +
+encodeURIComponent(value);
+
+}else{
+
+alert(
+"不好意思 笨笨的还没学会这首歌～\n已加入待学歌单♡"
+);
+
+}
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
+```
