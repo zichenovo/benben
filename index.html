@@ -80,50 +80,76 @@ body::before{
 
     position:fixed;
 
-    top:55px;
-    left:65px;
+    top:58px;
+    left:68px;
 
     z-index:999;
 }
 
+/* 改成更轻盈的title */
+
 .title{
 
-    font-size:92px;
+    font-size:86px;
 
-    font-weight:700;
+    font-weight:500;
 
-    color:#8e7d7f;
+    color:#8f7e82;
 
     letter-spacing:2px;
+
+    font-style:italic;
+
+    line-height:1;
+
+    font-family:
+    "Times New Roman",
+    "Kaiti SC",
+    serif;
 }
 
 /* 搜索框 */
+/* 更细 更秀气 */
 
 .search-box{
 
-    margin-top:24px;
+    margin-top:22px;
 
-    width:370px;
-    height:62px;
+    width:300px;
+    height:50px;
 
     border:none;
 
     border-radius:40px;
 
-    padding-left:30px;
+    padding-left:24px;
 
-    font-size:30px;
+    font-size:24px;
 
-    background:rgba(255,255,255,0.62);
+    font-style:italic;
 
-    backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.58);
+
+    backdrop-filter:blur(10px);
 
     outline:none;
 
-    color:#9f8f92;
+    color:#a39296;
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,0.04);
+    0 6px 20px rgba(0,0,0,0.03);
+
+    transition:0.3s;
+}
+
+.search-box::placeholder{
+
+    color:#c2b5b8;
+}
+
+.search-box:focus{
+
+    background:rgba(255,255,255,0.72);
 }
 
 /* 右上 */
@@ -132,8 +158,8 @@ body::before{
 
     position:fixed;
 
-    top:85px;
-    right:100px;
+    top:88px;
+    right:105px;
 
     font-size:24px;
 
@@ -144,6 +170,10 @@ body::before{
     font-style:italic;
 
     z-index:999;
+
+    font-family:
+    "Times New Roman",
+    serif;
 }
 
 /* 歌词区域 */
@@ -175,6 +205,11 @@ body::before{
 
     animation:
     floaty ease-in-out infinite;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
 }
 
 /* hover */
@@ -191,7 +226,6 @@ body::before{
 }
 
 /* 字体大小 */
-/* 全部整体缩小 */
 
 .small{
 
@@ -208,7 +242,7 @@ body::before{
 .large{
 
     font-size:52px;
-    opacity:0.75;
+    opacity:0.74;
 }
 
 /* 配色 */
