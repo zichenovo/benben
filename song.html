@@ -19,20 +19,12 @@ body{
 
     background:#f7f3f2;
 
-    height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
     font-family:
     "Times New Roman",
     "STSong",
     serif;
+
+    overflow:hidden;
 }
 
 /* 背景 */
@@ -45,7 +37,7 @@ body::before{
 
     inset:18px;
 
-    border-radius:36px;
+    border-radius:38px;
 
     background:
 
@@ -57,30 +49,39 @@ body::before{
 
     radial-gradient(
     circle at bottom center,
-    rgba(232,228,255,0.75),
+    rgba(232,228,255,0.78),
     transparent 35%
     ),
 
     #f7f2f2;
 
-    border:2px solid rgba(255,255,255,0.5);
+    border:2px solid rgba(255,255,255,0.55);
 
     z-index:-1;
+
+    box-shadow:
+    inset 0 0 120px rgba(255,255,255,0.45);
 }
+
+/* 整体 */
 
 .container{
 
-    width:1300px;
+    width:86vw;
+    height:78vh;
 
-    height:760px;
+    margin:auto;
+
+    margin-top:9vh;
 
     border-radius:40px;
 
-    background:rgba(255,255,255,0.28);
+    background:
+    rgba(255,255,255,0.18);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(18px);
 
-    padding:50px;
+    padding:48px 52px;
 
     position:relative;
 }
@@ -89,13 +90,11 @@ body::before{
 
 .back{
 
-    font-size:28px;
+    text-decoration:none;
 
     color:#8f7e82;
 
-    cursor:pointer;
-
-    text-decoration:none;
+    font-size:26px;
 
     font-style:italic;
 }
@@ -104,41 +103,46 @@ body::before{
 
 .song-title{
 
-    margin-top:28px;
+    margin-top:26px;
 
-    font-size:72px;
+    font-size:78px;
 
-    color:#8f7e82;
+    color:#9c8b92;
 
     font-style:italic;
+
+    font-weight:500;
 }
 
 /* 内容 */
+/* 这里改了 gap */
 
 .content{
 
-    margin-top:40px;
+    margin-top:34px;
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content:center;
 
     align-items:center;
+
+    gap:90px;
 }
 
-/* 左图 */
+/* 左边图片 */
 
 .cover{
 
-    width:470px;
-    height:470px;
-
-    border-radius:28px;
+    width:480px;
+    height:480px;
 
     object-fit:cover;
 
+    border-radius:34px;
+
     box-shadow:
-    0 12px 40px rgba(0,0,0,0.08);
+    0 12px 30px rgba(0,0,0,0.08);
 }
 
 /* 右边 */
@@ -152,12 +156,12 @@ body::before{
     align-items:center;
 }
 
-/* 黑胶 */
+/* 唱片 */
 
-.record{
+.vinyl{
 
-    width:350px;
-    height:350px;
+    width:340px;
+    height:340px;
 
     border-radius:50%;
 
@@ -167,23 +171,23 @@ body::before{
     circle,
     #111 0%,
     #111 14%,
-    #ddd 15%,
-    #eee 24%,
-    #ddd 26%,
-    #f8f8f8 40%,
-    #ddd 55%,
-    #f8f8f8 70%,
-    #ddd 100%
+    #f4f4f4 15%,
+    #e7e7e7 28%,
+    #f8f8f8 42%,
+    #dfdfdf 58%,
+    #f6f6f6 72%,
+    #ececec 86%,
+    #fafafa 100%
     );
 
-    animation:
-    spin 12s linear infinite;
-
     box-shadow:
-    0 10px 30px rgba(0,0,0,0.1);
+    0 12px 35px rgba(0,0,0,0.08);
+
+    animation:
+    rotate 10s linear infinite;
 }
 
-@keyframes spin{
+@keyframes rotate{
 
     from{
         transform:rotate(0deg);
@@ -198,11 +202,11 @@ body::before{
 
 audio{
 
-    margin-top:40px;
+    margin-top:34px;
 
-    width:360px;
+    width:340px;
 
-    opacity:0.75;
+    opacity:0.8;
 }
 
 </style>
@@ -212,45 +216,45 @@ audio{
 
 <div class="container">
 
-<a href="index.html" class="back">
-← 返回歌单
-</a>
+    <a href="index.html" class="back">
+        ← 返回歌单
+    </a>
 
-<div class="song-title" id="songTitle">
-歌曲
-</div>
+    <div class="song-title" id="songTitle">
+        歌曲名
+    </div>
 
-<div class="content">
+    <div class="content">
 
-<img
-class="cover"
-src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop">
+        <!-- 左边图片 -->
 
-<div class="right">
+        <img
+        src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop"
+        class="cover">
 
-<div class="record"></div>
+        <!-- 右边 -->
 
-<audio controls>
-<source src="">
-</audio>
+        <div class="right">
 
-</div>
+            <div class="vinyl"></div>
 
-</div>
+            <audio controls>
+                <source src="">
+            </audio>
+
+        </div>
+
+    </div>
 
 </div>
 
 <script>
-
-/* 获取歌名 */
 
 const params =
 new URLSearchParams(window.location.search);
 
 const song =
 params.get("song");
-
-/* 显示歌名 */
 
 document.getElementById("songTitle")
 .innerText = song || "歌曲";
