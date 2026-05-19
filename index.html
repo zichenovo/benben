@@ -515,7 +515,22 @@ body::before{
 const bgm =
 document.getElementById("bgm");
 
+/* 音量 */
+
 bgm.volume = 0.08;
+
+/* 读取之前播放进度 */
+
+const savedTime =
+localStorage.getItem("bgmTime");
+
+if(savedTime){
+
+    bgm.currentTime =
+    savedTime;
+}
+
+/* 自动播放 */
 
 document.body.addEventListener(
 
@@ -528,6 +543,23 @@ document.body.addEventListener(
 },
 
 { once:true }
+
+);
+
+/* 实时保存进度 */
+
+bgm.addEventListener(
+
+"timeupdate",
+
+()=>{
+
+    localStorage.setItem(
+    "bgmTime",
+    bgm.currentTime
+    );
+
+}
 
 );
 
