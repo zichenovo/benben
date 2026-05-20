@@ -851,6 +851,16 @@ body::before{
 const enterPage =
 document.getElementById("enterPage");
 
+const params =
+new URLSearchParams(window.location.search);
+
+if(params.get("entered")==="true"){
+
+    enterPage.classList.add("hide");
+
+    startMusic();
+}
+
 enterPage.addEventListener(
 
 "click",
