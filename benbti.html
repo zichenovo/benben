@@ -44,6 +44,8 @@ body{
     serif;
 
     overflow:hidden;
+
+    cursor:pointer;
 }
 
 /* title */
@@ -59,6 +61,8 @@ body{
     font-weight:400;
 
     letter-spacing:1px;
+
+    transition:0.3s;
 }
 
 /* subtitle */
@@ -74,6 +78,8 @@ body{
     letter-spacing:6px;
 
     font-style:italic;
+
+    transition:0.3s;
 }
 
 /* arrow */
@@ -86,19 +92,31 @@ body{
 
     color:#ceb7c1;
 
-    cursor:pointer;
-
     transition:0.3s;
 
     animation:
     move 1.6s infinite;
+
+    user-select:none;
 }
 
-.arrow:hover{
+/* hover */
 
-    transform:scale(1.15);
+body:hover .title{
+
+    color:#927b85;
+}
+
+body:hover .sub{
+
+    color:#bca7b1;
+}
+
+body:hover .arrow{
 
     color:#b89ca8;
+
+    transform:scale(1.08);
 }
 
 /* animation */
@@ -131,11 +149,15 @@ body{
     .title{
 
         font-size:42px;
+
+        text-align:center;
+
+        line-height:1.4;
     }
 
     .sub{
 
-        font-size:14px;
+        font-size:13px;
 
         letter-spacing:4px;
     }
@@ -143,6 +165,52 @@ body{
     .arrow{
 
         font-size:30px;
+
+        margin-top:24px;
+    }
+}
+
+/* back */
+
+.back-btn{
+
+    position:fixed;
+
+    top:38px;
+
+    left:42px;
+
+    color:#a8929b;
+
+    font-size:18px;
+
+    font-style:italic;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:translateX(-4px);
+
+    color:#8e7881;
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+    .back-btn{
+
+        top:26px;
+
+        left:22px;
+
+        font-size:15px;
     }
 }
 
@@ -150,7 +218,24 @@ body{
 
 </head>
 
-<body>
+<body
+
+<div
+class="back-btn"
+
+onclick="
+window.location.href='index.html?entered=true'
+">
+
+← 返回歌单
+
+</div>
+
+onclick="
+window.location.href='test.html'
+"
+
+>
 
 <div class="title">
 
@@ -164,12 +249,7 @@ click to enter
 
 </div>
 
-<div
-class="arrow"
-
-onclick="
-window.location.href='test.html'
-">
+<div class="arrow">
 
 ⟶
 

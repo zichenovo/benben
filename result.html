@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>BenBTI Result</title>
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+}
+
+body{
+
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+
+    radial-gradient(
+    circle at top left,
+    rgba(255,228,238,0.95),
+    transparent 28%
+    ),
+
+    radial-gradient(
+    circle at bottom right,
+    rgba(230,226,255,0.92),
+    transparent 34%
+    ),
+
+    #f8f2f3;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+/* card */
+
+.card{
+
+    width:88%;
+
+    max-width:520px;
+
+    padding:
+    42px 34px;
+
+    border-radius:36px;
+
+    background:
+    rgba(255,255,255,0.48);
+
+    backdrop-filter:blur(18px);
+
+    border:
+    1px solid rgba(255,255,255,0.4);
+
+    box-shadow:
+
+    0 10px 50px rgba(215,190,210,0.16);
+
+    text-align:center;
+
+    animation:
+    fadeUp 1.1s ease;
+}
+
+@keyframes fadeUp{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+        translateY(30px)
+        scale(0.95);
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+    }
+}
+
+/* top */
+
+.top{
+
+    color:#c7b3bc;
+
+    letter-spacing:4px;
+
+    font-size:15px;
+
+    margin-bottom:18px;
+
+    font-style:italic;
+}
+
+/* result */
+
+.result{
+
+    font-size:56px;
+
+    color:#9b868f;
+
+    font-style:italic;
+
+    margin-bottom:22px;
+
+    line-height:1.2;
+}
+
+/* percent */
+
+.percent{
+
+    font-size:22px;
+
+    color:#ab98a1;
+
+    margin-bottom:28px;
+
+    line-height:1.8;
+}
+
+/* text */
+
+.text{
+
+    font-size:28px;
+
+    color:#b59fc2;
+
+    line-height:1.7;
+
+    margin-bottom:38px;
+
+    font-style:italic;
+}
+
+/* buttons */
+
+.buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+}
+
+.btn{
+
+    padding:
+    14px 26px;
+
+    border-radius:999px;
+
+    background:
+    rgba(255,255,255,0.55);
+
+    color:#a48c96;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    font-size:17px;
+
+    backdrop-filter:blur(10px);
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    background:
+    rgba(255,255,255,0.8);
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+    .card{
+
+        padding:
+        36px 24px;
+    }
+
+    .result{
+
+        font-size:42px;
+    }
+
+    .text{
+
+        font-size:22px;
+    }
+
+    .percent{
+
+        font-size:18px;
+    }
+
+    .btn{
+
+        width:100%;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="top">
+
+        你的 BenBTI 是
+
+    </div>
+
+    <div
+    class="result"
+    id="resultName">
+
+    </div>
+
+    <div
+    class="percent"
+    id="percent">
+
+    </div>
+
+    <div
+    class="text"
+    id="resultText">
+
+    </div>
+
+    <div class="buttons">
+
+        <div
+        class="btn"
+
+        onclick="window.location.href='test.html'">
+
+            再测一次
+
+        </div>
+
+        <div
+        class="btn"
+
+        onclick="window.location.href='index.html?entered=true'">
+
+            返回歌单
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const type =
+params.get("type");
+
+const text =
+params.get("text");
+
+const percent =
+params.get("percent");
+
+document
+.getElementById("resultName")
+.innerText = type;
+
+document
+.getElementById("resultText")
+.innerText = text;
+
+document
+.getElementById("percent")
+.innerText =
+
+"你跟笨笨的灵魂契合度为："
+
++ percent
+
++ "%";
+
+</script>
+
+</body>
+
+</html>

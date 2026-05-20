@@ -6,7 +6,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>从垃到夯大排名</title>
@@ -17,7 +18,13 @@ body{
 
     margin:0;
 
-    background:#f7f2f2;
+    background:
+    linear-gradient(
+    to bottom right,
+    #f8f2f3,
+    #f5efef,
+    #f6f1f7
+    );
 
     font-family:
     "Times New Roman",
@@ -25,124 +32,56 @@ body{
     serif;
 
     overflow-x:hidden;
-
-    position:relative;
 }
 
-/* floating songs */
+/* back */
 
-.song-area{
+.back-btn{
 
     position:fixed;
 
-    inset:0;
+    top:38px;
 
-    overflow:hidden;
+    left:42px;
 
-    z-index:0;
+    color:#a8929b;
 
-    pointer-events:none;
-}
-
-.song{
-
-    position:absolute;
-
-    white-space:nowrap;
+    font-size:18px;
 
     font-style:italic;
 
-    opacity:0.25;
+    cursor:pointer;
 
-    animation:floatDepth linear infinite;
+    z-index:999;
 
-    font-family:
-    "Times New Roman",
-    "STSong",
-    serif;
+    transition:0.3s;
 }
 
-.song:nth-child(7n+1){
-    color:#b59dcf;
-}
+.back-btn:hover{
 
-.song:nth-child(7n+2){
-    color:#95a9c7;
-}
+    transform:translateX(-4px);
 
-.song:nth-child(7n+3){
-    color:#b7a3b5;
-}
-
-.song:nth-child(7n+4){
-    color:#c2a7d8;
-}
-
-.song:nth-child(7n+5){
-    color:#9c8f97;
-}
-
-.song:nth-child(7n+6){
-    color:#b0a0be;
-}
-
-.song:nth-child(7n){
-    color:#8ea0b7;
-}
-
-@keyframes floatDepth{
-
-    0%{
-
-        transform:
-        translateY(0px);
-
-        opacity:0.18;
-    }
-
-    50%{
-
-        transform:
-        translateY(-18px);
-
-        opacity:0.5;
-    }
-
-    100%{
-
-        transform:
-        translateY(0px);
-
-        opacity:0.18;
-    }
+    color:#8f7982;
 }
 
 /* title */
 
 .title{
 
-    position:relative;
-
-    z-index:2;
-
     text-align:center;
 
     margin-top:70px;
 
-    font-size:36px;
+    font-size:38px;
 
     font-style:italic;
 
     color:#aa8f98;
 }
 
-/* ranking list */
+/* list */
 
 .rank-wrap{
-
-    position:relative;
-
-    z-index:2;
 
     width:520px;
 
@@ -150,12 +89,12 @@ body{
 
     margin:auto;
 
-    margin-top:50px;
+    margin-top:42px;
 
     margin-bottom:80px;
 }
 
-/* cards */
+/* card */
 
 .song-card{
 
@@ -164,13 +103,13 @@ body{
     height:56px;
 
     background:
-    rgba(255,255,255,0.42);
+    rgba(255,255,255,0.45);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 
     border-radius:22px;
 
-    padding-left:20px;
+    padding-left:22px;
 
     display:flex;
 
@@ -182,44 +121,55 @@ body{
 
     color:#a58d97;
 
-    transition:0.3s;
-
     box-sizing:border-box;
+
+    transition:0.3s;
 }
 
 .song-card:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-3px);
 
     background:
-    rgba(255,255,255,0.68);
+    rgba(255,255,255,0.72);
 }
 
 /* mobile */
 
 @media(max-width:768px){
 
+    .back-btn{
+
+        top:24px;
+
+        left:20px;
+
+        font-size:15px;
+    }
+
     .title{
 
-        font-size:34px;
+        font-size:32px;
 
-        margin-top:54px;
+        margin-top:68px;
     }
 
     .rank-wrap{
 
         width:90%;
+
+        margin-top:36px;
     }
 
     .song-card{
 
-        height:62px;
+        height:58px;
 
-        font-size:18px;
+        font-size:17px;
 
-        border-radius:24px;
+        border-radius:22px;
 
-        padding-left:22px;
+        padding-left:20px;
     }
 }
 
@@ -229,7 +179,16 @@ body{
 
 <body>
 
-<div class="song-area" id="songArea"></div>
+<div
+class="back-btn"
+
+onclick="
+window.location.href='index.html?entered=true'
+">
+
+← 返回歌单
+
+</div>
 
 <div class="title">
 
@@ -285,8 +244,6 @@ const songs = [
 
 ];
 
-/* ranking cards */
-
 const rankWrap =
 document.getElementById("rankWrap");
 
@@ -302,36 +259,6 @@ songs.forEach((song,index)=>{
     `${index + 1}. ${song}`;
 
     rankWrap.appendChild(card);
-
-});
-
-/* floating songs */
-
-const songArea =
-document.getElementById("songArea");
-
-songs.forEach(songName=>{
-
-    const song =
-    document.createElement("div");
-
-    song.className = "song";
-
-    song.innerText = songName;
-
-    song.style.left =
-    Math.random()*90 + "vw";
-
-    song.style.top =
-    Math.random()*180 + "vh";
-
-    song.style.fontSize =
-    16 + Math.random()*36 + "px";
-
-    song.style.animationDuration =
-    8 + Math.random()*10 + "s";
-
-    songArea.appendChild(song);
 
 });
 
