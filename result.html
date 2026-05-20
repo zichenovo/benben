@@ -13,6 +13,65 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
+/* 图鉴按钮 */
+
+.book-button{
+
+    position:fixed;
+
+    top:38px;
+    right:38px;
+
+    width:72px;
+    height:72px;
+
+    border-radius:50%;
+
+    border:1.5px solid #ddd1d6;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,0.25);
+
+    backdrop-filter:blur(10px);
+
+    transition:0.3s;
+
+    text-decoration:none;
+}
+
+.book-button:hover{
+
+    transform:scale(1.05);
+
+    background:rgba(255,255,255,0.45);
+
+    border-color:#cdbec4;
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+    .book-button{
+
+        width:58px;
+        height:58px;
+
+        top:20px;
+        right:20px;
+    }
+
+    .book-button svg{
+
+        width:28px;
+        height:28px;
+    }
+}
+
 *{
 
     margin:0;
@@ -242,6 +301,22 @@ body{
 </style>
 
 </head>
+
+<a href="bbti-book.html" class="book-button">
+
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+
+<path d="M3 5.5C3 4.67 3.67 4 4.5 4H10C11.1 4 12 4.9 12 6V20C12 18.9 11.1 18 10 18H4.5C3.67 18 3 18.67 3 19.5V5.5Z"
+stroke="#cdbdc4"
+stroke-width="1.4"/>
+
+<path d="M21 5.5C21 4.67 20.33 4 19.5 4H14C12.9 4 12 4.9 12 6V20C12 18.9 12.9 18 14 18H19.5C20.33 18 21 18.67 21 19.5V5.5Z"
+stroke="#cdbdc4"
+stroke-width="1.4"/>
+
+</svg>
+
+</a>
 
 <body>
 
