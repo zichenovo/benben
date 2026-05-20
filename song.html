@@ -229,6 +229,21 @@ body{
     display:flex;
     flex-direction:column;
     align-items:center;
+
+    background:
+    rgba(248,244,238,0.82);
+
+    padding:
+    36px 30px 26px 30px;
+
+    border-radius:
+    34px;
+
+    backdrop-filter:
+    blur(12px);
+
+    box-shadow:
+    0 0 30px rgba(255,255,255,0.45);
 }
 
 /* glow */
@@ -278,19 +293,23 @@ body{
 
     border-radius:50%;
 
+    border:
+    1px solid rgba(230,225,215,0.9);
+
     position:relative;
 
     animation:
-    spin 4s linear infinite;
+    spin 12s linear infinite;
 
     background:
-    repeating-radial-gradient(
-    circle,
-    #ffffff 0px,
-    #f4f4f4 8px,
-    #ececec 16px,
-    #ffffff 24px
-    );
+    radial-gradient(circle,
+    #111 0%,
+    #111 12%,
+    #f6f6f6 13%,
+    #ececec 32%,
+    #fafafa 52%,
+    #efefef 74%,
+    #ffffff 100%);
 
     box-shadow:
     0 0 60px rgba(255,255,255,0.8),
@@ -569,16 +588,7 @@ const player =
 document.getElementById("player");
 
 
-const audioPath =
-"audioSource/" + song + ".mp3";
 
-player.innerHTML =
-
-'<source src="' +
-audioPath +
-'" type="audio/mpeg">';
-
-player.load();
 
 const symbols =
 ["♫","♪","♬","♩"];
