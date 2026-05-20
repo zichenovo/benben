@@ -1034,9 +1034,14 @@ body::before{
             click to enter
         </div>
 
-        <div class="enter-arrow">
-            ⟶
-        </div>
+        <div
+        class="enter-arrow"
+        
+        onclick="enterSite()">
+        
+        ⟶
+    
+    </div>
 
     </div>
 
@@ -1053,7 +1058,7 @@ id="menuOverlay">
     class="menu-item"
     onclick="window.location.href='ranking.html'">
 
-        从垃到夯大排名
+        从夯到拉大排名
 
     </div>
 
@@ -1092,17 +1097,6 @@ if(params.get("entered")==="true"){
     startMusic();
 }
 
-enterPage.addEventListener(
-
-"click",
-
-()=>{
-
-    enterPage.classList.add("hide");
-
-    startMusic();
-}
-);
 
 /* background music */
 
@@ -1420,6 +1414,20 @@ for(let i=0;i<noteCount;i++){
     8 + Math.random()*8 + "s";
 
     songArea.appendChild(note);
+}
+
+async function enterSite(){
+
+    enterPage.classList.add("hide");
+
+    try{
+
+        await bgm.play();
+
+    }catch(e){
+
+        console.log("play failed");
+    }
 }
 
 </script>
