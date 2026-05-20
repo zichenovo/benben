@@ -537,11 +537,25 @@ body::before{
     top:0;
     right:-38%;
 
-    width:38%;
-    height:100vh;
-
+    width:280px;
+    height:220px;
+    
+    top:110px;
+    right:-320px;
+    
+    border-radius:34px 0 0 34px;
+    
     background:
-    rgba(255,255,255,0.78);
+    rgba(255,248,252,0.58);
+    backdrop-filter:blur(24px);
+    
+    border:
+    1px solid rgba(255,255,255,0.35);
+    
+    box-shadow:
+    0 10px 40px rgba(220,190,210,0.18);
+    
+    padding-top:34px;
 
     backdrop-filter:blur(24px);
 
@@ -557,7 +571,7 @@ body::before{
 
 .side-menu.show{
 
-    right:0;
+    right:28px;
 }
 
 /* menu item */
@@ -565,12 +579,11 @@ body::before{
 .menu-item{
 
     padding:
+    20px 28px;
 
-    28px 42px;
+    font-size:20px;
 
-    font-size:28px;
-
-    color:#9b8791;
+    color:#a88f98;
 
     font-style:italic;
 
@@ -581,12 +594,9 @@ body::before{
 
 .menu-item:hover{
 
-    background:
-    rgba(255,255,255,0.55);
+    color:#d3a7bf;
 
-    padding-left:58px;
-
-    color:#c7a8c8;
+    transform:translateX(6px);
 }
 
 /* mobile */
@@ -912,7 +922,20 @@ body::before{
     font-size:24px;
 }
 
+.menu-line{
 
+    width:78%;
+
+    height:1px;
+
+    background:
+    rgba(236,180,210,0.45);
+
+    margin:auto;
+
+    margin-top:6px;
+    margin-bottom:6px;
+}
 
 </style>
 
@@ -988,6 +1011,8 @@ body::before{
         从垃到夯大排名
 
     </div>
+
+    <div class="menu-line"></div>
 
     <div
     class="menu-item"

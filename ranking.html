@@ -24,7 +24,7 @@ body{
     "STSong",
     serif;
 
-    color:#9e8892;
+    overflow-x:hidden;
 }
 
 /* title */
@@ -33,40 +33,60 @@ body{
 
     text-align:center;
 
-    margin-top:90px;
+    margin-top:70px;
 
-    font-size:48px;
+    font-size:42px;
 
     font-style:italic;
+
+    color:#aa8f98;
 }
 
-/* songs */
+/* phone style */
 
 .rank-wrap{
 
-    width:86%;
+    width:420px;
+
+    max-width:88%;
 
     margin:auto;
 
-    margin-top:60px;
+    margin-top:50px;
+
+    margin-bottom:80px;
 }
+
+/* card */
 
 .song-card{
 
+    width:100%;
+
+    height:72px;
+
     background:
-    rgba(255,255,255,0.5);
+    rgba(255,255,255,0.46);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 
-    border-radius:26px;
+    border-radius:28px;
 
-    padding:28px;
+    padding-left:28px;
 
-    margin-bottom:24px;
+    display:flex;
 
-    font-size:28px;
+    align-items:center;
+
+    margin-bottom:18px;
+
+    font-size:22px;
+
+    color:#a58d97;
 
     transition:0.3s;
+
+    box-sizing:border-box;
 }
 
 .song-card:hover{
@@ -75,6 +95,34 @@ body{
 
     background:
     rgba(255,255,255,0.72);
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+    .title{
+
+        font-size:34px;
+
+        margin-top:54px;
+    }
+
+    .rank-wrap{
+
+        width:90%;
+    }
+
+    .song-card{
+
+        height:66px;
+
+        font-size:20px;
+
+        border-radius:24px;
+
+        padding-left:22px;
+    }
 }
 
 </style>
@@ -89,25 +137,73 @@ body{
 
 </div>
 
-<div class="rank-wrap">
-
-<div class="song-card">
-1. 梁山伯与茱丽叶
-</div>
-
-<div class="song-card">
-2. 水星记
-</div>
-
-<div class="song-card">
-3. 夏天的风
-</div>
-
-<div class="song-card">
-4. 晴天
-</div>
+<div
+class="rank-wrap"
+id="rankWrap">
 
 </div>
+
+<script>
+
+const songs = [
+
+"末日","走马","天赋","空空","半壶纱",
+
+"要爱我","失眠了","小公主","after17",
+
+"野火一季","心愿便利贴","梁山伯与茱丽叶",
+
+"AlwaysOnline","你的crush降临了吗",
+
+"绿色","爱我你就抱抱我","那时雨",
+
+"东京不太热","一滴泪的时间",
+
+"夏天的风","怪我咯","虚拟","宠坏",
+
+"不要忘记我爱你","树的花语",
+
+"奇妙能力歌","左手右手",
+
+"天龙八部之宿敌","南泥湾",
+
+"越来越不懂","公主殿下","宝贝",
+
+"有雨有雨","粉雾海","宠爱",
+
+"红昭愿","Doll","日不落","怎么了",
+
+"我们","红色高跟鞋","关键词",
+
+"怪物","第57次取消发送",
+
+"凑热闹","嗯哼","不怕",
+
+"如果爱忘了","摆","来不及",
+
+"几分之几","take me hand"
+
+];
+
+const rankWrap =
+document.getElementById("rankWrap");
+
+songs.forEach((song,index)=>{
+
+    const card =
+    document.createElement("div");
+
+    card.className =
+    "song-card";
+
+    card.innerText =
+    `${index + 1}. ${song}`;
+
+    rankWrap.appendChild(card);
+
+});
+
+</script>
 
 </body>
 
