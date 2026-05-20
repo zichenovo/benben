@@ -199,6 +199,37 @@ body{
     }
 }
 
+.book-button{
+    position: fixed;
+    top: 40px;
+    right: 40px;
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+    border: 2px solid #c9b2bb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    color: #c9b2bb;
+
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(10px);
+
+    transition: 0.3s;
+}
+
+.book-button:hover{
+    transform: scale(1.08);
+    background: rgba(255,255,255,0.8);
+}
+
 </style>
 
 </head>
@@ -286,6 +317,10 @@ setInterval(()=>{
 },1000);
 
 </script>
+
+<a href="bbti-book.html" class="book-button">
+    📖
+</a>
 
 </body>
 
