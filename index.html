@@ -1068,7 +1068,7 @@ id="menuOverlay">
 
     <div
     class="menu-item"
-    onclick="window.location.href='benbti.html'">
+    onclick="window.location.href='bbti.html'">
 
         你是笨的人...吗？
 
@@ -1107,6 +1107,25 @@ document.getElementById("bgm");
 
 bgm.volume = 0.38;
 
+/* 恢复播放状态 */
+
+const savedTime =
+localStorage.getItem("bgmTime");
+
+if(savedTime){
+
+    bgm.currentTime =
+    parseFloat(savedTime);
+}
+
+const shouldPlay =
+localStorage.getItem("bgmPlaying");
+
+if(shouldPlay === "true"){
+
+    bgm.play();
+}
+
 const volumeSlider =
 document.getElementById("volumeSlider");
 
@@ -1120,9 +1139,6 @@ volumeSlider.addEventListener(
     volumeSlider.value / 100;
 }
 );
-
-const savedTime =
-localStorage.getItem("bgmTime");
 
 if(savedTime){
 
@@ -1150,16 +1166,12 @@ bgm.addEventListener(
 ()=>{
 
     localStorage.setItem(
-
-        "bgmTime",
-
-        bgm.currentTime
-
+    "bgmTime",
+    bgm.currentTime
     );
 
-}
+});
 
-);
 
 /* device detect */
 
@@ -1290,10 +1302,22 @@ fade
 
     song.onclick = ()=>{
 
-        window.location.href =
-        "song.html?song=" +
-        encodeURIComponent(songName);
-    };
+    localStorage.setItem(
+    "bgmTime",
+    bgm.currentTime
+    );
+
+    localStorage.setItem(
+    "bgmPlaying",
+    "false"
+    );
+
+    bgm.pause();
+
+    window.location.href =
+    "song.html?song=" +
+    encodeURIComponent(songName);
+};
 
     songArea.appendChild(song);
 });
@@ -1420,7 +1444,27 @@ for(let i=0;i<noteCount;i++){
 
 async function enterSite(){
 
+    const url =
+new URLSearchParams(
+window.location.search
+);
+
+if(url.get("resume")==="true"){
+
+    localStorage.setItem(
+    "bgmPlaying",
+    "true"
+    );
+
+    bgm.play();
+}
+
     enterPage.classList.add("hide");
+
+    localStorage.setItem(
+    "bgmPlaying",
+    "true"
+    );
 
     try{
 
