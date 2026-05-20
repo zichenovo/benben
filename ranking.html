@@ -113,9 +113,13 @@ body{
 
     padding-left:22px;
 
+    padding-right:22px;
+
     display:flex;
 
     align-items:center;
+
+    justify-content:space-between;
 
     margin-bottom:12px;
 
@@ -134,6 +138,46 @@ body{
 
     background:
     rgba(255,255,255,0.72);
+}
+
+/* right */
+
+.right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+/* likes */
+
+.like-count{
+
+    color:#c7b9bf;
+
+    font-size:16px;
+}
+
+/* heart */
+
+.heart{
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    color:#cbb7b2;
+
+    transition:0.25s;
+
+    user-select:none;
+}
+
+.heart:hover{
+
+    transform:scale(1.15);
 }
 
 /* mobile */
@@ -172,6 +216,8 @@ body{
         border-radius:22px;
 
         padding-left:20px;
+
+        padding-right:20px;
     }
 }
 
@@ -201,7 +247,48 @@ id="rankWrap">
 
 </div>
 
-<script>
+<script type="module">
+
+import {
+initializeApp
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc,
+setDoc,
+updateDoc,
+increment
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAEEIghOT8YW27nKQoXRarVfW6CGclmixw",
+  authDomain: "benben-ranking.firebaseapp.com",
+  projectId: "benben-ranking",
+  storageBucket: "benben-ranking.firebasestorage.app",
+  messagingSenderId: "1074565504122",
+  appId: "1:1074565504122:web:37e84bb299b2fdf360afc3",
+  measurementId: "G-LGLWQTYSP6"
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* songs */
 
 const songs = [
 
@@ -246,20 +333,109 @@ const songs = [
 const rankWrap =
 document.getElementById("rankWrap");
 
-songs.forEach((song,index)=>{
+/* render */
 
-    const card =
-    document.createElement("div");
+async function renderSongs(){
 
-    card.className =
-    "song-card";
+    rankWrap.innerHTML = "";
 
-    card.innerText =
-    `${index + 1}. ${song}`;
+    let songData = [];
 
-    rankWrap.appendChild(card);
+    for(let song of songs){
 
-});
+        const ref =
+        doc(db,"songs",song);
+
+        let snap =
+        await getDoc(ref);
+
+        if(!snap.exists()){
+
+            await setDoc(ref,{
+                likes:0
+            });
+
+            snap =
+            await getDoc(ref);
+        }
+
+        songData.push({
+
+            name:song,
+
+            likes:snap.data().likes
+
+        });
+    }
+
+    /* sort */
+
+    songData.sort(
+    (a,b)=>
+    b.likes - a.likes
+    );
+
+    /* create */
+
+    songData.forEach((song,index)=>{
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+        "song-card";
+
+        card.innerHTML = `
+
+        <div>
+        ${index + 1}. ${song.name}
+        </div>
+
+        <div class="right">
+
+            <div class="like-count">
+            ${song.likes}
+            </div>
+
+            <div class="heart">
+            ♡
+            </div>
+
+        </div>
+
+        `;
+
+        const heart =
+        card.querySelector(".heart");
+
+        heart.onclick =
+        async ()=>{
+
+            heart.innerHTML = "♥";
+
+            heart.style.color =
+            "#ff8ea1";
+
+            const ref =
+            doc(db,"songs",song.name);
+
+            await updateDoc(ref,{
+
+                likes:
+                increment(1)
+
+            });
+
+            renderSongs();
+        };
+
+        rankWrap.appendChild(card);
+
+    });
+
+}
+
+renderSongs();
 
 </script>
 
