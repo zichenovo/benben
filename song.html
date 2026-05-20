@@ -587,8 +587,16 @@ document
 const player =
 document.getElementById("player");
 
+const audioPath =
+"audioSource/" + song + ".mp3";
 
+player.innerHTML =
 
+'<source src="' +
+audioPath +
+'" type="audio/mpeg">';
+
+player.load();
 
 const symbols =
 ["♫","♪","♬","♩"];
