@@ -485,6 +485,138 @@ body::before{
     font-size:46px;
 }
 
+/* menu button */
+
+.menu-btn{
+
+    position:fixed;
+
+    top:34px;
+    right:28px;
+
+    z-index:999999;
+
+    width:46px;
+    height:46px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,0.5);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#a78f96;
+
+    font-size:26px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.menu-btn:hover{
+
+    transform:scale(1.08);
+
+    background:
+    rgba(255,255,255,0.7);
+}
+
+/* side menu */
+
+.side-menu{
+
+    position:fixed;
+
+    top:0;
+    right:-38%;
+
+    width:38%;
+    height:100vh;
+
+    background:
+    rgba(255,255,255,0.78);
+
+    backdrop-filter:blur(24px);
+
+    z-index:99999;
+
+    padding-top:140px;
+
+    transition:0.5s ease;
+
+    box-shadow:
+    -10px 0 40px rgba(0,0,0,0.06);
+}
+
+.side-menu.show{
+
+    right:0;
+}
+
+/* menu item */
+
+.menu-item{
+
+    padding:
+
+    28px 42px;
+
+    font-size:28px;
+
+    color:#9b8791;
+
+    font-style:italic;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.menu-item:hover{
+
+    background:
+    rgba(255,255,255,0.55);
+
+    padding-left:58px;
+
+    color:#c7a8c8;
+}
+
+/* mobile */
+
+.mobile .side-menu{
+
+    width:72%;
+
+    right:-72%;
+}
+
+.mobile .menu-item{
+
+    font-size:22px;
+
+    padding:
+    24px 28px;
+}
+
+.mobile .menu-btn{
+
+    top:24px;
+    right:20px;
+
+    width:42px;
+    height:42px;
+
+    font-size:22px;
+}
+
 /* mobile */
 
 .mobile::before{
@@ -780,6 +912,8 @@ body::before{
     font-size:24px;
 }
 
+
+
 </style>
 
 </head>
@@ -796,6 +930,10 @@ body::before{
 
     <div class="title">
         笨笨的の歌单
+    </div>
+
+    <div class="menu-btn" id="menuBtn">
+        ☰
     </div>
 
     <input
@@ -836,6 +974,26 @@ body::before{
         <div class="enter-arrow">
             ⟶
         </div>
+
+    </div>
+
+</div>
+
+<div class="side-menu" id="sideMenu">
+
+    <div
+    class="menu-item"
+    onclick="window.location.href='ranking.html'">
+
+        从垃到夯大排名
+
+    </div>
+
+    <div
+    class="menu-item"
+    onclick="window.location.href='benbti.html'">
+
+        你是笨的人...吗？
 
     </div>
 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>benbti</title>
+
+<style>
+
+body{
+
+    margin:0;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    background:#f8f2f3;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+.title{
+
+    font-size:56px;
+
+    color:#9d8792;
+
+    font-style:italic;
+}
+
+.sub{
+
+    margin-top:20px;
+
+    color:#c0adb5;
+
+    letter-spacing:4px;
+
+    font-style:italic;
+}
+
+.arrow{
+
+    margin-top:24px;
+
+    font-size:34px;
+
+    color:#d2bcc7;
+
+    animation:
+    move 1.5s infinite;
+}
+
+@keyframes move{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    50%{
+        transform:translateX(12px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="title">
+
+测测你的 benbti
+
+</div>
+
+<div class="sub">
+
+click to enter
+
+</div>
+
+<div
+class="arrow"
+
+onclick="window.location.href='test.html'">
+
+⟶
+
+</div>
+
+</body>
+
+</html>
