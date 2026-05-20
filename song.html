@@ -604,6 +604,19 @@ audioPath +
 
 player.load();
 
+/* 保存bgm当前时间 */
+const bgm =
+document.getElementById("bgm");
+
+if(bgm){
+
+localStorage.setItem(
+"bgmTime",
+bgm.currentTime
+);
+}
+
+/* 暂停主页bgm */
 localStorage.setItem(
 "bgmPlaying",
 "false"

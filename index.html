@@ -1340,11 +1340,25 @@ document
 
         if(songs.includes(value)){
 
-            window.location.href =
-            "song.html?song=" +
-            encodeURIComponent(value);
+    localStorage.setItem(
+    "bgmTime",
+    bgm.currentTime
+    );
 
-        }else{
+    localStorage.setItem(
+    "bgmPlaying",
+    "false"
+    );
+
+    bgm.pause();
+
+    window.location.href =
+    "song.html?song=" +
+    encodeURIComponent(value);
+
+        }
+
+    else{
 
             alert(
             "TuT 窝还没学会《"

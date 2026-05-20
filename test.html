@@ -135,6 +135,52 @@ body{
     rgba(255,255,255,0.72);
 }
 
+/* 返回歌单 */
+
+.home-btn{
+
+    position:fixed;
+
+    left:24px;
+    bottom:26px;
+
+    width:52px;
+    height:52px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,0.55);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    color:#ab939d;
+
+    font-size:28px;
+
+    text-decoration:none;
+
+    z-index:9999;
+
+    box-shadow:
+    0 0 18px rgba(255,255,255,0.45);
+
+    transition:0.3s;
+}
+
+.home-btn:hover{
+
+    transform:scale(1.08);
+
+    background:
+    rgba(255,255,255,0.8);
+}
+
 @media(max-width:768px){
 
     .container{
@@ -473,6 +519,68 @@ function finishTest(){
 }
 
 renderQuestion();
+
+</script>
+
+<a
+href="index.html?entered=true&resume=true"
+
+class="home-btn"
+
+onclick="
+localStorage.setItem('bgmPlaying','true');
+"
+>
+
+⌂
+
+</a>
+
+<audio
+id="bgm"
+src="bgm.mp3"
+loop
+style="display:none">
+</audio>
+
+<script>
+
+const bgm =
+document.getElementById("bgm");
+
+/* 恢复播放时间 */
+
+const savedTime =
+localStorage.getItem("bgmTime");
+
+if(savedTime){
+
+    bgm.currentTime =
+    parseFloat(savedTime);
+}
+
+/* 是否继续播放 */
+
+const shouldPlay =
+localStorage.getItem("bgmPlaying");
+
+if(
+shouldPlay === "true"
+){
+
+    bgm.play();
+}
+
+/* 实时记录时间 */
+
+setInterval(()=>{
+
+    localStorage.setItem(
+    "bgmTime",
+    bgm.currentTime
+    );
+
+},1000);
 
 </script>
 
