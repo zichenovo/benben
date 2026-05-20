@@ -214,13 +214,59 @@ body:hover .arrow{
     }
 }
 
+.back-btn{
+
+    position:fixed;
+
+    top:34px;
+    left:38px;
+
+    z-index:99999;
+
+    color:#b1969f;
+
+    font-size:22px;
+
+    font-style:italic;
+
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    color:#d5aebe;
+
+    transform:translateX(-4px);
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+    .back-btn{
+
+        top:24px;
+        left:20px;
+
+        font-size:15px;
+    }
+}
+
 </style>
 
 </head>
 
-<body
+<body>
 
->
+<a
+href="index.html?entered=true"
+class="back-btn">
+
+← 返回歌单
+
+</a>
 
 <div class="title">
 
