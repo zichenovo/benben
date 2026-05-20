@@ -42,6 +42,7 @@ body::before{
 
     border-radius:38px;
 
+
     background:
 
     radial-gradient(
@@ -638,6 +639,144 @@ body::before{
     0 0 20px rgba(214,188,210,0.45);
 }
 
+/* enter page */
+
+.enter-page{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999999;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+    radial-gradient(
+    circle at top left,
+    rgba(255,228,238,0.95),
+    transparent 30%
+    ),
+
+    radial-gradient(
+    circle at bottom right,
+    rgba(238,228,255,0.9),
+    transparent 35%
+    ),
+
+    #f8f0f3;
+
+    backdrop-filter:blur(10px);
+
+    transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+}
+
+.enter-page.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+}
+
+.enter-content{
+
+    text-align:center;
+}
+
+.enter-title{
+
+    color:#a58b92;
+
+    font-size:82px;
+
+    letter-spacing:4px;
+
+    font-style:italic;
+
+    font-family:
+    "Times New Roman",
+    "Kaiti SC",
+    serif;
+
+    text-shadow:
+    0 0 25px rgba(255,255,255,0.7);
+}
+
+.enter-sub{
+
+    margin-top:28px;
+
+    color:#c8aeb8;
+
+    font-size:24px;
+
+    letter-spacing:5px;
+
+    font-style:italic;
+
+    opacity:0.88;
+}
+
+.enter-arrow{
+
+    margin-top:18px;
+
+    color:#d8bcc8;
+
+    font-size:30px;
+
+    animation:
+    arrowMove 1.8s infinite;
+}
+
+@keyframes arrowMove{
+
+    0%{
+        transform:translateY(0px);
+        opacity:0.4;
+    }
+
+    50%{
+        transform:translateY(10px);
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(0px);
+        opacity:0.4;
+    }
+}
+
+/* mobile */
+
+.mobile .enter-title{
+
+    font-size:44px;
+
+    line-height:1.3;
+}
+
+.mobile .enter-sub{
+
+    font-size:14px;
+
+    letter-spacing:3px;
+}
+
+.mobile .enter-arrow{
+
+    font-size:24px;
+}
+
 </style>
 
 </head>
@@ -679,6 +818,26 @@ body::before{
 
 </div>
 
+<div class="enter-page" id="enterPage">
+
+    <div class="enter-content">
+
+        <div class="enter-title">
+            笨笨的の歌单
+        </div>
+
+        <div class="enter-sub">
+            click to enter
+        </div>
+
+        <div class="enter-arrow">
+            ↓
+        </div>
+
+    </div>
+
+</div>
+
 <div class="tip">
     点击歌名可以试听～
 </div>
@@ -686,6 +845,23 @@ body::before{
 <div class="song-area" id="songArea"></div>
 
 <script>
+
+/* enter page */
+
+const enterPage =
+document.getElementById("enterPage");
+
+enterPage.addEventListener(
+
+"click",
+
+()=>{
+
+    enterPage.classList.add("hide");
+
+    startMusic();
+}
+);
 
 /* background music */
 
