@@ -1121,7 +1121,12 @@ if(savedTime){
 const shouldPlay =
 localStorage.getItem("bgmPlaying");
 
-if(shouldPlay === "true"){
+if(
+shouldPlay === "true"
+||
+
+params.get("resume")==="true"
+){
 
     bgm.play();
 }

@@ -526,8 +526,14 @@ audio{
 
 <div class="container">
 
-<a href="index.html?entered=true&resume=true"
-class="back">
+<a
+href="index.html?entered=true&resume=true"
+class="back"
+
+onclick="
+localStorage.setItem('bgmPlaying','true');
+"
+>
 
 ← 返回歌单
 
@@ -597,6 +603,11 @@ audioPath +
 '" type="audio/mpeg">';
 
 player.load();
+
+localStorage.setItem(
+"bgmPlaying",
+"false"
+);
 
 const symbols =
 ["♫","♪","♬","♩"];
