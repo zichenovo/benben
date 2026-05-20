@@ -8,61 +8,249 @@
 
 body{
     margin:0;
-    background:#f8f4f5;
-    font-family: "STSong";
+    background:#f6f1f2;
+    font-family:"STSong";
+}
+
+/* 标题 */
+
+/* 返回按钮 */
+
+.back-btn{
+
+    position:fixed;
+
+    top:36px;
+    left:38px;
+
+    color:#b8a2ab;
+
+    font-size:20px;
+
+    font-style:italic;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    user-select:none;
+}
+
+.back-btn:hover{
+
+    color:#cfb5bf;
+
+    transform:translateX(-4px);
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+    .back-btn{
+
+        top:20px;
+        left:20px;
+
+        font-size:15px;
+    }
 }
 
 .title{
     text-align:center;
-    margin-top:80px;
-    color:#b89ca7;
-    font-size:48px;
-    letter-spacing:4px;
+    margin-top:70px;
+
+    color:#c1a8b1;
+
+    font-size:58px;
+
+    letter-spacing:6px;
+
+    font-weight:lighter;
 }
+
+/* 卡片排列 */
 
 .card-container{
-    width:80%;
-    margin:80px auto;
+
+    width:1200px;
+
+    margin:90px auto;
 
     display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:40px;
+
+    grid-template-columns:repeat(4,220px);
+
+    gap:55px;
+
+    justify-content:center;
 }
 
+/* 单张书本 */
+
 .card{
-    background:white;
 
-    border-radius:30px;
+    width:220px;
 
-    padding:20px;
+    height:320px;
+
+    background:#f8f3f1;
+
+    border-radius:10px;
+
+    position:relative;
+
+    padding-top:35px;
+
+    border:2px solid #d9c8c3;
+
+    box-shadow:
+    4px 6px 14px rgba(0,0,0,0.04);
+
+    transition:0.3s;
+
+    overflow:hidden;
+}
+
+/* hover */
+
+.card:hover{
+
+    transform:
+    translateY(-8px)
+    rotate(-1deg);
+}
+
+/* 左边书脊 */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:14px;
+    height:100%;
+
+    background:#eee1dd;
+
+    border-right:2px solid #d9c8c3;
+}
+
+/* 手绘边框 */
+
+.card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    border:1px solid #d9c8c3;
+
+    border-radius:6px;
+
+    pointer-events:none;
+}
+
+/* 图片 */
+
+.card img{
+
+    width:120px;
+
+    height:120px;
+
+    object-fit:cover;
+
+    display:block;
+
+    margin:auto;
+
+    margin-top:15px;
+
+    border-radius:6px;
+
+    border:1px solid #d9c8c3;
+}
+
+/* 名字 */
+
+.card-name{
+
+    margin-top:48px;
 
     text-align:center;
 
-    box-shadow:
-    0 4px 20px rgba(0,0,0,0.05);
+    font-size:38px;
 
-    transition:0.3s;
+    color:#2f2f2f;
+
+    letter-spacing:2px;
 }
 
-.card:hover{
-    transform:translateY(-8px);
-}
+/* 手机适配 */
 
-.card img{
-    width:100%;
-    border-radius:20px;
-}
+@media(max-width:900px){
 
-.card-name{
-    margin-top:20px;
-    font-size:28px;
-    color:#444;
+    .title{
+
+        font-size:42px;
+    }
+
+    .card-container{
+
+        width:100%;
+
+        grid-template-columns:
+        repeat(2,160px);
+
+        gap:28px;
+
+        margin-top:60px;
+    }
+
+    .card{
+
+        width:160px;
+
+        height:240px;
+    }
+
+    .card img{
+
+        width:90px;
+        height:90px;
+    }
+
+    .card-name{
+
+        font-size:26px;
+
+        margin-top:35px;
+    }
 }
 
 </style>
 </head>
 
 <body>
+
+<div
+class="back-btn"
+
+onclick="
+window.location.href='bbti.html'
+"
+>
+
+← 返回上一页
+
+</div>
 
 <div class="title">
 bbti 图鉴
