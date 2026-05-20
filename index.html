@@ -741,17 +741,17 @@ body::before{
 @keyframes arrowMove{
 
     0%{
-        transform:translateY(0px);
+        transform:translateX(0px);
         opacity:0.4;
     }
 
     50%{
-        transform:translateY(10px);
+        transform:translateX(10px);
         opacity:1;
     }
 
     100%{
-        transform:translateY(0px);
+        transform:translateX(0px);
         opacity:0.4;
     }
 }
@@ -831,7 +831,7 @@ body::before{
         </div>
 
         <div class="enter-arrow">
-            ↓
+            ⟶
         </div>
 
     </div>
@@ -905,21 +905,6 @@ async function startMusic(){
     }
 }
 
-startMusic();
-
-document.addEventListener(
-
-"click",
-
-()=>{
-
-    startMusic();
-
-},
-
-{ once:true }
-
-);
 
 bgm.addEventListener(
 
