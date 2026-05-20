@@ -208,17 +208,20 @@ body::before{
 
     appearance:none;
 
-    width:14px;
-    height:14px;
+    width:16px;
+    height:16px;
 
     border-radius:50%;
 
-    background:#fff7fb;
+    background:#fffdfd;
 
-    margin-top:-4px;
+    border:2px solid rgba(228,210,230,0.95);
+
+    margin-top:-5px;
 
     box-shadow:
-    0 0 12px rgba(255,255,255,0.7);
+    0 0 14px rgba(255,255,255,0.9),
+    0 0 20px rgba(214,188,210,0.45);
 }
 
 /* tip */
@@ -878,7 +881,7 @@ enterPage.addEventListener(
 const bgm =
 document.getElementById("bgm");
 
-bgm.volume = 0.045;
+bgm.volume = 0.38;
 
 const volumeSlider =
 document.getElementById("volumeSlider");
@@ -1093,7 +1096,7 @@ document
             alert(
             "TuT 窝还没学会《"
             + value +
-            "》 \n已加入待学歌单～"
+            "》 \n可以告诉我我去学哟"
             );
         }
     }
