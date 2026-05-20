@@ -82,11 +82,99 @@ body{
     }
 }
 
+.song-area{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-1;
+}
+
+.song{
+
+    position:absolute;
+
+    white-space:nowrap;
+
+    font-style:italic;
+
+    pointer-events:none;
+
+    opacity:0.32;
+
+    animation:floatDepth linear infinite;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+.song:nth-child(7n+1){
+    color:#b59dcf;
+}
+
+.song:nth-child(7n+2){
+    color:#95a9c7;
+}
+
+.song:nth-child(7n+3){
+    color:#b7a3b5;
+}
+
+.song:nth-child(7n+4){
+    color:#c2a7d8;
+}
+
+.song:nth-child(7n+5){
+    color:#9c8f97;
+}
+
+.song:nth-child(7n+6){
+    color:#b0a0be;
+}
+
+.song:nth-child(7n){
+    color:#8ea0b7;
+}
+
+@keyframes floatDepth{
+
+    0%{
+
+        transform:
+        translateY(0px);
+
+        opacity:0.2;
+    }
+
+    50%{
+
+        transform:
+        translateY(-18px);
+
+        opacity:0.55;
+    }
+
+    100%{
+
+        transform:
+        translateY(0px);
+
+        opacity:0.2;
+    }
+}
+
 </style>
 
 </head>
 
 <body>
+
+<div class="song-area" id="songArea"></div>
 
 <div class="title">
 
@@ -108,6 +196,60 @@ onclick="window.location.href='test.html'">
 ⟶
 
 </div>
+
+<script>
+
+const songs = [
+
+"末日","走马","天赋","空空","半壶纱",
+"要爱我","失眠了","小公主","after17",
+"野火一季","心愿便利贴","梁山伯与茱丽叶",
+"AlwaysOnline","你的crush降临了吗",
+"绿色","爱我你就抱抱我","那时雨",
+"东京不太热","一滴泪的时间",
+"夏天的风","怪我咯","虚拟","宠坏",
+"不要忘记我爱你","树的花语",
+"奇妙能力歌","左手右手",
+"天龙八部之宿敌","南泥湾",
+"越来越不懂","公主殿下","宝贝",
+"有雨有雨","粉雾海","宠爱",
+"红昭愿","Doll","日不落","怎么了",
+"我们","红色高跟鞋","关键词",
+"怪物","第57次取消发送",
+"凑热闹","嗯哼","不怕",
+"如果爱忘了","摆","来不及",
+"几分之几","take me hand"
+
+];
+
+const songArea =
+document.getElementById("songArea");
+
+songs.forEach(songName=>{
+
+    const song =
+    document.createElement("div");
+
+    song.className = "song";
+
+    song.innerText = songName;
+
+    song.style.left =
+    Math.random()*90 + "vw";
+
+    song.style.top =
+    Math.random()*160 + "vh";
+
+    song.style.fontSize =
+    16 + Math.random()*38 + "px";
+
+    song.style.animationDuration =
+    8 + Math.random()*10 + "s";
+
+    songArea.appendChild(song);
+});
+
+</script>
 
 </body>
 
