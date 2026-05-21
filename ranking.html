@@ -237,7 +237,7 @@ class="back-btn">
 
 <div class="title">
 
-从夯到拉大排名
+从垃到夯大排名
 
 </div>
 
@@ -438,6 +438,9 @@ async function renderSongs(){
         const heart =
         card.querySelector(".heart");
 
+        const likeCount =
+        card.querySelector(".like-count");
+
         /* 已点赞列表 */
 
         const likedSongs =
@@ -466,52 +469,96 @@ async function renderSongs(){
         heart.onclick =
         async ()=>{
 
-            /* 已点过 */
+            const ref =
+            doc(db,"songs",song.name);
+
+            /* 已点赞 → 取消 */
 
             if(
             likedSongs.includes(song.name)
             ){
 
-                return;
+                heart.innerHTML = "♡";
+
+                heart.style.color =
+                "#cbb7b2";
+
+                likeCount.innerHTML =
+                parseInt(
+                likeCount.innerHTML
+                ) - 1;
+
+                const newLikedSongs =
+
+                likedSongs.filter(
+                item => item !== song.name
+                );
+
+                localStorage.setItem(
+
+                    "likedSongs",
+
+                    JSON.stringify(
+                    newLikedSongs
+                    )
+
+                );
+
+                await updateDoc(
+
+                    ref,
+
+                    {
+
+                        likes:
+                        increment(-1)
+
+                    }
+
+                );
+
             }
 
-            /* 爱心变红 */
+            /* 没点赞 → 点赞 */
 
-            heart.innerHTML = "♥";
+            else{
 
-            heart.style.color =
-            "#ff8ea1";
+                heart.innerHTML = "♥";
 
-            /* 保存本地 */
+                heart.style.color =
+                "#ff8ea1";
 
-            likedSongs.push(song.name);
+                likeCount.innerHTML =
+                parseInt(
+                likeCount.innerHTML
+                ) + 1;
 
-            localStorage.setItem(
+                likedSongs.push(song.name);
 
-                "likedSongs",
+                localStorage.setItem(
 
-                JSON.stringify(
-                likedSongs
-                )
+                    "likedSongs",
 
-            );
+                    JSON.stringify(
+                    likedSongs
+                    )
 
-            /* firebase */
+                );
 
-            await updateDoc(
+                await updateDoc(
 
-                doc(db,"songs",song.name),
+                    ref,
 
-                {
+                    {
 
-                    likes:
-                    increment(1)
+                        likes:
+                        increment(1)
 
-                }
+                    }
 
-            );
+                );
 
-            renderSongs();
+            }
 
         };
 
@@ -522,57 +569,6 @@ async function renderSongs(){
 }
 
 renderSongs();
-
-</script>
-
-<audio
-id="bgm"
-src="bgm.mp3"
-loop
-style="display:none">
-</audio>
-
-<script>
-
-const bgm =
-document.getElementById("bgm");
-
-/* 恢复时间 */
-
-const savedTime =
-localStorage.getItem("bgmTime");
-
-if(savedTime){
-
-    bgm.currentTime =
-    parseFloat(savedTime);
-}
-
-/* 是否播放 */
-
-const shouldPlay =
-localStorage.getItem("bgmPlaying");
-
-if(
-shouldPlay === "true"
-){
-
-    bgm.play();
-}
-
-/* 实时保存 */
-
-setInterval(()=>{
-
-    localStorage.setItem(
-
-        "bgmTime",
-
-        bgm.currentTime
-
-    );
-
-},1000);
 
 </script>
 
