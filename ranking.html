@@ -602,54 +602,88 @@ async function renderSongs(){
         };
 
         /* 播放歌曲 */
-
-playBtn.onclick = ()=>{
+        playBtn.onclick = ()=>{
 
     const currentSong =
     playBtn.getAttribute(
     "data-song"
     );
 
-    const bgm =
+    const player =
     document.getElementById(
     "songPlayer"
     );
 
-    /* 如果正在播放同一首 */
+    const bgm =
+    document.getElementById(
+    "bgm"
+    );
+
+    /* 同一首暂停 */
 
     if(
-    bgm.src.includes(currentSong)
+    player.src.includes(currentSong)
     &&
-    !bgm.paused
+    !player.paused
     ){
 
-        bgm.pause();
+        player.pause();
 
         playBtn.innerHTML = "▶";
+
+        /* bgm恢复 */
+
+        if(bgm){
+
+            bgm.play();
+        }
+
+        return;
     }
 
-    else{
+    /* 所有按钮恢复 */
 
-        bgm.src =
-        "audioSource/" +
-        currentSong +
-        ".mp3";
+    document
+    .querySelectorAll(".play-btn")
+    .forEach(btn=>{
 
-        bgm.play();
+        btn.innerHTML = "▶";
 
-        /* 所有按钮恢复 */
+    });
 
-        document
-        .querySelectorAll(".play-btn")
-        .forEach(btn=>{
+    /* 暂停bgm */
 
-            btn.innerHTML = "▶";
+    if(bgm){
 
-        });
-
-        playBtn.innerHTML = "❚❚";
+        bgm.pause();
     }
+
+    /* 播放歌曲 */
+
+    player.src =
+    "audioSource/" +
+    currentSong +
+    ".mp3";
+
+    player.play();
+
+    playBtn.innerHTML = "❚❚";
+
+    /* 歌曲结束 */
+
+    player.onended = ()=>{
+
+        playBtn.innerHTML = "▶";
+
+        if(bgm){
+
+            bgm.play();
+        }
+    };
 };
+
+
+
 
         rankWrap.appendChild(card);
 
