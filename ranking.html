@@ -61,26 +61,13 @@ body{
 
     margin-top:90px;
 
-    font-size:58px;
+    font-size:48px;
 
     color:#b8a2ab;
 
     font-style:italic;
 
     font-weight:300;
-}
-
-.subtitle{
-
-    text-align:center;
-
-    color:#d0c0c0;
-
-    margin-top:8px;
-
-    font-size:16px;
-
-    font-style:italic;
 }
 
 /* 歌单 */
@@ -120,7 +107,7 @@ body{
 
     font-size:17px;
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:blur(3px);
 }
 
 .right{
@@ -165,33 +152,64 @@ body{
     text-align:center;
 }
 
-/* 手机 */
+/* 手机版 */
 
 @media(max-width:768px){
 
     .title{
 
-        font-size:50px;
+        font-size:34px;
 
-        margin-top:120px;
+        line-height:1.1;
+
+        margin-top:90px;
+
+        margin-bottom:24px;
+    }
+
+    #rankWrap{
+
+        width:92%;
+
+        margin:
+        25px auto
+        50px auto;
     }
 
     .song-card{
 
-        font-size:17px;
-
         padding:
-        20px 22px;
+        10px 14px;
+
+        border-radius:14px;
+
+        margin-bottom:12px;
+
+        min-height:54px;
+
+        font-size:15px;
+
+        backdrop-filter:none;
+    }
+
+    .right{
+
+        gap:12px;
     }
 
     .play-btn{
 
-        font-size:17px;
+        font-size:16px;
     }
 
     .heart{
 
-        font-size:23px;
+        font-size:18px;
+    }
+
+    .like-count{
+
+        font-size:15px;
     }
 
     .back-btn{
@@ -227,7 +245,6 @@ window.location.href='song.html'
 
 </div>
 
-
 <div id="rankWrap"></div>
 
 <audio
@@ -254,7 +271,7 @@ const supabaseUrl =
 "https://bfprkzuculvqajekshfs.supabase.co";
 
 const supabaseKey =
-"sb_publishable_RwapQC6PL9Dg54GWxd7lYQ_eJGOETc4";
+"你的key";
 
 const supabase =
 createClient(
@@ -344,8 +361,6 @@ async function renderSongs(){
 
     let songData = [];
 
-    /* 读取 */
-
     let { data,error } =
 
     await supabase
@@ -354,16 +369,12 @@ async function renderSongs(){
 
     .select("*");
 
-    /* 炸了也显示 */
-
     if(error){
 
         console.log(error);
 
         data = [];
     }
-
-    /* 转换 */
 
     data.forEach(docu=>{
 
@@ -377,8 +388,6 @@ async function renderSongs(){
         });
 
     });
-
-    /* 自动补歌 */
 
     for(let song of songs){
 
@@ -413,14 +422,10 @@ async function renderSongs(){
         }
     }
 
-    /* 排序 */
-
     songData.sort(
     (a,b)=>
     b.likes - a.likes
     );
-
-    /* create */
 
     songData.forEach((song,index)=>{
 
@@ -476,8 +481,6 @@ async function renderSongs(){
         ".like-count"
         );
 
-        /* local */
-
         let likedSongs =
 
         JSON.parse(
@@ -487,8 +490,6 @@ async function renderSongs(){
             ) || "[]"
 
         );
-
-        /* 恢复 */
 
         if(
         likedSongs.includes(
@@ -503,14 +504,10 @@ async function renderSongs(){
             "#ff8ea1";
         }
 
-        /* 点赞 */
-
         heart.onclick =
         async ()=>{
 
             let newLikes;
-
-            /* 取消 */
 
             if(
             likedSongs.includes(
@@ -545,8 +542,6 @@ async function renderSongs(){
                 heart.style.color =
                 "#ccb7bf";
             }
-
-            /* 点赞 */
 
             else{
 
@@ -594,16 +589,12 @@ async function renderSongs(){
             renderSongs();
         };
 
-        /* 播放 */
-
         playBtn.onclick = ()=>{
 
             const currentSong =
             playBtn.getAttribute(
             "data-song"
             );
-
-            /* 暂停 */
 
             if(
 
@@ -629,8 +620,6 @@ async function renderSongs(){
 
                 return;
             }
-
-            /* 全恢复 */
 
             document
             .querySelectorAll(
