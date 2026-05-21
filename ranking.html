@@ -1,53 +1,23 @@
 <script type="module">
 
-import {
-
-initializeApp
-
-}
+import { createClient }
 
 from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-import {
+/* supabase */
 
-getFirestore,
-collection,
-getDocs,
-doc,
-setDoc,
-updateDoc,
-increment
+const supabaseUrl =
+"https://bfprkzuculvqajekshfs.supabase.co";
 
-}
+const supabaseKey =
+"sb_publishable_RwapQC6PL9Dg54GWxd7lYQ_eJGOETc4";
 
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-/* firebase */
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyAEEIghOT8YW27nKQoXRarVfW6CGclmixw",
-
-  authDomain: "benben-ranking.firebaseapp.com",
-
-  projectId: "benben-ranking",
-
-  storageBucket: "benben-ranking.firebasestorage.app",
-
-  messagingSenderId: "1074565504122",
-
-  appId: "1:1074565504122:web:37e84bb299b2fdf360afc3",
-
-  measurementId: "G-LGLWQTYSP6"
-};
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
+const supabase =
+createClient(
+supabaseUrl,
+supabaseKey
+);
 
 /* songs */
 
@@ -94,11 +64,7 @@ const songs = [
 const rankWrap =
 document.getElementById("rankWrap");
 
-const player =
-document.getElementById("songPlayer");
-
-const bgm =
-document.getElementById("bgm");
+/* 当前播放 */
 
 let currentPlayingSong = null;
 
@@ -110,41 +76,35 @@ async function renderSongs(){
 
     let songData = [];
 
-    try{
+    /* 读取数据库 */
 
-        const snapshot =
-        await getDocs(
-            collection(db,"songs")
-        );
+    let { data,error } =
+    await supabase
+    .from("songs")
+    .select("*");
 
-        snapshot.forEach(docu=>{
+    /* 防炸 */
 
-            songData.push({
+    if(error){
 
-                name:docu.id,
+        console.log(error);
 
-                likes:
-                docu.data().likes || 0
+        data = [];
+    }
 
-            });
+    /* 转换格式 */
+
+    data.forEach(docu=>{
+
+        songData.push({
+
+            name:docu.name,
+
+            likes:docu.likes || 0
 
         });
 
-    }catch(error){
-
-        console.log(
-        "Firebase 连不上",
-        error
-        );
-
-        songData =
-        songs.map(song=>({
-
-            name:song,
-            likes:0
-
-        }));
-    }
+    });
 
     /* 新歌自动加入 */
 
@@ -157,21 +117,24 @@ async function renderSongs(){
 
         if(!exists){
 
-            try{
+            await supabase
+            .from("songs")
+            .insert([
 
-                await setDoc(
+                {
 
-                    doc(db,"songs",song),
+                    name:song,
 
-                    {likes:0}
+                    likes:0
 
-                );
+                }
 
-            }catch(error){}
+            ]);
 
             songData.push({
 
                 name:song,
+
                 likes:0
 
             });
@@ -241,6 +204,8 @@ async function renderSongs(){
 
         );
 
+        /* 恢复状态 */
+
         if(
         likedSongs.includes(song.name)
         ){
@@ -256,10 +221,7 @@ async function renderSongs(){
         heart.onclick =
         async ()=>{
 
-            const ref =
-            doc(db,"songs",song.name);
-
-            /* 取消 */
+            /* 已点赞 */
 
             if(
             likedSongs.includes(song.name)
@@ -270,14 +232,15 @@ async function renderSongs(){
                 heart.style.color =
                 "#cbb7b2";
 
-                likeCount.innerHTML =
-
+                let newLikes =
                 parseInt(
                 likeCount.innerHTML
                 ) - 1;
 
-                likedSongs =
+                likeCount.innerHTML =
+                newLikes;
 
+                likedSongs =
                 likedSongs.filter(
                 item =>
                 item !== song.name
@@ -293,26 +256,22 @@ async function renderSongs(){
 
                 );
 
-                try{
+                await supabase
+                .from("songs")
+                .update({
 
-                    await updateDoc(
+                    likes:newLikes
 
-                        ref,
+                })
+                .eq(
+                "name",
+                song.name
+                );
 
-                        {
-
-                            likes:
-                            increment(-1)
-
-                        }
-
-                    );
-
-                }catch(error){}
-
+                renderSongs();
             }
 
-            /* 点赞 */
+            /* 没点赞 */
 
             else{
 
@@ -321,11 +280,13 @@ async function renderSongs(){
                 heart.style.color =
                 "#ff8ea1";
 
-                likeCount.innerHTML =
-
+                let newLikes =
                 parseInt(
                 likeCount.innerHTML
                 ) + 1;
+
+                likeCount.innerHTML =
+                newLikes;
 
                 likedSongs.push(song.name);
 
@@ -339,26 +300,21 @@ async function renderSongs(){
 
                 );
 
-                try{
+                await supabase
+                .from("songs")
+                .update({
 
-                    await updateDoc(
+                    likes:newLikes
 
-                        ref,
+                })
+                .eq(
+                "name",
+                song.name
+                );
 
-                        {
-
-                            likes:
-                            increment(1)
-
-                        }
-
-                    );
-
-                }catch(error){}
-
+                renderSongs();
             }
 
-            renderSongs();
         };
 
         /* 播放 */
@@ -366,21 +322,29 @@ async function renderSongs(){
         playBtn.onclick = ()=>{
 
             const currentSong =
-
             playBtn.getAttribute(
             "data-song"
+            );
+
+            const player =
+            document.getElementById(
+            "songPlayer"
+            );
+
+            const bgm =
+            document.getElementById(
+            "bgm"
             );
 
             /* 当前正在播放 */
 
             if(
 
-                currentPlayingSong
-                === currentSong
+            currentPlayingSong === currentSong
 
-                &&
+            &&
 
-                !player.paused
+            !player.paused
 
             ){
 
@@ -394,13 +358,13 @@ async function renderSongs(){
 
                 if(bgm){
 
-                    bgm.play();
+                    bgm.volume = 1;
                 }
 
                 return;
             }
 
-            /* 所有按钮恢复 */
+            /* 全部恢复 */
 
             document
             .querySelectorAll(
@@ -413,11 +377,11 @@ async function renderSongs(){
 
             });
 
-            /* 暂停bgm */
+            /* bgm变小 */
 
             if(bgm){
 
-                bgm.pause();
+                bgm.volume = 0;
             }
 
             currentPlayingSong =
@@ -426,15 +390,15 @@ async function renderSongs(){
             player.src =
 
             "audioSource/" +
+
             currentSong +
+
             ".mp3";
 
             player.play();
 
             playBtn.innerHTML =
             "❚❚";
-
-            /* 结束 */
 
             player.onended = ()=>{
 
@@ -446,7 +410,7 @@ async function renderSongs(){
 
                 if(bgm){
 
-                    bgm.play();
+                    bgm.volume = 1;
                 }
             };
         };
