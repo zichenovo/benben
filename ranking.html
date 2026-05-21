@@ -664,7 +664,7 @@ playBtn.onclick = ()=>{
 
     if(bgm){
 
-        bgm.pause();
+        bgm.volume = 0;
     }
 
     /* 记录当前歌曲 */
@@ -693,7 +693,7 @@ playBtn.onclick = ()=>{
 
         if(bgm){
 
-            bgm.play();
+            bgm.volume = 1;
         }
     };
 };
