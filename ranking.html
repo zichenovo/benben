@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh">
 
 <head>
@@ -9,9 +10,7 @@
 name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>
-从夯到拉大排名
-</title>
+<title>从夯到拉大排名</title>
 
 <style>
 
@@ -31,104 +30,117 @@ body{
     "Times New Roman",
     "STSong",
     serif;
+
+    overflow-x:hidden;
 }
 
-/* 返回 */
+/* back */
 
 .back-btn{
 
     position:fixed;
 
-    top:36px;
-    left:38px;
+    top:38px;
 
-    color:#b8a2ab;
+    left:42px;
 
-    font-size:20px;
+    color:#a8929b;
+
+    font-size:18px;
 
     font-style:italic;
 
     cursor:pointer;
 
     z-index:999;
+
+    transition:0.3s;
+
+    text-decoration:none;
 }
 
-/* 标题 */
+.back-btn:hover{
+
+    transform:translateX(-4px);
+
+    color:#8f7982;
+}
+
+/* title */
 
 .title{
 
     text-align:center;
 
-    margin-top:90px;
+    margin-top:70px;
 
-    font-size:48px;
-
-    color:#b8a2ab;
+    font-size:38px;
 
     font-style:italic;
 
-    font-weight:300;
+    color:#aa8f98;
 }
 
-/* 歌单 */
+/* list */
 
-#rankWrap{
+.rank-wrap{
 
-    width:72%;
+    width:520px;
 
-    max-width:520px;
+    max-width:88%;
 
-    margin:
+    margin:auto;
 
-    34px auto
-    80px auto;
+    margin-top:42px;
 
-    transition:0.25s;
+    margin-bottom:80px;
 }
 
-/* 卡片 */
+/* card */
 
 .song-card{
 
+    width:100%;
+
+    height:56px;
+
     background:
-    rgba(255,255,255,0.38);
+    rgba(255,255,255,0.45);
 
-    border-radius:16px;
+    backdrop-filter:blur(12px);
 
-    padding:10px 18px;
+    border-radius:22px;
 
-    margin-bottom:14px;
+    padding-left:22px;
+
+    padding-right:22px;
 
     display:flex;
 
-    justify-content:space-between;
-
     align-items:center;
 
-    color:#a7939d;
+    justify-content:space-between;
+
+    margin-bottom:12px;
 
     font-size:17px;
 
-    min-height:54px;
+    color:#a58d97;
 
     box-sizing:border-box;
 
-    backdrop-filter:blur(10px);
-
-    transition:
-    0.3s ease;
+    transition:0.3s;
 }
 
 .song-card:hover{
 
-    transform:
-    translateY(-2px);
+    transform:translateY(-3px);
 
     background:
-    rgba(255,255,255,0.5);
+    rgba(255,255,255,0.72);
 }
 
-/* 右边 */
+/* right */
 
 .right{
 
@@ -136,140 +148,101 @@ body{
 
     align-items:center;
 
-    gap:18px;
+    gap:10px;
 }
 
-/* 播放 */
+/* likes */
 
-.play-btn{
+.like-count{
 
-    cursor:pointer;
+    color:#c7b9bf;
 
-    font-size:18px;
-
-    color:#b59ca6;
-
-    user-select:none;
-
-    width:20px;
-
-    text-align:center;
-
-    transition:0.2s;
+    font-size:16px;
 }
 
-.play-btn:hover{
-
-    opacity:0.7;
-}
-
-/* 心 */
+/* heart */
 
 .heart{
 
     cursor:pointer;
 
-    font-size:17px;
+    font-size:18px;
 
-    color:#ccb7bf;
+    color:#cbb7b2;
+
+    transition:0.25s;
+
+    user-select:none;
+}
+
+.heart:hover{
+
+    transform:scale(1.15);
+}
+
+/* mobile */
+
+@media(max-width:768px){
+
+    .back-btn{
+
+        top:24px;
+
+        left:20px;
+
+        font-size:15px;
+    }
+
+    .title{
+
+        font-size:32px;
+
+        margin-top:68px;
+    }
+
+    .rank-wrap{
+
+        width:90%;
+
+        margin-top:36px;
+    }
+
+    .song-card{
+
+        height:58px;
+
+        font-size:17px;
+
+        border-radius:22px;
+
+        padding-left:20px;
+
+        padding-right:20px;
+    }
+}
+
+.play-btn{
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    color:#cbb7b2;
+
+    transition:0.25s;
 
     user-select:none;
 
     width:18px;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    transform:translateY(-1px);
-
-    transition:0.2s;
-}
-
-.heart:hover{
-
-    transform:
-    scale(1.1);
-}
-
-/* 数字 */
-
-.like-count{
-
-    width:16px;
-
     text-align:center;
 }
 
-/* 手机版 */
+.play-btn:hover{
 
-@media(max-width:768px){
+    transform:scale(1.15);
 
-    .title{
-
-        font-size:28px;
-
-        margin-top:82px;
-
-        margin-bottom:20px;
-
-        line-height:1.1;
-    }
-
-    #rankWrap{
-
-        width:86%;
-
-        margin:
-
-        22px auto
-        45px auto;
-    }
-
-    .song-card{
-
-        padding:7px 14px;
-
-        border-radius:16px;
-
-        margin-bottom:10px;
-
-        min-height:42px;
-
-        font-size:13px;
-    }
-
-    .right{
-
-        gap:10px;
-    }
-
-    .play-btn{
-
-        font-size:14px;
-    }
-
-    .heart{
-
-        font-size:13px;
-
-        width:14px;
-    }
-
-    .like-count{
-
-        font-size:13px;
-    }
-
-    .back-btn{
-
-        top:20px;
-        left:20px;
-
-        font-size:16px;
-    }
+    color:#aa8f98;
 }
 
 </style>
@@ -278,49 +251,38 @@ body{
 
 <body>
 
-<div
-class="back-btn"
-
-onclick="
-window.location.href='song.html'
-"
->
+<a
+href="index.html?entered=true"
+class="back-btn">
 
 ← 返回歌单
 
-</div>
+</a>
 
 <div class="title">
 
-从夯到拉大排名
+从夯到垃大排名
 
 </div>
 
-<div id="rankWrap"></div>
 
-<audio
-id="songPlayer"
-preload="none">
-</audio>
+<div
+class="rank-wrap"
+id="rankWrap">
 
-<audio
-id="bgm"
-src="bgm.mp3"
-loop
-style="display:none">
-</audio>
+</div>
 
 <script type="module">
 
 import { createClient }
-from
-"https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
 const supabaseUrl =
 "https://bfprkzuculvqajekshfs.supabase.co";
 
 const supabaseKey =
-"你的key";
+"sb_publishable_RwapQC6PL9Dg54GWxd7lYQ_eJGOETc4";
 
 const supabase =
 createClient(
@@ -332,23 +294,40 @@ supabaseKey
 
 const songs = [
 
-"末日","走马","天赋","空空","半壶纱",
-"要爱我","失眠了","小公主","after17",
-"野火一季","心愿便利贴","梁山伯与茱丽叶",
+"野火一季","走马","失眠了","空空","半壶纱",
+
+"要爱我","天赋","小公主","after17",
+
+"末日","心愿便利贴","梁山伯与茱丽叶",
+
 "AlwaysOnline","你的crush降临了吗",
+
 "绿色","爱我你就抱抱我","那时雨",
+
 "东京不太热","一滴泪的时间",
+
 "夏天的风","怪我咯","虚拟","宠坏",
+
 "不要忘记我爱你","树的花语",
+
 "奇妙能力歌","左手右手",
+
 "天龙八部之宿敌","南泥湾",
+
 "越来越不懂","公主殿下","宝贝",
+
 "有雨有雨","粉雾海","宠爱",
+
 "红昭愿","Doll","日不落","怎么了",
+
 "我们","红色高跟鞋","关键词",
+
 "怪物","第57次取消发送",
+
 "凑热闹","嗯哼","不怕",
+
 "如果爱忘了","摆","来不及",
+
 "几分之几","take me hand"
 
 ];
@@ -356,261 +335,125 @@ const songs = [
 const rankWrap =
 document.getElementById("rankWrap");
 
-const player =
-document.getElementById("songPlayer");
+/* render */
 
-const bgm =
-document.getElementById("bgm");
+async function renderSongs(){
 
-/* bgm */
+    rankWrap.innerHTML = "";
 
-const savedTime =
-localStorage.getItem("bgmTime");
+    let songData = [];
 
-if(savedTime){
+    /* 一次性读取全部 */
 
-    bgm.currentTime =
-    parseFloat(savedTime);
-}
-
-bgm.volume = 1;
-
-bgm.play().catch(()=>{});
-
-setInterval(()=>{
-
-    localStorage.setItem(
-    "bgmTime",
-    bgm.currentTime
-    );
-
-},1000);
-
-let currentPlayingSong =
-null;
-
-/* loading */
-
-rankWrap.innerHTML = `
-
-<div style="
-text-align:center;
-padding:40px;
-color:#b8a2ab;
-font-size:18px;
-font-style:italic;
-">
-Loading...
-</div>
-
-`;
-
-async function setupSongs(){
-
-    let { data } =
-
+    const { data } =
     await supabase
     .from("songs")
     .select("*");
+    
+    songData =
+    data.map(item => ({
 
-    const existingNames =
-    data.map(item=>item.name);
+    name:item.name,
+    likes:item.likes || 0
 
-    const missingSongs =
-    songs.filter(
-    song=>!existingNames.includes(song)
-    );
+}));
 
-    if(missingSongs.length > 0){
+    /* 新歌自动加入 */
 
-        await supabase
-        .from("songs")
-        .insert(
+    for(let song of songs){
 
-            missingSongs.map(song=>({
+        const exists =
+        songData.find(
+        s=>s.name===song
+        );
+
+        if(!exists){
+
+            await supabase
+            .from("songs")
+            .insert({
+                
+                name:song,
+                likes:0
+            
+            });
+
+            songData.push({
 
                 name:song,
                 likes:0
 
-            }))
-
-        );
+            });
+        }
     }
-}
 
-function createCard(song,index){
+    /* sort */
 
-    const card =
-    document.createElement("div");
-
-    card.className =
-    "song-card";
-
-    let likedSongs =
-
-    JSON.parse(
-
-        localStorage.getItem(
-        "likedSongs"
-        ) || "[]"
-
+    songData.sort(
+    (a,b)=>
+    b.likes - a.likes
     );
 
-    const liked =
-    likedSongs.includes(song.name);
+    /* create */
 
-    card.innerHTML = `
+    songData.forEach((song,index)=>{
 
-    <div>
+        const card =
+        document.createElement("div");
 
-    ${index + 1}.
-    ${song.name}
+        card.className =
+        "song-card";
 
-    </div>
+        card.innerHTML = `
 
-    <div class="right">
+        <div>
+        ${index + 1}. ${song.name}
+        </div>
 
+       <div class="right">
+        
         <div
         class="play-btn"
         data-song="${song.name}">
         ▷
         </div>
-
-        <div class="like-count">
-        ${song.likes}
-        </div>
-
-        <div
-        class="heart"
-        style="
-        color:${liked ? "#ff8ea1" : "#ccb7bf"};
-        "
-        >
-        ${liked ? "♥" : "♡"}
-        </div>
-
+        
+        
+    <div class="like-count">
+    ${song.likes}
     </div>
 
-    `;
+    <div class="heart">
+    ♡
+    </div>
 
-    const playBtn =
-    card.querySelector(".play-btn");
+</div>
 
-    const heart =
-    card.querySelector(".heart");
+        `;
 
-    const likeCount =
-    card.querySelector(".like-count");
+        const heart =
+        card.querySelector(".heart");
 
-    /* play */
+        const playBtn =
+        card.querySelector(".play-btn");
 
-    playBtn.onclick = ()=>{
+        const likeCount =
+        card.querySelector(".like-count");
 
-        const currentSong =
-        playBtn.dataset.song;
-
-        if(
-
-        currentPlayingSong
-        ===
-        currentSong
-
-        &&
-
-        !player.paused
-
-        ){
-
-            player.pause();
-
-            playBtn.innerHTML =
-            "▷";
-
-            currentPlayingSong =
-            null;
-
-            bgm.volume = 1;
-
-            return;
-        }
-
-        document
-        .querySelectorAll(".play-btn")
-        .forEach(btn=>{
-
-            btn.innerHTML = "▷";
-
-        });
-
-        bgm.volume = 0.15;
-
-        currentPlayingSong =
-        currentSong;
-
-        player.src =
-
-        "audioSource/" +
-
-        currentSong +
-
-        ".mp3";
-
-        player.play();
-
-        playBtn.innerHTML =
-        "❚❚";
-
-        player.onended = ()=>{
-
-            playBtn.innerHTML =
-            "▷";
-
-            currentPlayingSong =
-            null;
-
-            bgm.volume = 1;
-        };
-    };
-
-    /* like */
-
-    heart.onclick = async ()=>{
+        /* 已点赞列表 */
 
         let likedSongs =
-
         JSON.parse(
-
             localStorage.getItem(
-            "likedSongs"
+                "likedSongs"
             ) || "[]"
-
         );
 
-        let newLikes =
-        song.likes;
+        /* 如果点过 */
 
         if(
         likedSongs.includes(song.name)
         ){
-
-            likedSongs =
-            likedSongs.filter(
-            s=>s!==song.name
-            );
-
-            newLikes--;
-
-            heart.innerHTML = "♡";
-
-            heart.style.color =
-            "#ccb7bf";
-        }
-
-        else{
-
-            likedSongs.push(song.name);
-
-            newLikes++;
 
             heart.innerHTML = "♥";
 
@@ -618,98 +461,288 @@ function createCard(song,index){
             "#ff8ea1";
         }
 
-        localStorage.setItem(
+        /* 点击 */
 
-            "likedSongs",
+        heart.onclick =
+        async ()=>{
 
-            JSON.stringify(
-            likedSongs
+
+            /* 已点赞 → 取消 */
+
+            if(
+            likedSongs.includes(song.name)
+            ){
+
+                heart.innerHTML = "♡";
+
+                heart.style.color =
+                "#cbb7b2";
+
+                likeCount.innerHTML =
+                parseInt(
+                likeCount.innerHTML
+                ) - 1;
+
+                likedSongs =
+                
+                likedSongs.filter(
+                    item => item !== song.name
+                );
+                
+                localStorage.setItem(
+                    
+                "likedSongs",
+                JSON.stringify(
+                    
+                likedSongs
             )
-
         );
 
-        likeCount.innerHTML =
-        newLikes;
+                await supabase
+                .from("songs")
+                .update({
+                    
+                    
+                    likes:
+                    parseInt(
+                        likeCount.innerHTML
+                    
+                    )
+                
+                
+                })
+                
+                .eq(
+                    
+                "name",
+                song.name
+            );
 
-        song.likes = newLikes;
+                renderSongs();
 
-        await supabase
-        .from("songs")
-        .update({
-            likes:newLikes
-        })
-        .eq(
-        "name",
-        song.name
-        );
+            }
 
-        loadRankingSmooth();
-    };
+            /* 没点赞 → 点赞 */
 
-    return card;
-}
+            else{
 
-async function loadRankingSmooth(){
+                heart.innerHTML = "♥";
 
-    let { data,error } =
+                heart.style.color =
+                "#ff8ea1";
 
-    await supabase
+                likeCount.innerHTML =
+                parseInt(
+                likeCount.innerHTML
+                ) + 1;
 
-    .from("songs")
+                likedSongs.push(song.name);
 
-    .select("*")
+                localStorage.setItem(
 
-    .order(
-    "likes",
-    { ascending:false }
+                    "likedSongs",
+
+                    JSON.stringify(
+                    likedSongs
+                    )
+
+                );
+
+                
+
+                renderSongs();
+
+            }
+
+await supabase
+.from("songs")
+.update({
+
+    likes:
+    parseInt(
+        likeCount.innerHTML
+    )
+
+})
+.eq(
+    "name",
+    song.name
+);
+
+
+        };
+
+        /* 播放歌曲 */
+
+        /* 当前播放 */
+
+let currentPlayingSong = null;
+
+/* 播放 */
+
+playBtn.onclick = ()=>{
+
+    const currentSong =
+    playBtn.getAttribute(
+    "data-song"
     );
 
-    if(error){
+    const player =
+    document.getElementById(
+    "songPlayer"
+    );
+
+    const bgm =
+    document.getElementById(
+    "bgm"
+    );
+
+    /* 当前已经在播放 */
+
+    if(
+    currentPlayingSong === currentSong
+    &&
+    !player.paused
+    ){
+
+        player.pause();
+
+        currentPlayingSong = null;
+
+        playBtn.innerHTML = "▷";
+
+        /* bgm恢复 */
+
+        if(bgm){
+
+            bgm.play();
+        }
 
         return;
     }
 
-    rankWrap.style.opacity =
-    "0.5";
+    /* 所有按钮恢复 */
 
-    setTimeout(()=>{
+    document
+    .querySelectorAll(".play-btn")
+    .forEach(btn=>{
 
-        rankWrap.innerHTML = "";
+        btn.innerHTML = "▷";
 
-        data.forEach((song,index)=>{
+    });
 
-            const card =
-            createCard(song,index);
+    /* 暂停bgm */
 
-            card.style.opacity = "0";
+    if(bgm){
 
-            card.style.transform =
-            "translateY(10px)";
+        bgm.volume = 0;
+    }
 
-            rankWrap.appendChild(card);
+    /* 记录当前歌曲 */
 
-            setTimeout(()=>{
+    currentPlayingSong =
+    currentSong;
 
-                card.style.opacity = "1";
+    /* 播放 */
 
-                card.style.transform =
-                "translateY(0px)";
+    player.src =
+    "audioSource/" +
+    currentSong +
+    ".mp3";
 
-            },20);
+    player.play();
 
-        });
+    playBtn.innerHTML = "❚❚";
 
-        rankWrap.style.opacity =
-        "1";
+    /* 结束 */
 
-    },100);
+    player.onended = ()=>{
+
+        currentPlayingSong = null;
+
+        playBtn.innerHTML = "▷";
+
+        if(bgm){
+
+            bgm.volume = 1;
+        }
+    };
+};
+    
+
+
+
+
+        rankWrap.appendChild(card);
+
+    });
+
 }
 
-await setupSongs();
+renderSongs();
 
-loadRankingSmooth();
+</script>
+
+<audio
+id="songPlayer">
+</audio>
+
+
+<audio
+id="bgm"
+src="bgm.mp3"
+loop
+style="display:none">
+</audio>
+
+<script>
+
+const bgm =
+document.getElementById("bgm");
+
+/* 恢复时间 */
+
+const savedTime =
+localStorage.getItem(
+"bgmTime"
+);
+
+if(savedTime){
+
+    bgm.currentTime =
+    parseFloat(savedTime);
+}
+
+/* 是否继续播放 */
+
+const shouldPlay =
+localStorage.getItem(
+"bgmPlaying"
+);
+
+if(
+shouldPlay === "true"
+){
+
+    bgm.play();
+}
+
+/* 实时记录播放时间 */
+
+setInterval(()=>{
+
+    localStorage.setItem(
+
+        "bgmTime",
+
+        bgm.currentTime
+
+    );
+
+},1000);
 
 </script>
 
 </body>
+
 </html>
