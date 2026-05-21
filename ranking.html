@@ -1,3 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+从夯到拉大排名
+</title>
+
+<style>
+
+body{
+
+    margin:0;
+
+    background:
+    linear-gradient(
+    to bottom right,
+    #f8f2f3,
+    #f5efef,
+    #f6f1f7
+    );
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+/* 返回 */
+
+.back-btn{
+
+    position:fixed;
+
+    top:36px;
+    left:38px;
+
+    color:#b8a2ab;
+
+    font-size:20px;
+
+    font-style:italic;
+
+    cursor:pointer;
+
+    z-index:999;
+}
+
+/* 标题 */
+
+.title{
+
+    text-align:center;
+
+    margin-top:90px;
+
+    font-size:70px;
+
+    color:#b8a2ab;
+
+    font-style:italic;
+
+    font-weight:300;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#d0c0c0;
+
+    margin-top:8px;
+
+    font-size:16px;
+
+    font-style:italic;
+}
+
+/* 歌单 */
+
+#rankWrap{
+
+    width:90%;
+
+    max-width:700px;
+
+    margin:
+
+    50px auto
+    100px auto;
+}
+
+.song-card{
+
+    background:
+    rgba(255,255,255,0.45);
+
+    border-radius:24px;
+
+    padding:
+
+    22px 26px;
+
+    margin-bottom:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:#a7939d;
+
+    font-size:19px;
+
+    backdrop-filter:blur(8px);
+}
+
+.right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+/* 播放 */
+
+.play-btn{
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    color:#b59ca6;
+
+    user-select:none;
+}
+
+/* 心 */
+
+.heart{
+
+    cursor:pointer;
+
+    font-size:25px;
+
+    color:#ccb7bf;
+
+    user-select:none;
+}
+
+.like-count{
+
+    width:16px;
+
+    text-align:center;
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+    .title{
+
+        font-size:52px;
+
+        margin-top:120px;
+    }
+
+    .song-card{
+
+        font-size:17px;
+
+        padding:
+        20px 22px;
+    }
+
+    .play-btn{
+
+        font-size:17px;
+    }
+
+    .heart{
+
+        font-size:23px;
+    }
+
+    .back-btn{
+
+        top:20px;
+        left:20px;
+
+        font-size:16px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div
+class="back-btn"
+
+onclick="
+window.location.href='song.html'
+"
+>
+
+← 返回歌单
+
+</div>
+
+<div class="title">
+
+从夯到拉大排名
+
+</div>
+
+<div class="subtitle">
+
+（每10分钟刷新一次，也可以手动刷新哟）
+
+</div>
+
+<div id="rankWrap"></div>
+
+<audio
+id="songPlayer">
+</audio>
+
+<audio
+id="bgm"
+src="bgm.mp3"
+loop
+style="display:none">
+</audio>
+
 <script type="module">
 
 import { createClient }
@@ -23,50 +271,69 @@ supabaseKey
 
 const songs = [
 
-"野火一季","走马","失眠了","空空","半壶纱",
-
-"要爱我","天赋","小公主","after17",
-
-"末日","心愿便利贴","梁山伯与茱丽叶",
-
-"AlwaysOnline","你的crush降临了吗",
-
-"绿色","爱我你就抱抱我","那时雨",
-
-"东京不太热","一滴泪的时间",
-
-"夏天的风","怪我咯","虚拟","宠坏",
-
-"不要忘记我爱你","树的花语",
-
-"奇妙能力歌","左手右手",
-
-"天龙八部之宿敌","南泥湾",
-
-"越来越不懂","公主殿下","宝贝",
-
-"有雨有雨","粉雾海","宠爱",
-
-"红昭愿","Doll","日不落","怎么了",
-
-"我们","红色高跟鞋","关键词",
-
-"怪物","第57次取消发送",
-
-"凑热闹","嗯哼","不怕",
-
-"如果爱忘了","摆","来不及",
-
-"几分之几","take me hand"
+"AlwaysOnline",
+"嗯哼",
+"after17",
+"失眠了",
+"小公主",
+"梁山伯与茱丽叶",
+"空空",
+"红昭愿",
+"虚拟",
+"Doll",
+"take me hand",
+"一滴泪的时间"
 
 ];
 
 const rankWrap =
-document.getElementById("rankWrap");
+document.getElementById(
+"rankWrap"
+);
+
+const player =
+document.getElementById(
+"songPlayer"
+);
+
+const bgm =
+document.getElementById(
+"bgm"
+);
+
+/* bgm恢复 */
+
+const savedTime =
+localStorage.getItem(
+"bgmTime"
+);
+
+if(savedTime){
+
+    bgm.currentTime =
+    parseFloat(savedTime);
+}
+
+bgm.volume = 1;
+
+bgm.play().catch(()=>{});
+
+setInterval(()=>{
+
+    localStorage.setItem(
+
+        "bgmTime",
+
+        bgm.currentTime
+
+    );
+
+},1000);
 
 /* 当前播放 */
 
-let currentPlayingSong = null;
+let currentPlayingSong =
+null;
 
 /* render */
 
@@ -76,14 +343,17 @@ async function renderSongs(){
 
     let songData = [];
 
-    /* 读取数据库 */
+    /* 读取 */
 
     let { data,error } =
+
     await supabase
+
     .from("songs")
+
     .select("*");
 
-    /* 防炸 */
+    /* 炸了也显示 */
 
     if(error){
 
@@ -92,7 +362,7 @@ async function renderSongs(){
         data = [];
     }
 
-    /* 转换格式 */
+    /* 转换 */
 
     data.forEach(docu=>{
 
@@ -100,13 +370,14 @@ async function renderSongs(){
 
             name:docu.name,
 
-            likes:docu.likes || 0
+            likes:
+            docu.likes || 0
 
         });
 
     });
 
-    /* 新歌自动加入 */
+    /* 自动补歌 */
 
     for(let song of songs){
 
@@ -153,7 +424,9 @@ async function renderSongs(){
     songData.forEach((song,index)=>{
 
         const card =
-        document.createElement("div");
+        document.createElement(
+        "div"
+        );
 
         card.className =
         "song-card";
@@ -161,7 +434,10 @@ async function renderSongs(){
         card.innerHTML = `
 
         <div>
-        ${index + 1}. ${song.name}
+
+        ${index + 1}.
+        ${song.name}
+
         </div>
 
         <div class="right">
@@ -184,18 +460,25 @@ async function renderSongs(){
 
         `;
 
-        const heart =
-        card.querySelector(".heart");
-
         const playBtn =
-        card.querySelector(".play-btn");
+        card.querySelector(
+        ".play-btn"
+        );
+
+        const heart =
+        card.querySelector(
+        ".heart"
+        );
 
         const likeCount =
-        card.querySelector(".like-count");
+        card.querySelector(
+        ".like-count"
+        );
 
-        /* 已点赞 */
+        /* local */
 
         let likedSongs =
+
         JSON.parse(
 
             localStorage.getItem(
@@ -204,13 +487,16 @@ async function renderSongs(){
 
         );
 
-        /* 恢复状态 */
+        /* 恢复 */
 
         if(
-        likedSongs.includes(song.name)
+        likedSongs.includes(
+        song.name
+        )
         ){
 
-            heart.innerHTML = "♥";
+            heart.innerHTML =
+            "♥";
 
             heart.style.color =
             "#ff8ea1";
@@ -221,24 +507,15 @@ async function renderSongs(){
         heart.onclick =
         async ()=>{
 
-            /* 已点赞 */
+            let newLikes;
+
+            /* 取消 */
 
             if(
-            likedSongs.includes(song.name)
+            likedSongs.includes(
+            song.name
+            )
             ){
-
-                heart.innerHTML = "♡";
-
-                heart.style.color =
-                "#cbb7b2";
-
-                let newLikes =
-                parseInt(
-                likeCount.innerHTML
-                ) - 1;
-
-                likeCount.innerHTML =
-                newLikes;
 
                 likedSongs =
                 likedSongs.filter(
@@ -256,39 +533,25 @@ async function renderSongs(){
 
                 );
 
-                await supabase
-                .from("songs")
-                .update({
+                newLikes =
+                parseInt(
+                likeCount.innerHTML
+                ) - 1;
 
-                    likes:newLikes
+                heart.innerHTML =
+                "♡";
 
-                })
-                .eq(
-                "name",
-                song.name
-                );
-
-                renderSongs();
+                heart.style.color =
+                "#ccb7bf";
             }
 
-            /* 没点赞 */
+            /* 点赞 */
 
             else{
 
-                heart.innerHTML = "♥";
-
-                heart.style.color =
-                "#ff8ea1";
-
-                let newLikes =
-                parseInt(
-                likeCount.innerHTML
-                ) + 1;
-
-                likeCount.innerHTML =
-                newLikes;
-
-                likedSongs.push(song.name);
+                likedSongs.push(
+                song.name
+                );
 
                 localStorage.setItem(
 
@@ -300,21 +563,34 @@ async function renderSongs(){
 
                 );
 
-                await supabase
-                .from("songs")
-                .update({
+                newLikes =
+                parseInt(
+                likeCount.innerHTML
+                ) + 1;
 
-                    likes:newLikes
+                heart.innerHTML =
+                "♥";
 
-                })
-                .eq(
-                "name",
-                song.name
-                );
-
-                renderSongs();
+                heart.style.color =
+                "#ff8ea1";
             }
 
+            likeCount.innerHTML =
+            newLikes;
+
+            await supabase
+            .from("songs")
+            .update({
+
+                likes:newLikes
+
+            })
+            .eq(
+            "name",
+            song.name
+            );
+
+            renderSongs();
         };
 
         /* 播放 */
@@ -326,21 +602,13 @@ async function renderSongs(){
             "data-song"
             );
 
-            const player =
-            document.getElementById(
-            "songPlayer"
-            );
-
-            const bgm =
-            document.getElementById(
-            "bgm"
-            );
-
-            /* 当前正在播放 */
+            /* 暂停 */
 
             if(
 
-            currentPlayingSong === currentSong
+            currentPlayingSong
+            ===
+            currentSong
 
             &&
 
@@ -350,21 +618,18 @@ async function renderSongs(){
 
                 player.pause();
 
-                currentPlayingSong =
-                null;
-
                 playBtn.innerHTML =
                 "▷";
 
-                if(bgm){
+                currentPlayingSong =
+                null;
 
-                    bgm.volume = 1;
-                }
+                bgm.volume = 1;
 
                 return;
             }
 
-            /* 全部恢复 */
+            /* 全恢复 */
 
             document
             .querySelectorAll(
@@ -377,12 +642,7 @@ async function renderSongs(){
 
             });
 
-            /* bgm变小 */
-
-            if(bgm){
-
-                bgm.volume = 0;
-            }
+            bgm.volume = 0;
 
             currentPlayingSong =
             currentSong;
@@ -402,20 +662,19 @@ async function renderSongs(){
 
             player.onended = ()=>{
 
-                currentPlayingSong =
-                null;
-
                 playBtn.innerHTML =
                 "▷";
 
-                if(bgm){
+                currentPlayingSong =
+                null;
 
-                    bgm.volume = 1;
-                }
+                bgm.volume = 1;
             };
         };
 
-        rankWrap.appendChild(card);
+        rankWrap.appendChild(
+        card
+        );
 
     });
 
@@ -424,3 +683,6 @@ async function renderSongs(){
 renderSongs();
 
 </script>
+
+</body>
+</html>
