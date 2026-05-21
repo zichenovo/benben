@@ -221,19 +221,28 @@ body{
     }
 }
 
-.refresh-text{
+.play-btn{
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    color:#cbb7b2;
+
+    transition:0.25s;
+
+    user-select:none;
+
+    width:18px;
 
     text-align:center;
+}
 
-    margin-top:12px;
+.play-btn:hover{
 
-    font-size:13px;
+    transform:scale(1.15);
 
-    color:#c6b8be;
-
-    letter-spacing:1px;
-
-    font-style:italic;
+    color:#aa8f98;
 }
 
 </style>
@@ -256,11 +265,6 @@ class="back-btn">
 
 </div>
 
-<div class="refresh-text">
-
-（每10分钟刷新一次，也可以手动刷新哟）
-
-</div>
 
 <div
 class="rank-wrap"
@@ -442,22 +446,32 @@ async function renderSongs(){
         ${index + 1}. ${song.name}
         </div>
 
-        <div class="right">
-
-            <div class="like-count">
-            ${song.likes}
-            </div>
-
-            <div class="heart">
-            ♡
-            </div>
-
+       <div class="right">
+        
+        <div
+        class="play-btn"
+        data-song="${song.name}">
+        ▶
         </div>
+        
+        
+    <div class="like-count">
+    ${song.likes}
+    </div>
+
+    <div class="heart">
+    ♡
+    </div>
+
+</div>
 
         `;
 
         const heart =
         card.querySelector(".heart");
+
+        const playBtn =
+        card.querySelector(".play-btn");
 
         const likeCount =
         card.querySelector(".like-count");
@@ -587,6 +601,56 @@ async function renderSongs(){
 
         };
 
+        /* 播放歌曲 */
+
+playBtn.onclick = ()=>{
+
+    const currentSong =
+    playBtn.getAttribute(
+    "data-song"
+    );
+
+    const bgm =
+    document.getElementById(
+    "songPlayer"
+    );
+
+    /* 如果正在播放同一首 */
+
+    if(
+    bgm.src.includes(currentSong)
+    &&
+    !bgm.paused
+    ){
+
+        bgm.pause();
+
+        playBtn.innerHTML = "▶";
+    }
+
+    else{
+
+        bgm.src =
+        "audioSource/" +
+        currentSong +
+        ".mp3";
+
+        bgm.play();
+
+        /* 所有按钮恢复 */
+
+        document
+        .querySelectorAll(".play-btn")
+        .forEach(btn=>{
+
+            btn.innerHTML = "▶";
+
+        });
+
+        playBtn.innerHTML = "❚❚";
+    }
+};
+
         rankWrap.appendChild(card);
 
     });
@@ -596,6 +660,11 @@ async function renderSongs(){
 renderSongs();
 
 </script>
+
+<audio
+id="songPlayer">
+</audio>
+
 
 <audio
 id="bgm"
