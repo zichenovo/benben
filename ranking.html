@@ -237,7 +237,7 @@ class="back-btn">
 
 <div class="title">
 
-从垃到夯大排名
+从夯到拉大排名
 
 </div>
 
@@ -250,7 +250,9 @@ id="rankWrap">
 <script type="module">
 
 import {
+
 initializeApp
+
 }
 
 from
@@ -259,8 +261,9 @@ from
 import {
 
 getFirestore,
+collection,
+getDocs,
 doc,
-getDoc,
 setDoc,
 updateDoc,
 increment
@@ -348,31 +351,51 @@ async function renderSongs(){
 
     let songData = [];
 
-    for(let song of songs){
+    /* 一次性读取全部 */
 
-        const ref =
-        doc(db,"songs",song);
+    const snapshot =
+    await getDocs(
+        collection(db,"songs")
+    );
 
-        let snap =
-        await getDoc(ref);
-
-        if(!snap.exists()){
-
-            await setDoc(ref,{
-                likes:0
-            });
-
-            snap =
-            await getDoc(ref);
-        }
+    snapshot.forEach(docu=>{
 
         songData.push({
 
-            name:song,
+            name:docu.id,
 
-            likes:snap.data().likes
+            likes:docu.data().likes || 0
 
         });
+
+    });
+
+    /* 新歌自动加入 */
+
+    for(let song of songs){
+
+        const exists =
+        songData.find(
+        s=>s.name===song
+        );
+
+        if(!exists){
+
+            await setDoc(
+
+                doc(db,"songs",song),
+
+                {likes:0}
+
+            );
+
+            songData.push({
+
+                name:song,
+                likes:0
+
+            });
+        }
     }
 
     /* sort */
@@ -415,25 +438,81 @@ async function renderSongs(){
         const heart =
         card.querySelector(".heart");
 
+        /* 已点赞列表 */
+
+        const likedSongs =
+        JSON.parse(
+
+            localStorage.getItem(
+            "likedSongs"
+            ) || "[]"
+
+        );
+
+        /* 如果点过 */
+
+        if(
+        likedSongs.includes(song.name)
+        ){
+
+            heart.innerHTML = "♥";
+
+            heart.style.color =
+            "#ff8ea1";
+        }
+
+        /* 点击 */
+
         heart.onclick =
         async ()=>{
+
+            /* 已点过 */
+
+            if(
+            likedSongs.includes(song.name)
+            ){
+
+                return;
+            }
+
+            /* 爱心变红 */
 
             heart.innerHTML = "♥";
 
             heart.style.color =
             "#ff8ea1";
 
-            const ref =
-            doc(db,"songs",song.name);
+            /* 保存本地 */
 
-            await updateDoc(ref,{
+            likedSongs.push(song.name);
 
-                likes:
-                increment(1)
+            localStorage.setItem(
 
-            });
+                "likedSongs",
+
+                JSON.stringify(
+                likedSongs
+                )
+
+            );
+
+            /* firebase */
+
+            await updateDoc(
+
+                doc(db,"songs",song.name),
+
+                {
+
+                    likes:
+                    increment(1)
+
+                }
+
+            );
 
             renderSongs();
+
         };
 
         rankWrap.appendChild(card);
@@ -443,6 +522,57 @@ async function renderSongs(){
 }
 
 renderSongs();
+
+</script>
+
+<audio
+id="bgm"
+src="bgm.mp3"
+loop
+style="display:none">
+</audio>
+
+<script>
+
+const bgm =
+document.getElementById("bgm");
+
+/* 恢复时间 */
+
+const savedTime =
+localStorage.getItem("bgmTime");
+
+if(savedTime){
+
+    bgm.currentTime =
+    parseFloat(savedTime);
+}
+
+/* 是否播放 */
+
+const shouldPlay =
+localStorage.getItem("bgmPlaying");
+
+if(
+shouldPlay === "true"
+){
+
+    bgm.play();
+}
+
+/* 实时保存 */
+
+setInterval(()=>{
+
+    localStorage.setItem(
+
+        "bgmTime",
+
+        bgm.currentTime
+
+    );
+
+},1000);
 
 </script>
 
