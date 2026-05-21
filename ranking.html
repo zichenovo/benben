@@ -82,6 +82,8 @@ body{
 
     34px auto
     80px auto;
+
+    transition:0.25s;
 }
 
 /* 卡片 */
@@ -110,6 +112,20 @@ body{
     min-height:54px;
 
     box-sizing:border-box;
+
+    backdrop-filter:blur(10px);
+
+    transition:
+    0.3s ease;
+}
+
+.song-card:hover{
+
+    transform:
+    translateY(-2px);
+
+    background:
+    rgba(255,255,255,0.5);
 }
 
 /* 右边 */
@@ -134,6 +150,17 @@ body{
     color:#b59ca6;
 
     user-select:none;
+
+    width:20px;
+
+    text-align:center;
+
+    transition:0.2s;
+}
+
+.play-btn:hover{
+
+    opacity:0.7;
 }
 
 /* 心 */
@@ -142,11 +169,29 @@ body{
 
     cursor:pointer;
 
-    font-size:25px;
+    font-size:17px;
 
     color:#ccb7bf;
 
     user-select:none;
+
+    width:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transform:translateY(-1px);
+
+    transition:0.2s;
+}
+
+.heart:hover{
+
+    transform:
+    scale(1.1);
 }
 
 /* 数字 */
@@ -208,7 +253,9 @@ body{
 
     .heart{
 
-        font-size:16px;
+        font-size:13px;
+
+        width:14px;
     }
 
     .like-count{
@@ -252,7 +299,8 @@ window.location.href='song.html'
 <div id="rankWrap"></div>
 
 <audio
-id="songPlayer">
+id="songPlayer"
+preload="none">
 </audio>
 
 <audio
@@ -265,11 +313,8 @@ style="display:none">
 <script type="module">
 
 import { createClient }
-
 from
 "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-/* supabase */
 
 const supabaseUrl =
 "https://bfprkzuculvqajekshfs.supabase.co";
@@ -309,26 +354,18 @@ const songs = [
 ];
 
 const rankWrap =
-document.getElementById(
-"rankWrap"
-);
+document.getElementById("rankWrap");
 
 const player =
-document.getElementById(
-"songPlayer"
-);
+document.getElementById("songPlayer");
 
 const bgm =
-document.getElementById(
-"bgm"
-);
+document.getElementById("bgm");
 
-/* bgm恢复 */
+/* bgm */
 
 const savedTime =
-localStorage.getItem(
-"bgmTime"
-);
+localStorage.getItem("bgmTime");
 
 if(savedTime){
 
@@ -343,147 +380,201 @@ bgm.play().catch(()=>{});
 setInterval(()=>{
 
     localStorage.setItem(
-
-        "bgmTime",
-
-        bgm.currentTime
-
+    "bgmTime",
+    bgm.currentTime
     );
 
 },1000);
 
-/* 当前播放 */
-
 let currentPlayingSong =
 null;
 
-/* render */
+/* loading */
 
-async function renderSongs(){
+rankWrap.innerHTML = `
 
-    rankWrap.innerHTML = "";
+<div style="
+text-align:center;
+padding:40px;
+color:#b8a2ab;
+font-size:18px;
+font-style:italic;
+">
+Loading...
+</div>
 
-    let songData = [];
+`;
 
-    let { data,error } =
+async function setupSongs(){
+
+    let { data } =
 
     await supabase
-
     .from("songs")
-
     .select("*");
 
-    if(error){
+    const existingNames =
+    data.map(item=>item.name);
 
-        console.log(error);
+    const missingSongs =
+    songs.filter(
+    song=>!existingNames.includes(song)
+    );
 
-        data = [];
+    if(missingSongs.length > 0){
+
+        await supabase
+        .from("songs")
+        .insert(
+
+            missingSongs.map(song=>({
+
+                name:song,
+                likes:0
+
+            }))
+
+        );
     }
+}
 
-    data.forEach(docu=>{
+function createCard(song,index){
 
-        songData.push({
+    const card =
+    document.createElement("div");
 
-            name:docu.name,
+    card.className =
+    "song-card";
 
-            likes:
-            docu.likes || 0
+    let likedSongs =
+
+    JSON.parse(
+
+        localStorage.getItem(
+        "likedSongs"
+        ) || "[]"
+
+    );
+
+    const liked =
+    likedSongs.includes(song.name);
+
+    card.innerHTML = `
+
+    <div>
+
+    ${index + 1}.
+    ${song.name}
+
+    </div>
+
+    <div class="right">
+
+        <div
+        class="play-btn"
+        data-song="${song.name}">
+        ▷
+        </div>
+
+        <div class="like-count">
+        ${song.likes}
+        </div>
+
+        <div
+        class="heart"
+        style="
+        color:${liked ? "#ff8ea1" : "#ccb7bf"};
+        "
+        >
+        ${liked ? "♥" : "♡"}
+        </div>
+
+    </div>
+
+    `;
+
+    const playBtn =
+    card.querySelector(".play-btn");
+
+    const heart =
+    card.querySelector(".heart");
+
+    const likeCount =
+    card.querySelector(".like-count");
+
+    /* play */
+
+    playBtn.onclick = ()=>{
+
+        const currentSong =
+        playBtn.dataset.song;
+
+        if(
+
+        currentPlayingSong
+        ===
+        currentSong
+
+        &&
+
+        !player.paused
+
+        ){
+
+            player.pause();
+
+            playBtn.innerHTML =
+            "▷";
+
+            currentPlayingSong =
+            null;
+
+            bgm.volume = 1;
+
+            return;
+        }
+
+        document
+        .querySelectorAll(".play-btn")
+        .forEach(btn=>{
+
+            btn.innerHTML = "▷";
 
         });
 
-    });
+        bgm.volume = 0.15;
 
-    for(let song of songs){
+        currentPlayingSong =
+        currentSong;
 
-        const exists =
-        songData.find(
-        s=>s.name===song
-        );
+        player.src =
 
-        if(!exists){
+        "audioSource/" +
 
-            await supabase
-            .from("songs")
-            .insert([
+        currentSong +
 
-                {
+        ".mp3";
 
-                    name:song,
+        player.play();
 
-                    likes:0
+        playBtn.innerHTML =
+        "❚❚";
 
-                }
+        player.onended = ()=>{
 
-            ]);
+            playBtn.innerHTML =
+            "▷";
 
-            songData.push({
+            currentPlayingSong =
+            null;
 
-                name:song,
+            bgm.volume = 1;
+        };
+    };
 
-                likes:0
+    /* like */
 
-            });
-        }
-    }
-
-    songData.sort(
-    (a,b)=>
-    b.likes - a.likes
-    );
-
-    songData.forEach((song,index)=>{
-
-        const card =
-        document.createElement(
-        "div"
-        );
-
-        card.className =
-        "song-card";
-
-        card.innerHTML = `
-
-        <div>
-
-        ${index + 1}.
-        ${song.name}
-
-        </div>
-
-        <div class="right">
-
-            <div
-            class="play-btn"
-            data-song="${song.name}">
-            ▷
-            </div>
-
-            <div class="like-count">
-            ${song.likes}
-            </div>
-
-            <div class="heart">
-            ♡
-            </div>
-
-        </div>
-
-        `;
-
-        const playBtn =
-        card.querySelector(
-        ".play-btn"
-        );
-
-        const heart =
-        card.querySelector(
-        ".heart"
-        );
-
-        const likeCount =
-        card.querySelector(
-        ".like-count"
-        );
+    heart.onclick = async ()=>{
 
         let likedSongs =
 
@@ -495,186 +586,128 @@ async function renderSongs(){
 
         );
 
+        let newLikes =
+        song.likes;
+
         if(
-        likedSongs.includes(
-        song.name
-        )
+        likedSongs.includes(song.name)
         ){
 
-            heart.innerHTML =
-            "♥";
+            likedSongs =
+            likedSongs.filter(
+            s=>s!==song.name
+            );
+
+            newLikes--;
+
+            heart.innerHTML = "♡";
+
+            heart.style.color =
+            "#ccb7bf";
+        }
+
+        else{
+
+            likedSongs.push(song.name);
+
+            newLikes++;
+
+            heart.innerHTML = "♥";
 
             heart.style.color =
             "#ff8ea1";
         }
 
-        heart.onclick =
-        async ()=>{
+        localStorage.setItem(
 
-            let newLikes;
+            "likedSongs",
 
-            if(
-            likedSongs.includes(
-            song.name
+            JSON.stringify(
+            likedSongs
             )
-            ){
 
-                likedSongs =
-                likedSongs.filter(
-                item =>
-                item !== song.name
-                );
-
-                localStorage.setItem(
-
-                    "likedSongs",
-
-                    JSON.stringify(
-                    likedSongs
-                    )
-
-                );
-
-                newLikes =
-                parseInt(
-                likeCount.innerHTML
-                ) - 1;
-
-                heart.innerHTML =
-                "♡";
-
-                heart.style.color =
-                "#ccb7bf";
-            }
-
-            else{
-
-                likedSongs.push(
-                song.name
-                );
-
-                localStorage.setItem(
-
-                    "likedSongs",
-
-                    JSON.stringify(
-                    likedSongs
-                    )
-
-                );
-
-                newLikes =
-                parseInt(
-                likeCount.innerHTML
-                ) + 1;
-
-                heart.innerHTML =
-                "♥";
-
-                heart.style.color =
-                "#ff8ea1";
-            }
-
-            likeCount.innerHTML =
-            newLikes;
-
-            await supabase
-            .from("songs")
-            .update({
-
-                likes:newLikes
-
-            })
-            .eq(
-            "name",
-            song.name
-            );
-
-            renderSongs();
-        };
-
-        playBtn.onclick = ()=>{
-
-            const currentSong =
-            playBtn.getAttribute(
-            "data-song"
-            );
-
-            if(
-
-            currentPlayingSong
-            ===
-            currentSong
-
-            &&
-
-            !player.paused
-
-            ){
-
-                player.pause();
-
-                playBtn.innerHTML =
-                "▷";
-
-                currentPlayingSong =
-                null;
-
-                bgm.volume = 1;
-
-                return;
-            }
-
-            document
-            .querySelectorAll(
-            ".play-btn"
-            )
-            .forEach(btn=>{
-
-                btn.innerHTML =
-                "▷";
-
-            });
-
-            bgm.volume = 0;
-
-            currentPlayingSong =
-            currentSong;
-
-            player.src =
-
-            "audioSource/" +
-
-            currentSong +
-
-            ".mp3";
-
-            player.play();
-
-            playBtn.innerHTML =
-            "❚❚";
-
-            player.onended = ()=>{
-
-                playBtn.innerHTML =
-                "▷";
-
-                currentPlayingSong =
-                null;
-
-                bgm.volume = 1;
-            };
-        };
-
-        rankWrap.appendChild(
-        card
         );
 
-    });
+        likeCount.innerHTML =
+        newLikes;
 
+        song.likes = newLikes;
+
+        await supabase
+        .from("songs")
+        .update({
+            likes:newLikes
+        })
+        .eq(
+        "name",
+        song.name
+        );
+
+        loadRankingSmooth();
+    };
+
+    return card;
 }
 
-renderSongs();
+async function loadRankingSmooth(){
+
+    let { data,error } =
+
+    await supabase
+
+    .from("songs")
+
+    .select("*")
+
+    .order(
+    "likes",
+    { ascending:false }
+    );
+
+    if(error){
+
+        return;
+    }
+
+    rankWrap.style.opacity =
+    "0.5";
+
+    setTimeout(()=>{
+
+        rankWrap.innerHTML = "";
+
+        data.forEach((song,index)=>{
+
+            const card =
+            createCard(song,index);
+
+            card.style.opacity = "0";
+
+            card.style.transform =
+            "translateY(10px)";
+
+            rankWrap.appendChild(card);
+
+            setTimeout(()=>{
+
+                card.style.opacity = "1";
+
+                card.style.transform =
+                "translateY(0px)";
+
+            },20);
+
+        });
+
+        rankWrap.style.opacity =
+        "1";
+
+    },100);
+}
+
+await setupSongs();
+
+loadRankingSmooth();
 
 </script>
 
