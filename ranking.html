@@ -635,8 +635,8 @@ playBtn.onclick = ()=>{
 
     if(bgm){
 
-        bgm.volume = 0;
-    }
+    bgm.pause();
+}
 
     /* 记录当前歌曲 */
 
@@ -664,8 +664,8 @@ playBtn.onclick = ()=>{
 
         if(bgm){
 
-            bgm.volume = 1;
-        }
+    bgm.play();
+}
     };
 };
     
