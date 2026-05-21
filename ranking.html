@@ -225,7 +225,7 @@ body{
 
     cursor:pointer;
 
-    font-size:14px;
+    font-size:11px;
 
     color:#cbb7b2;
 
@@ -451,7 +451,7 @@ async function renderSongs(){
         <div
         class="play-btn"
         data-song="${song.name}">
-        ▶
+        ▷
         </div>
         
         
@@ -602,7 +602,14 @@ async function renderSongs(){
         };
 
         /* 播放歌曲 */
-        playBtn.onclick = ()=>{
+
+        /* 当前播放 */
+
+let currentPlayingSong = null;
+
+/* 播放 */
+
+playBtn.onclick = ()=>{
 
     const currentSong =
     playBtn.getAttribute(
@@ -619,17 +626,19 @@ async function renderSongs(){
     "bgm"
     );
 
-    /* 同一首暂停 */
+    /* 当前已经在播放 */
 
     if(
-    player.src.includes(currentSong)
+    currentPlayingSong === currentSong
     &&
     !player.paused
     ){
 
         player.pause();
 
-        playBtn.innerHTML = "▶";
+        currentPlayingSong = null;
+
+        playBtn.innerHTML = "▷";
 
         /* bgm恢复 */
 
@@ -647,7 +656,7 @@ async function renderSongs(){
     .querySelectorAll(".play-btn")
     .forEach(btn=>{
 
-        btn.innerHTML = "▶";
+        btn.innerHTML = "▷";
 
     });
 
@@ -658,7 +667,12 @@ async function renderSongs(){
         bgm.pause();
     }
 
-    /* 播放歌曲 */
+    /* 记录当前歌曲 */
+
+    currentPlayingSong =
+    currentSong;
+
+    /* 播放 */
 
     player.src =
     "audioSource/" +
@@ -669,11 +683,13 @@ async function renderSongs(){
 
     playBtn.innerHTML = "❚❚";
 
-    /* 歌曲结束 */
+    /* 结束 */
 
     player.onended = ()=>{
 
-        playBtn.innerHTML = "▶";
+        currentPlayingSong = null;
+
+        playBtn.innerHTML = "▷";
 
         if(bgm){
 
@@ -681,6 +697,7 @@ async function renderSongs(){
         }
     };
 };
+    
 
 
 
