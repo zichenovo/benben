@@ -221,6 +221,21 @@ body{
     }
 }
 
+.refresh-text{
+
+    text-align:center;
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    color:#c6b8be;
+
+    letter-spacing:1px;
+
+    font-style:italic;
+}
+
 </style>
 
 </head>
@@ -237,7 +252,13 @@ class="back-btn">
 
 <div class="title">
 
-从夯到拉大排名
+从夯到垃大排名
+
+</div>
+
+<div class="refresh-text">
+
+（每10分钟刷新一次，也可以手动刷新哟）
 
 </div>
 
@@ -557,6 +578,9 @@ async function renderSongs(){
 
             }
 
+
+
+
         };
 
         rankWrap.appendChild(card);
@@ -564,6 +588,8 @@ async function renderSongs(){
     });
 
 }
+
+setInterval(renderSongs, 600000);
 
 renderSongs();
 
