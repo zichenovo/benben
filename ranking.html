@@ -535,6 +535,8 @@ async function renderSongs(){
 
                 );
 
+                renderSongs();
+
             }
 
             /* 没点赞 → 点赞 */
@@ -576,6 +578,8 @@ async function renderSongs(){
 
                 );
 
+                renderSongs();
+
             }
 
 
@@ -588,8 +592,6 @@ async function renderSongs(){
     });
 
 }
-
-setInterval(renderSongs, 600000);
 
 renderSongs();
 
