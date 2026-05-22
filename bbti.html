@@ -297,53 +297,6 @@ window.location.href='test.html'
 
 </div>
 
-<audio
-id="bgm"
-src="bgm.mp3"
-loop
-style="display:none">
-</audio>
-
-<script>
-
-const bgm =
-document.getElementById("bgm");
-
-/* 恢复播放时间 */
-
-const savedTime =
-localStorage.getItem("bgmTime");
-
-if(savedTime){
-
-    bgm.currentTime =
-    parseFloat(savedTime);
-}
-
-/* 是否继续播放 */
-
-const shouldPlay =
-localStorage.getItem("bgmPlaying");
-
-if(
-shouldPlay === "true"
-){
-
-    bgm.play();
-}
-
-/* 实时记录时间 */
-
-setInterval(()=>{
-
-    localStorage.setItem(
-    "bgmTime",
-    bgm.currentTime
-    );
-
-},1000);
-
-</script>
 
 <a href="bbti-book.html" class="book-button">
 

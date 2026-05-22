@@ -372,6 +372,47 @@ audio{
     opacity:0.78;
 }
 
+.like-area{
+
+    margin-top:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+}
+
+#heartBtn{
+
+    font-size:34px;
+
+    color:#c7b6be;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+#heartBtn:hover{
+
+    transform:scale(1.08);
+}
+
+#heartBtn.liked{
+
+    color:#ff6b81;
+}
+
+#likeCount{
+
+    font-size:18px;
+
+    color:#9f8d95;
+}
+
 /* 音符 */
 
 .note{
@@ -571,11 +612,36 @@ id="volumeSlider">
 <audio controls id="player">
 </audio>
 
+<div class="like-area">
+
+    <span id="heartBtn">
+    ♡
+    </span>
+
+    <span id="likeCount">
+    0
+    </span>
+
+</div>
+
 </div>
 
 </div>
 
-<script>
+<script type="module">
+
+import { createClient }
+from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase =
+createClient(
+
+"https://bfprkzuculvqajekshfs.supabase.co",
+
+'sb_publishable_RwapQC6PL9Dg54GWxd7lYQ_eJGOETc4'
+
+);
 
 const params =
 new URLSearchParams(
@@ -604,23 +670,6 @@ audioPath +
 
 player.load();
 
-/* 保存bgm当前时间 */
-const bgm =
-document.getElementById("bgm");
-
-if(bgm){
-
-localStorage.setItem(
-"bgmTime",
-bgm.currentTime
-);
-}
-
-/* 暂停主页bgm */
-localStorage.setItem(
-"bgmPlaying",
-"false"
-);
 
 const symbols =
 ["♫","♪","♬","♩"];
@@ -674,6 +723,101 @@ volumeSlider.value / 100;
 );
 
 player.volume = 0.45;
+
+const heartBtn =
+document.getElementById("heartBtn");
+
+const likeCount =
+document.getElementById("likeCount");
+
+const localKey =
+"liked_" + song;
+
+
+
+async function loadLikes(){
+
+    const { data } =
+    await supabase
+    .from("songs")
+    .select("likes")
+    .eq("song", song)
+    .single();
+
+    if(data){
+
+        likeCount.innerHTML =
+        data.likes || 0;
+    }
+
+    if(localStorage.getItem(localKey)){
+
+        heartBtn.classList.add("liked");
+
+        heartBtn.innerHTML = "♥";
+    }
+}
+
+
+
+heartBtn.onclick = async()=>{
+
+    let currentLikes =
+    parseInt(likeCount.innerHTML);
+
+    const liked =
+    localStorage.getItem(localKey);
+
+    if(!liked){
+
+        currentLikes++;
+
+        await supabase
+        .from("songs")
+        .update({
+            likes: currentLikes
+        })
+        .eq("song", song);
+
+        localStorage.setItem(
+        localKey,
+        "yes"
+        );
+
+        heartBtn.classList.add("liked");
+
+        heartBtn.innerHTML = "♥";
+
+    }else{
+
+        currentLikes--;
+
+        if(currentLikes < 0){
+
+            currentLikes = 0;
+        }
+
+        await supabase
+        .from("songs")
+        .update({
+            likes: currentLikes
+        })
+        .eq("song", song);
+
+        localStorage.removeItem(localKey);
+
+        heartBtn.classList.remove("liked");
+
+        heartBtn.innerHTML = "♡";
+    }
+
+    likeCount.innerHTML =
+    currentLikes;
+}
+
+
+
+loadLikes();
 
 </script>
 

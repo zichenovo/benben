@@ -1096,7 +1096,22 @@ if(params.get("entered")==="true"){
 
     enterPage.classList.add("hide");
 
-    startMusic();
+    const savedTime =
+    localStorage.getItem("bgmTime");
+
+    if(savedTime){
+
+        bgm.currentTime =
+        parseFloat(savedTime);
+    }
+
+    /* Safari 允许：因为是点击返回触发 */
+
+    setTimeout(()=>{
+
+        bgm.play();
+
+    },100);
 }
 
 
@@ -1459,25 +1474,10 @@ for(let i=0;i<noteCount;i++){
 
 async function enterSite(){
 
-    const url =
-new URLSearchParams(
-window.location.search
-);
-
-if(url.get("resume")==="true"){
-
-    localStorage.setItem(
-    "bgmPlaying",
-    "true"
-    );
-
-    bgm.play();
-}
-
     enterPage.classList.add("hide");
 
     localStorage.setItem(
-    "bgmPlaying",
+    "bgmStarted",
     "true"
     );
 
