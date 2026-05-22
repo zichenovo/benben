@@ -147,10 +147,10 @@ body{
     top:28px;
     right:30px;
 
-    width:46px;
-    height:46px;
+    padding:
+    10px 18px;
 
-    border-radius:50%;
+    border-radius:999px;
 
     display:flex;
 
@@ -159,33 +159,35 @@ body{
 
     text-decoration:none;
 
-    font-size:22px;
+    font-size:15px;
 
-    color:#b8a7b0;
+    letter-spacing:1px;
+
+    color:#a997a1;
 
     background:
-    rgba(255,255,255,0.28);
+    rgba(255,255,255,0.42);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
 
     box-shadow:
-    0 0 18px rgba(255,255,255,0.45);
+    0 0 24px rgba(255,255,255,0.65);
 
     transition:0.28s;
 
     z-index:999;
 }
 
+
 .ranking-btn:hover{
 
     transform:
-    scale(1.08)
-    rotate(12deg);
-
-    color:#ffbfd3;
+    translateY(-2px);
 
     background:
-    rgba(255,255,255,0.4);
+    rgba(255,255,255,0.58);
+
+    color:#ffb3c7;
 }
 
 /* 音量 */
@@ -524,6 +526,22 @@ body{
 
 @media (max-width:768px){
 
+.ranking-btn{
+
+    top:auto;
+
+    right:auto;
+
+    left:18px;
+
+    bottom:18px;
+
+    padding:
+    9px 16px;
+
+    font-size:14px;
+}
+
 .container{
 
     width:94%;
@@ -661,10 +679,9 @@ href="ranking.html"
 class="ranking-btn"
 >
 
-♛
+✧ 排行榜
 
 </a>
-
 <div class="song-title"
 id="songTitle">
 
