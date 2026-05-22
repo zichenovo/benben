@@ -741,7 +741,7 @@ async function loadLikes(){
     await supabase
     .from("songs")
     .select("likes")
-    .eq("song", song)
+    .eq("name", song)
     .single();
 
     if(data){
@@ -762,11 +762,18 @@ async function loadLikes(){
 
 heartBtn.onclick = async()=>{
 
-    let currentLikes =
-    parseInt(likeCount.innerHTML);
-
     const liked =
     localStorage.getItem(localKey);
+
+    const { data } =
+    await supabase
+    .from("songs")
+    .select("likes")
+    .eq("name", song)
+    .single();
+
+    let currentLikes =
+    data.likes || 0;
 
     if(!liked){
 
@@ -777,7 +784,7 @@ heartBtn.onclick = async()=>{
         .update({
             likes: currentLikes
         })
-        .eq("song", song);
+        .eq("name", song);
 
         localStorage.setItem(
         localKey,
@@ -802,7 +809,7 @@ heartBtn.onclick = async()=>{
         .update({
             likes: currentLikes
         })
-        .eq("song", song);
+        .eq("name", song);
 
         localStorage.removeItem(localKey);
 
@@ -814,7 +821,6 @@ heartBtn.onclick = async()=>{
     likeCount.innerHTML =
     currentLikes;
 }
-
 
 
 loadLikes();
