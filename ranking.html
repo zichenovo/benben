@@ -449,6 +449,26 @@ async function renderSongs(){
             ) || "[]"
         );
 
+        const localKey =
+"liked_" + song.name;
+
+/* song页面点过 */
+
+if(localStorage.getItem(localKey)){
+
+    if(!likedSongs.includes(song.name)){
+
+        likedSongs.push(song.name);
+
+        localStorage.setItem(
+
+            "likedSongs",
+
+            JSON.stringify(likedSongs)
+        );
+    }
+}
+
         /* 如果点过 */
 
         if(
