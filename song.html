@@ -363,18 +363,9 @@ body{
 
 /* 播放器 */
 
-audio{
+.player-row{
 
-    margin-top:42px;
-
-    width:360px;
-
-    opacity:0.78;
-}
-
-.like-area{
-
-    margin-top:18px;
+    margin-top:32px;
 
     display:flex;
 
@@ -382,12 +373,30 @@ audio{
 
     justify-content:center;
 
-    gap:10px;
+    gap:12px;
 }
+
+#player{
+
+    width:250px;
+
+    opacity:0.78;
+}
+
+.like-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+}
+
+
 
 #heartBtn{
 
-    font-size:34px;
+    font-size:28px;
 
     color:#c7b6be;
 
@@ -408,7 +417,7 @@ audio{
 
 #likeCount{
 
-    font-size:18px;
+    font-size:16px;
 
     color:#9f8d95;
 }
@@ -551,11 +560,11 @@ audio{
     height:18px;
 }
 
-audio{
+#player{
 
-    width:280px;
+    width:220px;
 
-    margin-top:28px;
+    margin-top:20px;
 }
 
 }
@@ -609,18 +618,22 @@ id="volumeSlider">
 
 <div class="record"></div>
 
-<audio controls id="player">
-</audio>
+<div class="player-row">
 
-<div class="like-area">
+    <audio controls id="player">
+    </audio>
 
-    <span id="heartBtn">
-    ♡
-    </span>
+    <div class="like-btn">
 
-    <span id="likeCount">
-    0
-    </span>
+        <span id="heartBtn">
+        ♡
+        </span>
+
+        <span id="likeCount">
+        0
+        </span>
+
+    </div>
 
 </div>
 

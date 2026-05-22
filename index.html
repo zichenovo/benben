@@ -1092,6 +1092,16 @@ document.getElementById("enterPage");
 const params =
 new URLSearchParams(window.location.search);
 
+
+
+
+/* background music */
+
+const bgm =
+document.getElementById("bgm");
+
+bgm.volume = 0.38;
+
 if(params.get("entered")==="true"){
 
     enterPage.classList.add("hide");
@@ -1113,14 +1123,6 @@ if(params.get("entered")==="true"){
 
     },100);
 }
-
-
-/* background music */
-
-const bgm =
-document.getElementById("bgm");
-
-bgm.volume = 0.38;
 
 /* 恢复播放状态 */
 
