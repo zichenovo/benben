@@ -699,12 +699,12 @@ body::before{
 
 .mobile .medium{
 
-    font-size:22px;
+    font-size:20px;
 }
 
 .mobile .large{
 
-    font-size:34px;
+    font-size:28px;
 }
 
 .mobile .song:hover{
@@ -1266,15 +1266,21 @@ songs.forEach(songName=>{
     songName;
 
     let x;
-    let y;
+let y;
+
+let tries = 0;
+
+let overlapCount = 0;
+
+do{
 
     if(isMobile){
 
         x =
-        20 + Math.random()*220;
+        45 + Math.random()*240;
 
         y =
-        220 + Math.random()*1350;
+        220 + Math.random()*1450;
 
     }else{
 
@@ -1284,6 +1290,34 @@ songs.forEach(songName=>{
         y =
         230 + Math.random()*1200;
     }
+
+    tries++;
+
+    overlapCount = 0;
+
+    document.querySelectorAll(".song").forEach(existing=>{
+
+        const ex =
+        parseFloat(existing.style.left);
+
+        const ey =
+        parseFloat(existing.style.top);
+
+        const dx =
+        Math.abs(ex - x);
+
+        const dy =
+        Math.abs(ey - y);
+
+        if(dx < 120 && dy < 70){
+
+            overlapCount++;
+        }
+    });
+
+}while(tries < 30 && overlapCount > 2);
+
+       
 
     song.style.left =
     x + "px";
