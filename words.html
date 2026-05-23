@@ -77,13 +77,15 @@ body{
     transform:translateX(-4px);
 }
 
-/* 标题 */
+/* ===================== */
+/* 电脑标题 */
+/* ===================== */
 
 .title{
 
-    font-size:66px;
+    font-size:52px;
 
-    margin-bottom:36px;
+    margin-bottom:52px;
 
     letter-spacing:6px;
 
@@ -100,65 +102,31 @@ body{
     -webkit-text-fill-color:transparent;
 }
 
-/* 内容区域 */
-
-/* 电脑 */
+/* ===================== */
+/* 电脑内容 */
+/* ===================== */
 
 .card{
 
-    width:760px;
+    width:900px;
 
-    padding:
-    0 10px;
+    padding:0 10px;
 }
-
-/* 手机 */
-
-@media(max-width:768px){
-
-    .card{
-
-        width:78vw;
-
-        padding:
-        0;
-    }
-}
-
-/* 正文 */
 
 .text{
 
-    font-size:17px;
+    font-size:28px;
 
-    line-height:2.45;
+    line-height:2.15;
 
-    letter-spacing:1.5px;
+    letter-spacing:3px;
 
     color:#b59cab;
-
-
 }
 
-@keyframes gradientMove{
-
-    0%{
-
-        background-position:0% 50%;
-    }
-
-    50%{
-
-        background-position:100% 50%;
-    }
-
-    100%{
-
-        background-position:0% 50%;
-    }
-}
-
+/* ===================== */
 /* 手机 */
+/* ===================== */
 
 @media(max-width:768px){
 
@@ -180,19 +148,25 @@ body{
 
         font-size:42px;
 
-        margin-bottom:32px;
+        margin-bottom:36px;
 
         letter-spacing:3px;
     }
 
+    .card{
+
+        width:78vw;
+
+        padding:0;
+    }
 
     .text{
 
-        font-size:18px;
+        font-size:17px;
 
-        line-height:2.3;
+        line-height:2.45;
 
-        letter-spacing:2px;
+        letter-spacing:1.5px;
     }
 }
 
