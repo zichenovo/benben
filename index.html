@@ -256,6 +256,12 @@ body::before{
 
     cursor:pointer;
 
+    pointer-events:auto;
+
+    -webkit-transform:translateZ(0);
+
+    will-change:transform;
+
     white-space:nowrap;
 
     transition:
@@ -277,8 +283,6 @@ body::before{
 
     animation:
     floatDepth linear infinite;
-
-    mix-blend-mode:screen;
 }
 
 .song:hover{
@@ -684,7 +688,7 @@ body::before{
 
 .mobile .song-area{
 
-    width:100vw;
+    width:94vw;
     height:1800px;
 }
 
@@ -1267,10 +1271,10 @@ songs.forEach(songName=>{
     if(isMobile){
 
         x =
-        20 + Math.random()*300;
+        20 + Math.random()*220;
 
         y =
-        180 + Math.random()*1400;
+        220 + Math.random()*1350;
 
     }else{
 
