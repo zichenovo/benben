@@ -1241,7 +1241,7 @@ const songs = [
 const songArea =
 document.getElementById("songArea");
 
-songs.forEach((songName,i)=>{
+songs.forEach(songName=>{
 
     const song =
     document.createElement("div");
@@ -1270,49 +1270,19 @@ songs.forEach((songName,i)=>{
 
     if(isMobile){
 
-        const cols = 2;
-
-        const spacingX = 150;
-        const spacingY = 120;
-
-        const col =
-        i % cols;
-
-        const row =
-        Math.floor(i / cols);
-
         x =
-        40 +
-        col * spacingX +
-        Math.random()*25;
+        20 + Math.random()*220;
 
         y =
-        240 +
-        row * spacingY +
-        Math.random()*40;
+        220 + Math.random()*1350;
 
     }else{
 
-        const cols = 4;
-
-        const spacingX = 360;
-        const spacingY = 170;
-
-        const col =
-        i % cols;
-
-        const row =
-        Math.floor(i / cols);
-
         x =
-        120 +
-        col * spacingX +
-        Math.random()*120;
+        220 + Math.random()*1500;
 
         y =
-        220 +
-        row * spacingY +
-        Math.random()*70;
+        230 + Math.random()*1200;
     }
 
     song.style.left =
