@@ -102,14 +102,27 @@ body{
 
 /* 内容区域 */
 
+/* 电脑 */
+
 .card{
 
-    width:82vw;
-
-    max-width:320px;
+    width:760px;
 
     padding:
-    0 4px;
+    0 10px;
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+    .card{
+
+        width:78vw;
+
+        padding:
+        0;
+    }
 }
 
 /* 正文 */
@@ -172,13 +185,6 @@ body{
         letter-spacing:3px;
     }
 
-    .card{
-
-        width:90vw;
-
-        padding:
-        0;
-    }
 
     .text{
 
