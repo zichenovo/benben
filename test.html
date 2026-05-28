@@ -135,6 +135,24 @@ body{
     rgba(255,255,255,0.72);
 }
 
+.answer.selected{
+
+    background:
+    rgba(255,255,255,0.92);
+
+    border:
+    1.5px solid rgba(216,182,196,0.65);
+
+    color:#b58d9f;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+    0 0 22px rgba(255,255,255,0.65),
+
+    0 0 30px rgba(230,200,220,0.18);
+}
 /* 返回歌单 */
 
 .home-btn{
@@ -421,6 +439,15 @@ function renderQuestion(){
         div.className =
         "answer";
 
+        /* 如果之前选过 */
+
+    if(answers[current] === index){
+
+        div.classList.add(
+        "selected"
+        );
+    }
+
         div.innerText =
         String.fromCharCode(65+index)
         + ". "
@@ -436,10 +463,12 @@ function renderQuestion(){
 
                 renderQuestion();
 
-            }else{
+        }else{
 
-                finishTest();
-            }
+        /* 最后一题只记录答案 */
+
+            renderQuestion();
+        }
         };
 
         answersWrap.appendChild(div);
@@ -462,7 +491,8 @@ function renderQuestion(){
 
     }else{
 
-        finishBtn.innerText = "";
+        finishBtn.innerText =
+        "前往下一题 →";
     }
 }
 
@@ -478,9 +508,34 @@ backBtn.onclick = ()=>{
 
 finishBtn.onclick = ()=>{
 
+    /* 检查有没有没做 */
+
+    if(
+
+    answers.length < questions.length
+
+    ||
+
+    answers.includes(undefined)
+
+    ){
+
+        alert(
+        "TuT 还没有答完！\n不许完成！"
+        );
+
+        return;
+    }
+
     if(current === questions.length-1){
 
         finishTest();
+
+    }else{
+
+        current++;
+
+        renderQuestion();
     }
 };
 

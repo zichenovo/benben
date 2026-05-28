@@ -1393,43 +1393,223 @@ fade
 
 /* search */
 
-document
-.getElementById("searchInput")
-.addEventListener("keypress",function(e){
+/* search */
 
-    if(e.key==="Enter"){
+const searchInput =
+document.getElementById("searchInput");
 
-        const value =
-        this.value.trim();
+/* 搜索结果框 */
 
-        if(songs.includes(value)){
+const resultBox =
+document.createElement("div");
 
-    localStorage.setItem(
-    "bgmTime",
-    bgm.currentTime
+resultBox.style.position = "absolute";
+
+resultBox.style.top =
+(isMobile ? "105px" : "125px");
+
+resultBox.style.left =
+(isMobile ? "24px" : "68px");
+
+resultBox.style.width =
+(isMobile ? "180px" : "250px");
+
+resultBox.style.maxHeight = "260px";
+
+resultBox.style.overflowY = "auto";
+
+resultBox.style.padding = "8px";
+
+resultBox.style.borderRadius = "22px";
+
+resultBox.style.background =
+"rgba(255,255,255,0.55)";
+
+resultBox.style.backdropFilter =
+"blur(18px)";
+
+resultBox.style.boxShadow =
+"0 10px 30px rgba(220,190,210,0.12)";
+
+resultBox.style.zIndex = "99999";
+
+resultBox.style.display = "none";
+
+document.body.appendChild(resultBox);
+
+/* 高亮函数 */
+
+function highlightText(text, keyword){
+
+    const escaped =
+    keyword.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    '\\$&'
     );
 
-    localStorage.setItem(
-        "bgmPlaying",
-        "true"
+    const regex =
+    new RegExp("(" + escaped + ")", "gi");
+
+    return text.replace(
+
+        regex,
+
+        `<span style="
+        color:#d9a3ff;
+        font-weight:bold;
+        text-shadow:
+        0 0 8px rgba(255,255,255,0.9);
+        ">
+        $1
+        </span>`
+    );
+}
+
+/* 输入时实时搜索 */
+
+searchInput.addEventListener(
+
+"input",
+
+function(){
+
+    const value =
+    this.value.trim();
+
+    resultBox.innerHTML = "";
+
+    if(value === ""){
+
+        resultBox.style.display =
+        "none";
+
+        return;
+    }
+
+    const matchedSongs =
+
+    songs.filter(song =>
+
+        song.includes(value)
     );
 
-    window.location.href =
-    "song.html?song=" +
-    encodeURIComponent(value);
+    if(matchedSongs.length === 0){
 
-        }
+        resultBox.style.display =
+        "none";
 
-    else{
+        return;
+    }
 
-            alert(
-            "TuT 窝还没学会《"
-            + value +
-            "》 \n可以告诉我我去学哟"
+    resultBox.style.display =
+    "block";
+
+    matchedSongs.forEach(songName=>{
+
+        const item =
+        document.createElement("div");
+
+        item.style.padding =
+        "10px 14px";
+
+        item.style.cursor =
+        "pointer";
+
+        item.style.color =
+        "#a58f9c";
+
+        item.style.fontStyle =
+        "italic";
+
+        item.style.borderRadius =
+        "14px";
+
+        item.style.transition =
+        "0.25s";
+
+        item.innerHTML =
+        highlightText(
+        songName,
+        value
+        );
+
+        item.onmouseenter = ()=>{
+
+            item.style.background =
+            "rgba(255,255,255,0.45)";
+        };
+
+        item.onmouseleave = ()=>{
+
+            item.style.background =
+            "transparent";
+        };
+
+        item.onclick = ()=>{
+
+            localStorage.setItem(
+            "bgmTime",
+            bgm.currentTime
             );
+
+            localStorage.setItem(
+            "bgmPlaying",
+            "true"
+            );
+
+            window.location.href =
+            "song.html?song=" +
+            encodeURIComponent(songName);
+        };
+
+        resultBox.appendChild(item);
+    });
+});
+
+/* 回车 */
+
+searchInput.addEventListener(
+
+"keypress",
+
+function(e){
+
+    if(e.key === "Enter"){
+
+        const firstResult =
+        resultBox.querySelector("div");
+
+        if(firstResult){
+
+            firstResult.click();
         }
     }
 });
+
+/* 点击空白关闭 */
+
+document.addEventListener(
+
+"click",
+
+function(e){
+
+    if(
+
+    !searchInput.contains(e.target)
+
+    &&
+
+    !resultBox.contains(e.target)
+
+    ){
+
+        resultBox.style.display =
+        "none";
+    }
+});
+
+ 
 
 /* menu */
 
