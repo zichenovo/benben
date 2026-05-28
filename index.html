@@ -1406,7 +1406,7 @@ document.createElement("div");
 resultBox.style.position = "absolute";
 
 resultBox.style.top =
-(isMobile ? "105px" : "125px");
+(isMobile ? "118px" : "138px");
 
 resultBox.style.left =
 (isMobile ? "24px" : "68px");
@@ -1566,7 +1566,7 @@ function(){
     });
 });
 
-/* 回车 */
+/* 回车搜索 */
 
 searchInput.addEventListener(
 
@@ -1576,15 +1576,39 @@ function(e){
 
     if(e.key === "Enter"){
 
-        const firstResult =
-        resultBox.querySelector("div");
+        const value =
+        this.value.trim();
 
-        if(firstResult){
+        /* 完全匹配才跳转 */
 
-            firstResult.click();
+        if(songs.includes(value)){
+
+            localStorage.setItem(
+            "bgmTime",
+            bgm.currentTime
+            );
+
+            localStorage.setItem(
+            "bgmPlaying",
+            "true"
+            );
+
+            window.location.href =
+            "song.html?song=" +
+            encodeURIComponent(value);
+
+        }else{
+
+            alert(
+            "TuT 窝还没学会《"
+            + value +
+            "》\n可以告诉我我去学哟"
+            );
         }
     }
 });
+
+
 
 /* 点击空白关闭 */
 
