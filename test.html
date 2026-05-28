@@ -508,7 +508,16 @@ backBtn.onclick = ()=>{
 
 finishBtn.onclick = ()=>{
 
-    if(current === questions.length-1){
+    /* 不是最后一题 */
+
+    if(current < questions.length-1){
+
+        current++;
+
+        renderQuestion();
+
+        return;
+    }
 
     /* 最后一题才检查 */
 
@@ -530,14 +539,12 @@ finishBtn.onclick = ()=>{
     }
 
     finishTest();
-
-    }else{
-
-        current++;
-
-        renderQuestion();
-    }
 };
+
+
+        
+
+   
 
 function finishTest(){
 
