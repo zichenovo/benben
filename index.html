@@ -1604,6 +1604,19 @@ function(e){
             + value +
             "》\n可以告诉我我去学哟"
             );
+
+        /* 清空 */
+
+        this.value = "";
+
+        /* 关闭结果框 */
+
+        resultBox.style.display =
+        "none";
+
+        /* 收起键盘 */
+
+        this.blur();
         }
     }
 });
