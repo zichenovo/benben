@@ -1,16 +1,390 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>写给笨笨的话</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>留言板</title>
+
+<style>
+
+@font-face{
+    font-family:"benbenfont";
+    src:url("今年也要加油鸭.ttf");
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#f8f3f6;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+/* 返回 */
+
+.back-btn{
+
+    position:fixed;
+
+    top:42px;
+    left:48px;
+
+    font-size:28px;
+
+    color:#b697a4;
+
+    text-decoration:none;
+
+    opacity:0.82;
+
+    z-index:9999;
+
+    transition:0.3s;
+}
+
+.back-btn:hover{
+
+    transform:translateX(-4px);
+
+    opacity:1;
+}
+
+/* title */
+
+.title{
+
+    margin-top:110px;
+
+    text-align:center;
+
+    font-family:"benbenfont";
+
+    font-size:52px;
+
+    letter-spacing:6px;
+
+    background:linear-gradient(
+    90deg,
+    #9f818c,
+    #b39ab3,
+    #9fb2c7,
+    #c5a4bc
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+/* 墙 */
+
+.wall{
+
+    position:relative;
+
+    width:950px;
+
+    height:900px;
+
+    margin:auto;
+
+    margin-top:70px;
+
+    margin-bottom:120px;
+}
+
+/* 便利贴 */
+
+.note{
+
+    position:absolute;
+
+    width:160px;
+
+    min-height:120px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    color:#9d8793;
+
+    font-size:15px;
+
+    line-height:1.8;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 8px 18px rgba(0,0,0,0.06);
+
+    transition:0.35s;
+
+    overflow:hidden;
+}
+
+/* hover */
+
+.note:hover{
+
+    transform:
+    scale(1.25)
+    rotate(0deg)
+    !important;
+
+    z-index:9999;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* 颜色 */
+
+.c1{
+    background:#f6edf2;
+}
+
+.c2{
+    background:#efe8f8;
+}
+
+.c3{
+    background:#eef3fa;
+}
+
+.c4{
+    background:#f7eef5;
+}
+
+.c5{
+    background:#f2eefb;
+}
+
+/* 加号 */
+
+.add-note{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+}
+
+.plus{
+
+    font-size:34px;
+
+    margin-bottom:6px;
+}
+
+/* 手机 */
+
+@media(max-width:768px){
+
+.title{
+
+    font-size:34px;
+
+    margin-top:90px;
+}
+
+.back-btn{
+
+    top:24px;
+    left:22px;
+
+    font-size:18px;
+}
+
+.wall{
+
+    width:95vw;
+
+    height:1300px;
+}
+
+.note{
+
+    width:120px;
+
+    min-height:90px;
+
+    font-size:12px;
+
+    padding:12px;
+}
+
+.note:hover{
+
+    transform:none !important;
+}
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>写给笨笨的话</h1>
+<a
+href="index.html?entered=true&resume=true"
+class="back-btn">
 
-<p>这里是留言区 🌸</p>
+← 返回歌单
+
+</a>
+
+<div class="title">
+
+留言板
+
+</div>
+
+<div class="wall">
+
+<div
+class="note c1"
+style="
+left:120px;
+top:40px;
+transform:rotate(-10deg);
+z-index:4;
+">
+
+希望笨笨天天开心。
+
+</div>
+
+<div
+class="note c2"
+style="
+left:210px;
+top:120px;
+transform:rotate(7deg);
+z-index:5;
+">
+
+你的声音很好听。
+
+</div>
+
+<div
+class="note c3"
+style="
+left:430px;
+top:80px;
+transform:rotate(-6deg);
+z-index:3;
+">
+
+加油鸭～
+
+</div>
+
+<div
+class="note c4"
+style="
+left:350px;
+top:240px;
+transform:rotate(10deg);
+z-index:8;
+">
+
+空空真的很好听。
+
+</div>
+
+<div
+class="note c5"
+style="
+left:550px;
+top:200px;
+transform:rotate(-11deg);
+z-index:7;
+">
+
+希望一直唱下去。
+
+</div>
+
+<div
+class="note c1"
+style="
+left:140px;
+top:350px;
+transform:rotate(8deg);
+z-index:6;
+">
+
+今天也要开心。
+
+</div>
+
+<div
+class="note c2"
+style="
+left:480px;
+top:420px;
+transform:rotate(-8deg);
+z-index:4;
+">
+
+路过留下一句喜欢。
+
+</div>
+
+<div
+class="note c4"
+style="
+left:680px;
+top:560px;
+transform:rotate(6deg);
+z-index:10;
+">
+
+愿你所愿皆所得。
+
+</div>
+
+<div
+class="note c5 add-note"
+style="
+left:720px;
+top:720px;
+transform:rotate(-5deg);
+z-index:12;
+">
+
+<div class="plus">+</div>
+
+写点什么吧
+
+</div>
+
+</div>
 
 </body>
+
 </html>
