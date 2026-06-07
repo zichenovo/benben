@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -5,7 +6,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>留言板</title>
@@ -13,21 +15,25 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 @font-face{
+
     font-family:"benbenfont";
+
     src:url("今年也要加油鸭.ttf");
 }
 
 *{
+
     margin:0;
     padding:0;
+
     box-sizing:border-box;
 }
 
 body{
 
-    background:#f8f3f6;
-
     min-height:100vh;
+
+    background:#f8f3f6;
 
     overflow-x:hidden;
 
@@ -37,7 +43,9 @@ body{
     serif;
 }
 
-/* 返回 */
+/* ===================== */
+/* 返回歌单 */
+/* ===================== */
 
 .back-btn{
 
@@ -46,7 +54,7 @@ body{
     top:42px;
     left:48px;
 
-    font-size:28px;
+    font-size:22px;
 
     color:#b697a4;
 
@@ -54,29 +62,31 @@ body{
 
     opacity:0.82;
 
-    z-index:9999;
-
     transition:0.3s;
+
+    z-index:10000;
 }
 
 .back-btn:hover{
 
-    transform:translateX(-4px);
-
     opacity:1;
+
+    transform:translateX(-4px);
 }
 
-/* title */
+/* ===================== */
+/* 标题 */
+/* ===================== */
 
 .title{
 
-    margin-top:110px;
+    margin-top:105px;
 
     text-align:center;
 
     font-family:"benbenfont";
 
-    font-size:52px;
+    font-size:54px;
 
     letter-spacing:6px;
 
@@ -93,152 +103,360 @@ body{
     -webkit-text-fill-color:transparent;
 }
 
+/* ===================== */
 /* 墙 */
+/* ===================== */
 
 .wall{
 
     position:relative;
 
-    width:950px;
+    width:1000px;
 
-    height:900px;
+    min-height:900px;
 
     margin:auto;
 
-    margin-top:70px;
+    margin-top:60px;
 
     margin-bottom:120px;
 }
 
+/* ===================== */
 /* 便利贴 */
+/* ===================== */
 
 .note{
 
     position:absolute;
 
-    width:160px;
+    width:180px;
 
-    min-height:120px;
+    min-height:135px;
 
     padding:18px;
 
-    border-radius:14px;
+    border-radius:12px;
 
     color:#9d8793;
 
     font-size:15px;
 
-    line-height:1.8;
+    line-height:1.75;
+
+    word-break:break-word;
+
+    overflow:hidden;
 
     cursor:pointer;
 
     box-shadow:
-    0 8px 18px rgba(0,0,0,0.06);
 
-    transition:0.35s;
+    0 8px 20px rgba(0,0,0,0.07),
 
-    overflow:hidden;
+    0 0 0 1px rgba(255,255,255,0.35);
+
+    transition:
+
+    transform .35s ease,
+
+    box-shadow .35s ease,
+
+    opacity .35s ease;
 }
-
-/* hover */
 
 .note:hover{
 
     transform:
-    scale(1.25)
+    scale(1.22)
     rotate(0deg)
     !important;
 
-    z-index:9999;
+    z-index:9999 !important;
 
     box-shadow:
-    0 20px 40px rgba(0,0,0,0.15);
+
+    0 25px 50px rgba(0,0,0,0.14);
 }
 
-/* 颜色 */
+/* ===================== */
+/* 配色 */
+/* ===================== */
 
 .c1{
+
     background:#f6edf2;
 }
 
 .c2{
+
     background:#efe8f8;
 }
 
 .c3{
+
     background:#eef3fa;
 }
 
 .c4{
+
     background:#f7eef5;
 }
 
 .c5{
+
     background:#f2eefb;
 }
 
-/* 加号 */
+/* ===================== */
+/* +便利贴 */
+/* ===================== */
 
 .add-note{
 
     display:flex;
 
-    justify-content:center;
+    flex-direction:column;
 
     align-items:center;
 
-    flex-direction:column;
+    justify-content:center;
 
     text-align:center;
 }
 
 .plus{
 
-    font-size:34px;
+    font-size:38px;
 
-    margin-bottom:6px;
+    margin-bottom:8px;
 }
 
+/* ===================== */
+/* 展开遮罩 */
+/* ===================== */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(255,245,250,0.45);
+
+    backdrop-filter:blur(8px);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:99999;
+}
+
+.overlay.show{
+
+    display:flex;
+}
+
+/* ===================== */
+/* 展开的便利贴 */
+/* ===================== */
+
+.popup-note{
+
+    width:60vw;
+
+    max-width:700px;
+
+    min-height:380px;
+
+    background:#f7eef5;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    position:relative;
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,0.12);
+}
+
+/* ===================== */
+/* textarea */
+/* ===================== */
+
+.message-input{
+
+    width:100%;
+
+    height:250px;
+
+    border:none;
+
+    resize:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#8f7c86;
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    font-family:
+    "Times New Roman",
+    "STSong",
+    serif;
+}
+
+.message-input::placeholder{
+
+    color:#bcaab4;
+}
+
+/* ===================== */
+/* ✓ */
+/* ===================== */
+
+.save-btn{
+
+    position:absolute;
+
+    right:24px;
+
+    bottom:20px;
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:
+    rgba(255,255,255,0.7);
+
+    color:#a58d9b;
+
+    font-size:24px;
+
+    transition:.25s;
+}
+
+.save-btn:hover{
+
+    transform:scale(1.08);
+}
+
+/* ===================== */
+/* 查看留言 */
+/* ===================== */
+
+.read-content{
+
+    color:#8f7c86;
+
+    font-size:20px;
+
+    line-height:2;
+
+    white-space:pre-wrap;
+
+    padding-bottom:50px;
+}
+
+/* ===================== */
 /* 手机 */
+/* ===================== */
 
 @media(max-width:768px){
 
-.title{
+body{
 
-    font-size:34px;
-
-    margin-top:90px;
+    overflow-x:hidden;
 }
 
 .back-btn{
 
     top:24px;
+
     left:22px;
 
-    font-size:18px;
+    font-size:16px;
+}
+
+.title{
+
+    margin-top:90px;
+
+    font-size:34px;
+
+    letter-spacing:2px;
 }
 
 .wall{
 
     width:95vw;
 
-    height:1300px;
+    min-height:1200px;
+
+    margin-top:30px;
 }
 
 .note{
 
-    width:120px;
+    width:130px;
 
-    min-height:90px;
-
-    font-size:12px;
+    min-height:100px;
 
     padding:12px;
+
+    font-size:13px;
 }
 
 .note:hover{
 
     transform:none !important;
+}
+
+.popup-note{
+
+    width:88vw;
+
+    min-height:420px;
+
+    padding:22px;
+}
+
+.message-input{
+
+    height:300px;
+
+    font-size:16px;
+}
+
+.read-content{
+
+    font-size:16px;
+}
+
+.save-btn{
+
+    width:42px;
+
+    height:42px;
+
+    font-size:20px;
 }
 }
 
@@ -262,129 +480,345 @@ class="back-btn">
 
 </div>
 
-<div class="wall">
-
 <div
-class="note c1"
-style="
-left:120px;
-top:40px;
-transform:rotate(-10deg);
-z-index:4;
-">
-
-希望笨笨天天开心。
+class="wall"
+id="wall">
 
 </div>
 
 <div
-class="note c2"
-style="
-left:210px;
-top:120px;
-transform:rotate(7deg);
-z-index:5;
-">
-
-你的声音很好听。
-
-</div>
+class="overlay"
+id="overlay">
 
 <div
-class="note c3"
-style="
-left:430px;
-top:80px;
-transform:rotate(-6deg);
-z-index:3;
-">
+class="popup-note"
+id="popupNote">
 
-加油鸭～
-
-</div>
+<textarea
+id="messageInput"
+class="message-input"
+placeholder="写点什么吧..."></textarea>
 
 <div
-class="note c4"
-style="
-left:350px;
-top:240px;
-transform:rotate(10deg);
-z-index:8;
-">
+id="readContent"
+class="read-content"
+style="display:none;"></div>
 
-空空真的很好听。
+<button
+class="save-btn"
+id="saveBtn">
 
-</div>
+✓
 
-<div
-class="note c5"
-style="
-left:550px;
-top:200px;
-transform:rotate(-11deg);
-z-index:7;
-">
-
-希望一直唱下去。
-
-</div>
-
-<div
-class="note c1"
-style="
-left:140px;
-top:350px;
-transform:rotate(8deg);
-z-index:6;
-">
-
-今天也要开心。
-
-</div>
-
-<div
-class="note c2"
-style="
-left:480px;
-top:420px;
-transform:rotate(-8deg);
-z-index:4;
-">
-
-路过留下一句喜欢。
-
-</div>
-
-<div
-class="note c4"
-style="
-left:680px;
-top:560px;
-transform:rotate(6deg);
-z-index:10;
-">
-
-愿你所愿皆所得。
-
-</div>
-
-<div
-class="note c5 add-note"
-style="
-left:720px;
-top:720px;
-transform:rotate(-5deg);
-z-index:12;
-">
-
-<div class="plus">+</div>
-
-写点什么吧
+</button>
 
 </div>
 
 </div>
+
+```html
+<script>
+
+const wall =
+document.getElementById("wall");
+
+const overlay =
+document.getElementById("overlay");
+
+const popupNote =
+document.getElementById("popupNote");
+
+const messageInput =
+document.getElementById("messageInput");
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+const readContent =
+document.getElementById("readContent");
+
+let currentReadMode = false;
+
+/* ===================== */
+/* localStorage */
+/* ===================== */
+
+let messages =
+
+JSON.parse(
+
+localStorage.getItem(
+"benbenMessages"
+)
+
+) || [];
+
+/* ===================== */
+/* 颜色 */
+/* ===================== */
+
+const colors =
+
+["c1","c2","c3","c4","c5"];
+
+/* ===================== */
+/* 创建便利贴 */
+/* ===================== */
+
+function createNote(
+text,
+isAddButton = false
+){
+
+    const note =
+    document.createElement("div");
+
+    note.classList.add("note");
+
+    const color =
+
+    colors[
+    Math.floor(
+    Math.random()*colors.length
+    )
+    ];
+
+    note.classList.add(color);
+
+    if(isAddButton){
+
+        note.classList.add(
+        "add-note"
+        );
+
+        note.innerHTML =
+
+        `
+        <div class="plus">
+        +
+        </div>
+
+        写点什么吧
+        `;
+
+        note.style.right =
+        "0px";
+
+        note.style.bottom =
+        "0px";
+
+        note.style.left =
+        "auto";
+
+        note.style.top =
+        "auto";
+
+        note.style.position =
+        "absolute";
+
+        note.style.zIndex =
+        "999";
+
+        note.onclick =
+        openCreatePanel;
+
+        wall.appendChild(note);
+
+        return;
+    }
+
+    const preview =
+
+    text.length > 45
+
+    ?
+
+    text.substring(0,45)
+    + "..."
+
+    :
+
+    text;
+
+    note.innerText =
+    preview;
+
+    const wallWidth =
+
+    wall.offsetWidth;
+
+    const wallHeight =
+
+    wall.offsetHeight;
+
+    note.style.left =
+
+    Math.random()
+    *
+    (wallWidth - 220)
+
+    + "px";
+
+    note.style.top =
+
+    Math.random()
+    *
+    (wallHeight - 180)
+
+    + "px";
+
+    note.style.transform =
+
+    `rotate(${
+    -12 + Math.random()*24
+    }deg)`;
+
+    note.style.zIndex =
+
+    Math.floor(
+    Math.random()*50
+    );
+
+    note.onclick = ()=>{
+
+        openReadPanel(text);
+    };
+
+    wall.appendChild(note);
+}
+
+/* ===================== */
+/* 新建 */
+/* ===================== */
+
+function openCreatePanel(){
+
+    currentReadMode = false;
+
+    overlay.classList.add(
+    "show"
+    );
+
+    messageInput.style.display =
+    "block";
+
+    saveBtn.style.display =
+    "block";
+
+    readContent.style.display =
+    "none";
+
+    messageInput.value = "";
+
+    messageInput.focus();
+}
+
+/* ===================== */
+/* 阅读 */
+/* ===================== */
+
+function openReadPanel(text){
+
+    currentReadMode = true;
+
+    overlay.classList.add(
+    "show"
+    );
+
+    messageInput.style.display =
+    "none";
+
+    saveBtn.style.display =
+    "none";
+
+    readContent.style.display =
+    "block";
+
+    readContent.innerText =
+    text;
+}
+
+/* ===================== */
+/* 保存 */
+/* ===================== */
+
+saveBtn.onclick = ()=>{
+
+    const text =
+
+    messageInput.value.trim();
+
+    if(text === ""){
+
+        return;
+    }
+
+    messages.push(text);
+
+    localStorage.setItem(
+
+    "benbenMessages",
+
+    JSON.stringify(
+    messages
+    )
+
+    );
+
+    renderWall();
+
+    overlay.classList.remove(
+    "show"
+    );
+};
+
+/* ===================== */
+/* 点击遮罩关闭 */
+/* ===================== */
+
+overlay.addEventListener(
+
+"click",
+
+function(e){
+
+    if(
+    e.target === overlay
+    ){
+
+        overlay.classList.remove(
+        "show"
+        );
+    }
+}
+);
+
+/* ===================== */
+/* 渲染 */
+/* ===================== */
+
+function renderWall(){
+
+    wall.innerHTML = "";
+
+    messages.forEach(msg=>{
+
+        createNote(msg);
+    });
+
+    createNote("",true);
+}
+
+/* ===================== */
+/* 首次加载 */
+/* ===================== */
+
+renderWall();
+
+</script>
+```
+
 
 </body>
-
 </html>
+```
