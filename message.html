@@ -213,6 +213,14 @@ body{
 
 .add-note{
 
+    position:fixed !important;
+
+    right:40px;
+
+    bottom:40px;
+
+    z-index:99999;
+
     display:flex;
 
     flex-direction:column;
@@ -610,6 +618,11 @@ document.getElementById("saveBtn");
 const readContent =
 document.getElementById("readContent");
 
+const colorPicker =
+document.querySelector(
+".color-picker"
+);
+
 let currentReadMode = false;
 
 let selectedColor = "c1";
@@ -659,8 +672,22 @@ document
 
     selectedColor =
     dot.dataset.color;
+
+    popupNote.classList.remove(
+"c1","c2","c3","c4","c5"
+);
+
+popupNote.classList.add(
+selectedColor
+);
 };
 });
+
+document
+.querySelector(".color-dot")
+.classList.add(
+"selected"
+);
 
 /* ===================== */
 /* 创建便利贴 */
@@ -697,34 +724,27 @@ savedColor = null
 
     if(isAddButton){
 
-        note.classList.add(
-        "add-note"
-        );
+    note.classList.add(
+    "add-note"
+    );
 
-        note.innerHTML =
+    note.innerHTML =
 
-        `
-        <div class="plus">
-        +
-        </div>
+    `
+    <div class="plus">
+    +
+    </div>
 
-        写点什么吧
-        `;
+    写点什么吧
+    `;
 
-        note.style.right =
-        "0px";
+    note.onclick =
+    openCreatePanel;
 
-        note.style.top =
-        "-20px";
+    wall.appendChild(note);
 
-        note.style.bottom =
-        "auto";
-
-        note.style.left =
-        "auto";
-
-        note.style.position =
-        "absolute";
+    return;
+}
 
         note.style.zIndex =
         "999";
@@ -753,11 +773,11 @@ savedColor = null
     note.innerText =
     preview;
 
-    const cols = 4;
+    const cols = 5;
 
-const horizontalGap = 40;
+const horizontalGap = 10;
 
-const verticalGap = 40;
+const verticalGap = 10;
 
 const noteWidth = 180;
 
@@ -774,12 +794,10 @@ noteIndex / cols
 );
 
 const randomX =
-
-Math.random() * 50 - 25;
+Math.random() * 120 - 60;
 
 const randomY =
-
-Math.random() * 50 - 25;
+Math.random() * 90 - 45;
 
 note.style.left =
 
@@ -812,16 +830,10 @@ randomY
 note.style.transform =
 
 `rotate(${
--8 + Math.random()*16
+-12 + Math.random()*24
 }deg)`;
 
 noteIndex++;
-
-    note.style.transform =
-
-    `rotate(${
-    -12 + Math.random()*24
-    }deg)`;
 
     note.style.zIndex =
 
@@ -855,10 +867,24 @@ function openCreatePanel(){
     saveBtn.style.display =
     "block";
 
+    colorPicker.style.display =
+    "flex";
+
     readContent.style.display =
     "none";
 
+    colorPicker.style.display =
+    "none";
+
     messageInput.value = "";
+
+    popupNote.classList.remove(
+    "c1","c2","c3","c4","c5"
+    );
+
+    popupNote.classList.add(
+    selectedColor
+    );
 
     messageInput.focus();
 }
