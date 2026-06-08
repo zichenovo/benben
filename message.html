@@ -137,8 +137,6 @@ body{
 
     border-radius:12px;
 
-    color:#9d8793;
-
     font-size:15px;
 
     line-height:1.75;
@@ -798,6 +796,19 @@ author = "一个神秘的人"
 
     note.classList.add(color);
 
+    const textColors = {
+
+    c1:"#9d7d88",
+    c2:"#8577a8",
+    c3:"#6f8ba8",
+    c4:"#b07c98",
+    c5:"#7f74b2"
+
+};
+
+note.style.color =
+textColors[color];
+
     if(isAddButton){
 
     note.classList.add(
@@ -839,20 +850,24 @@ author = "一个神秘的人"
     note.innerHTML =
 
 `
-<div>${preview}</div>
+<div>
+
+${preview}
 
 <div
 style="
-position:absolute;
-right:12px;
-bottom:10px;
-font-size:14px;
+margin-top:8px;
+text-align:right;
+font-size:13px;
 font-style:italic;
-color:#9d8793;
+opacity:0.8;
 ">
 ——${author}
 </div>
+
+</div>
 `;
+
 
 const isMobile =
 window.innerWidth <= 768;
@@ -1028,7 +1043,17 @@ author
     readContent.style.display =
     "block";
 
-    readContent.innerHTML =
+    const textColors = {
+
+    c1:"#9d7d88",
+    c2:"#8577a8",
+    c3:"#6f8ba8",
+    c4:"#b07c98",
+    c5:"#7f74b2"
+
+};
+
+readContent.innerHTML =
 
 `
 ${text}
@@ -1037,7 +1062,7 @@ ${text}
 style="
 margin-top:25px;
 text-align:right;
-color:#9d8793;
+color:${textColors[color]};
 font-style:italic;
 ">
 ——${author}
@@ -1184,7 +1209,7 @@ const rows =
 
 Math.ceil(
 messages.length /
-(isMobile ? 2 : 5)
+(isMobile ? 3 : 8)
 );
 
 wall.style.minHeight =
