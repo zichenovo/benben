@@ -617,7 +617,22 @@ id="saveBtn">
 
 </div>
 
-<script>
+<script type="module">
+
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabaseUrl =
+"https://bfprkzuculvqajekshfs.supabase.co";
+
+const supabaseKey =
+"sb_publishable_RwapQC6PL9Dg54GWxd7lYQ_eJGOETc4";
+
+const supabase =
+createClient(
+supabaseUrl,
+supabaseKey
+);
 
 const wall =
 document.getElementById("wall");
@@ -654,15 +669,7 @@ let noteIndex = 0;
 /* localStorage */
 /* ===================== */
 
-let messages =
-
-JSON.parse(
-
-localStorage.getItem(
-"benbenMessages"
-)
-
-) || [];
+let messages = [];
 
 /* ===================== */
 /* 颜色 */
@@ -786,7 +793,7 @@ const cols =
 isMobile ? 2 : 5;
 
 const horizontalGap =
-isMobile ? 20 : -90;
+isMobile ? -30 : -90;
 
 const verticalGap =
 isMobile ? -15 : -55;
@@ -900,6 +907,27 @@ function openCreatePanel(){
 
     messageInput.value = "";
 
+    selectedColor = "c1";
+
+popupNote.className =
+"popup-note c1";
+
+document
+.querySelectorAll(".color-dot")
+.forEach(d=>{
+
+    d.classList.remove(
+    "selected"
+    );
+});
+
+document
+.querySelector(
+'.color-dot[data-color="c1"]'
+).classList.add(
+"selected"
+);
+
     popupNote.className =
 "popup-note " + selectedColor;
 
@@ -949,7 +977,7 @@ colorPicker.style.display =
 /* 保存 */
 /* ===================== */
 
-saveBtn.onclick = ()=>{
+saveBtn.onclick = async ()=>{
 
     const text =
 
@@ -960,24 +988,28 @@ saveBtn.onclick = ()=>{
         return;
     }
 
-    messages.push({
+    const { error } =
+
+await supabase
+
+.from("message_board")
+
+.insert([{
 
     text:text,
 
     color:selectedColor
-});
 
-    localStorage.setItem(
+}]);
 
-    "benbenMessages",
+if(error){
 
-    JSON.stringify(
-    messages
-    )
+    console.log(error);
 
-    );
+    return;
+}
 
-    renderWall();
+    await loadMessages();
 
     overlay.classList.remove(
     "show"
@@ -1008,6 +1040,33 @@ function(e){
 /* ===================== */
 /* 渲染 */
 /* ===================== */
+
+async function loadMessages(){
+
+    const { data, error } =
+
+    await supabase
+
+    .from("message_board")
+
+    .select("*")
+
+    .order(
+        "created_at",
+        { ascending:true }
+    );
+
+    if(error){
+
+        console.log(error);
+        return;
+    }
+
+    messages = data;
+
+    renderWall();
+}
+
 
 function renderWall(){
 
@@ -1053,7 +1112,7 @@ rows * 190 + 200
 /* 首次加载 */
 /* ===================== */
 
-renderWall();
+loadMessages();
 
 </script>
 ```
