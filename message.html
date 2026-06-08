@@ -763,15 +763,23 @@ savedColor = null
     note.innerText =
     preview;
 
-    const cols = 5;
+const isMobile =
+window.innerWidth <= 768;
 
-const horizontalGap = 10;
+const cols =
+isMobile ? 2 : 5;
 
-const verticalGap = 10;
+const horizontalGap =
+isMobile ? -20 : -90;
 
-const noteWidth = 180;
+const verticalGap =
+isMobile ? -15 : -55;
 
-const noteHeight = 135;
+const noteWidth =
+isMobile ? 130 : 180;
+
+const noteHeight =
+isMobile ? 100 : 135;
 
 const col =
 
@@ -784,10 +792,18 @@ noteIndex / cols
 );
 
 const randomX =
-Math.random() * 120 - 60;
+isMobile
+?
+Math.random() * 25 - 12
+:
+Math.random() * 100 - 50;
 
 const randomY =
-Math.random() * 90 - 45;
+isMobile
+?
+Math.random() * 20 - 10
+:
+Math.random() * 80 - 40;
 
 note.style.left =
 
@@ -833,7 +849,10 @@ noteIndex++;
 
     note.onclick = ()=>{
 
-        openReadPanel(text);
+        openReadPanel(
+            msg.text,
+            msg.color
+);
     };
 
     wall.appendChild(note);
@@ -980,10 +999,14 @@ function renderWall(){
     );
 });
 
+const isMobile =
+window.innerWidth <= 768;
+
 const rows =
 
 Math.ceil(
-messages.length / 4
+messages.length /
+(isMobile ? 2 : 5)
 );
 
 wall.style.minHeight =
