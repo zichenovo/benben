@@ -254,9 +254,9 @@ body{
 
 .plus{
 
-    font-size:38px;
+    font-size:24px;
 
-    margin-bottom:8px;
+    margin-bottom:4px;
 }
 
 /* ===================== */
@@ -859,6 +859,18 @@ textColors[color];
     note.classList.add(
     "add-note"
     );
+
+    note.style.width = window.innerWidth <= 768
+? "95px"
+: "115px";
+
+note.style.minHeight = window.innerWidth <= 768
+? "75px"
+: "90px";
+
+note.style.padding = window.innerWidth <= 768
+? "8px"
+: "10px";
 
     note.innerHTML =
 
