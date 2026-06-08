@@ -207,6 +207,26 @@ body{
     background:#f2eefb;
 }
 
+.popup-note.c1{
+    background:#f6edf2;
+}
+
+.popup-note.c2{
+    background:#efe8f8;
+}
+
+.popup-note.c3{
+    background:#eef3fa;
+}
+
+.popup-note.c4{
+    background:#f7eef5;
+}
+
+.popup-note.c5{
+    background:#f2eefb;
+}
+
 /* ===================== */
 /* +便利贴 */
 /* ===================== */
@@ -280,16 +300,15 @@ body{
 
     min-height:380px;
 
-    background:#f7eef5;
-
     border-radius:18px;
 
     padding:28px;
 
     position:relative;
 
-    box-shadow:
+    transition:background .2s ease;
 
+    box-shadow:
     0 25px 60px rgba(0,0,0,0.12);
 }
 
@@ -627,6 +646,8 @@ let currentReadMode = false;
 
 let selectedColor = "c1";
 
+popupNote.classList.add("c1");
+
 let noteIndex = 0;
 
 /* ===================== */
@@ -671,15 +692,10 @@ document
     );
 
     selectedColor =
-    dot.dataset.color;
+dot.dataset.color;
 
-    popupNote.classList.remove(
-"c1","c2","c3","c4","c5"
-);
-
-popupNote.classList.add(
-selectedColor
-);
+popupNote.className =
+"popup-note " + selectedColor;
 };
 });
 
@@ -770,7 +786,7 @@ const cols =
 isMobile ? 2 : 5;
 
 const horizontalGap =
-isMobile ? -20 : -90;
+isMobile ? 20 : -90;
 
 const verticalGap =
 isMobile ? -15 : -55;
@@ -849,11 +865,11 @@ noteIndex++;
 
     note.onclick = ()=>{
 
-        openReadPanel(
-            msg.text,
-            msg.color
-);
-    };
+    openReadPanel(
+        text,
+        color
+    );
+};
 
     wall.appendChild(note);
 }
@@ -884,13 +900,8 @@ function openCreatePanel(){
 
     messageInput.value = "";
 
-    popupNote.classList.remove(
-    "c1","c2","c3","c4","c5"
-    );
-
-    popupNote.classList.add(
-    selectedColor
-    );
+    popupNote.className =
+"popup-note " + selectedColor;
 
     messageInput.focus();
 }
@@ -899,7 +910,10 @@ function openCreatePanel(){
 /* 阅读 */
 /* ===================== */
 
-function openReadPanel(text){
+function openReadPanel(
+text,
+color
+){
 
     currentReadMode = true;
 
@@ -918,6 +932,17 @@ function openReadPanel(text){
 
     readContent.innerText =
     text;
+
+    popupNote.classList.remove(
+"c1","c2","c3","c4","c5"
+);
+
+popupNote.classList.add(
+color
+);
+
+colorPicker.style.display =
+"none";
 }
 
 /* ===================== */
