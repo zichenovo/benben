@@ -349,7 +349,7 @@ body{
 
     position:absolute;
 
-    left:110px;
+    left:78px;
 
     bottom:22px;
 
@@ -376,17 +376,12 @@ body{
 }
 
 .name-label{
-
     position:absolute;
-
     left:30px;
-
     bottom:31px;
 
     font-size:14px;
-
     color:#b697a4;
-
     opacity:0.8;
 }
 
@@ -745,6 +740,9 @@ document.getElementById("readContent");
 const nameInput =
 document.getElementById("nameInput");
 
+const nameLabel =
+document.querySelector(".name-label");
+
 const colorPicker =
 document.querySelector(
 ".color-picker"
@@ -890,6 +888,12 @@ textColors[color];
 
     text;
 
+    const isMobile =
+window.innerWidth <= 768;
+
+const signatureSize =
+isMobile ? 8 : 13;
+
     note.innerHTML =
 
 `
@@ -901,7 +905,7 @@ ${preview}
 style="
 margin-top:8px;
 text-align:right;
-font-size:13px;
+font-size:${signatureSize}px;
 font-style:italic;
 opacity:0.8;
 ">
@@ -1026,6 +1030,12 @@ function openCreatePanel(){
     saveBtn.style.display =
     "block";
 
+    nameInput.style.display =
+"block";
+
+nameLabel.style.display =
+"block";
+
     colorPicker.style.display =
     "flex";
 
@@ -1081,6 +1091,12 @@ author
 
     messageInput.style.display =
     "none";
+
+    nameInput.style.display =
+"none";
+
+nameLabel.style.display =
+"none";
 
     saveBtn.style.display =
     "none";
