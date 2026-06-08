@@ -347,6 +347,39 @@ body{
     color:#bcaab4;
 }
 
+.name-input{
+
+    position:absolute;
+
+    left:28px;
+
+    bottom:22px;
+
+    width:240px;
+
+    height:42px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:999px;
+
+    padding:0 18px;
+
+    background:
+    rgba(255,255,255,0.55);
+
+    color:#8f7c86;
+
+    font-size:15px;
+}
+
+.name-input::placeholder{
+
+    color:#bcaab4;
+}
+
 /* ===================== */
 /* ✓ */
 /* ===================== */
@@ -446,6 +479,17 @@ body{
 /* ===================== */
 
 @media(max-width:768px){
+
+.name-input{
+
+    width:180px;
+
+    height:38px;
+
+    font-size:14px;
+
+    left:18px;
+}
 
 .color-picker{
 
@@ -581,6 +625,11 @@ id="messageInput"
 class="message-input"
 placeholder="写点什么吧..."></textarea>
 
+<input
+id="nameInput"
+class="name-input"
+placeholder="一个神秘的人">
+
 <div
 id="readContent"
 class="read-content"
@@ -652,6 +701,9 @@ document.getElementById("saveBtn");
 const readContent =
 document.getElementById("readContent");
 
+const nameInput =
+document.getElementById("nameInput");
+
 const colorPicker =
 document.querySelector(
 ".color-picker"
@@ -719,7 +771,8 @@ document
 function createNote(
 text,
 isAddButton = false,
-savedColor = null
+savedColor = null,
+author = "一个神秘的人"
 ){
 
     const note =
@@ -783,8 +836,23 @@ savedColor = null
 
     text;
 
-    note.innerText =
-    preview;
+    note.innerHTML =
+
+`
+<div>${preview}</div>
+
+<div
+style="
+position:absolute;
+right:12px;
+bottom:10px;
+font-size:14px;
+font-style:italic;
+color:#9d8793;
+">
+——${author}
+</div>
+`;
 
 const isMobile =
 window.innerWidth <= 768;
@@ -873,9 +941,10 @@ noteIndex++;
     note.onclick = ()=>{
 
     openReadPanel(
-        text,
-        color
-    );
+    text,
+    color,
+    author
+);
 };
 
     wall.appendChild(note);
@@ -940,7 +1009,8 @@ document
 
 function openReadPanel(
 text,
-color
+color,
+author
 ){
 
     currentReadMode = true;
@@ -958,8 +1028,21 @@ color
     readContent.style.display =
     "block";
 
-    readContent.innerText =
-    text;
+    readContent.innerHTML =
+
+`
+${text}
+
+<div
+style="
+margin-top:25px;
+text-align:right;
+color:#9d8793;
+font-style:italic;
+">
+——${author}
+</div>
+`;
 
     popupNote.classList.remove(
 "c1","c2","c3","c4","c5"
@@ -983,6 +1066,14 @@ saveBtn.onclick = async ()=>{
 
     messageInput.value.trim();
 
+    const name =
+
+nameInput.value.trim()
+
+||
+
+"一个神秘的人";
+
     if(text === ""){
 
         return;
@@ -998,7 +1089,9 @@ await supabase
 
     text:text,
 
-    color:selectedColor
+    color:selectedColor,
+
+    name:name
 
 }]);
 
@@ -1077,10 +1170,11 @@ function renderWall(){
     messages.forEach(msg=>{
 
     createNote(
-        msg.text,
-        false,
-        msg.color
-    );
+    msg.text,
+    false,
+    msg.color,
+    msg.name
+);
 });
 
 const isMobile =
