@@ -1607,7 +1607,7 @@ window.innerWidth/window.innerHeight,
 1000
 );
 
-camera.position.z = 25;
+camera.position.z = 1500;
 
 const renderer =
 new THREE.WebGLRenderer({
@@ -1653,11 +1653,11 @@ songs.forEach(songName=>{
 
     object.position.set(
 
-        Math.random()*80-40,
-        Math.random()*50-25,
-        Math.random()*80-40
+    Math.random()*3000-1500,
+    Math.random()*2000-1000,
+    Math.random()*3000-1500
 
-    );
+);
 
     scene.add(object);
 
@@ -1668,6 +1668,8 @@ function animate(){
     requestAnimationFrame(
         animate
     );
+
+    scene.rotation.y += 0.0004;
 
     renderer.render(
         scene,
