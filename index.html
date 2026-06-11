@@ -281,8 +281,7 @@ body::before{
     "STSong",
     serif;
 
-    animation:
-    floatDepth linear infinite;
+    animation:none;
 }
 
 .song:hover{
@@ -1607,7 +1606,13 @@ async function enterSite(){
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
 
 <script>
-    const scene = new THREE.Scene();
+const songObjects = [];
+
+let selectedSong = null;
+
+let time = 0;
+
+const scene = new THREE.Scene();
 
 const camera =
 new THREE.PerspectiveCamera(
@@ -1665,7 +1670,10 @@ songs.forEach(songName=>{
     "small",
     "medium",
     "large"
+
 ];
+
+
 
 div.className =
 "song " +
@@ -1677,20 +1685,36 @@ Math.random()*3
 
     div.onclick = ()=>{
 
-    localStorage.setItem(
-        "bgmTime",
-        bgm.currentTime
+    if(selectedSong === songName){
+
+        localStorage.setItem(
+            "bgmTime",
+            bgm.currentTime
+        );
+
+        localStorage.setItem(
+            "bgmPlaying",
+            "true"
+        );
+
+        window.location.href =
+        "song.html?song=" +
+        encodeURIComponent(songName);
+
+        return;
+    }
+
+    selectedSong = songName;
+
+    targetCamera.set(
+
+        object.position.x,
+
+        object.position.y,
+
+        object.position.z + 500
+
     );
-
-    localStorage.setItem(
-        "bgmPlaying",
-        "true"
-    );
-
-    window.location.href =
-    "song.html?song=" +
-    encodeURIComponent(songName);
-
 };
 
     const object =
@@ -1703,9 +1727,19 @@ Math.random()*3
     Math.random()*3000-1500
 
 );
-    const songObjects = [];
+    object.userData.baseX =
+object.position.x;
 
-    songObjects.push({
+object.userData.baseY =
+object.position.y;
+
+object.userData.baseZ =
+object.position.z;
+
+object.userData.offset =
+Math.random()*Math.PI*2;
+
+songObjects.push({
     object,
     songName
 });
@@ -1714,12 +1748,91 @@ scene.add(object);
 
 });
 
+const notes = [];
+
+for(let i=0;i<80;i++){
+
+    const noteDiv =
+    document.createElement("div");
+
+    noteDiv.className="note";
+
+    noteDiv.innerHTML="♫";
+
+    const note =
+    new THREE.CSS3DObject(noteDiv);
+
+    note.userData.radius =
+    1200 + Math.random()*500;
+
+    note.userData.angle =
+    Math.random()*Math.PI*2;
+
+    note.userData.height =
+    Math.random()*1400 - 700;
+
+    scene.add(note);
+
+    notes.push(note);
+}
+
 function animate(){
 
     requestAnimationFrame(
         animate
     );
 
+    time += 0.01;
+
+    songObjects.forEach(song=>{
+
+        song.object.position.y =
+
+        song.object.userData.baseY +
+
+        Math.sin(
+
+            time +
+
+            song.object.userData.offset
+
+        ) * 20;
+
+    });
+
+    notes.forEach(note=>{
+
+        note.userData.angle += 0.004;
+
+        note.position.x =
+
+        Math.cos(
+            note.userData.angle
+        )
+
+        *
+
+        note.userData.radius;
+
+        note.position.z =
+
+        Math.sin(
+            note.userData.angle
+        )
+
+        *
+
+        note.userData.radius;
+
+        note.position.y =
+        note.userData.height;
+
+    });
+
+    camera.position.lerp(
+        targetCamera,
+        0.03
+    );
 
     renderer.render(
         scene,
@@ -1730,11 +1843,6 @@ function animate(){
         scene,
         camera
     );
-
-    camera.position.lerp(
-    targetCamera,
-    0.03
-);
 }
 
 animate();
