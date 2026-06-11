@@ -1708,13 +1708,13 @@ Math.random()*3
 
     targetCamera.set(
 
-        object.position.x,
+    object.position.x,
 
-        object.position.y,
+    object.position.y,
 
-        object.position.z + 500
+    object.position.z + 150
 
-    );
+);
 };
 
     const object =
@@ -1722,9 +1722,11 @@ Math.random()*3
 
     object.position.set(
 
-    Math.random()*3000-1500,
-    Math.random()*2000-1000,
-    Math.random()*3000-1500
+    Math.random()*1200-600,
+
+    Math.random()*800-400,
+
+    Math.random()*1200-600
 
 );
     object.userData.baseX =
@@ -1800,6 +1802,14 @@ function animate(){
 
     });
 
+    songObjects.forEach(song=>{
+
+    song.object.lookAt(
+        camera.position
+    );
+
+});
+
     notes.forEach(note=>{
 
         note.userData.angle += 0.004;
@@ -1830,9 +1840,9 @@ function animate(){
     });
 
     camera.position.lerp(
-        targetCamera,
-        0.03
-    );
+    targetCamera,
+    0.08
+);
 
     renderer.render(
         scene,
