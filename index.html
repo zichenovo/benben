@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -281,7 +284,8 @@ body::before{
     "STSong",
     serif;
 
-    animation:none;
+    animation:
+    floatDepth linear infinite;
 }
 
 .song:hover{
@@ -1110,7 +1114,7 @@ id="menuOverlay">
     点击歌名可以试听～
 </div>
 
-<div id="threeContainer"></div>
+<div class="song-area" id="songArea"></div>
 
 <script>
 
@@ -1264,12 +1268,147 @@ const songs = [
 
 ];
 
+const songArea =
+document.getElementById("songArea");
 
+songs.forEach(songName=>{
 
-  
+    const song =
+    document.createElement("div");
 
+    const random =
+    Math.random();
 
+    let sizeClass = "small";
 
+    if(random > 0.7){
+        sizeClass = "medium";
+    }
+
+    if(random > 0.92){
+        sizeClass = "large";
+    }
+
+    song.className =
+    "song " + sizeClass;
+
+    song.innerText =
+    songName;
+
+    let x;
+let y;
+
+let tries = 0;
+
+let overlapCount = 0;
+
+do{
+
+    if(isMobile){
+
+        x =
+        45 + Math.random()*240;
+
+        y =
+        220 + Math.random()*1350;
+
+    }else{
+
+        x =
+        220 + Math.random()*1500;
+
+        y =
+        230 + Math.random()*1200;
+    }
+
+    tries++;
+
+    overlapCount = 0;
+
+    document.querySelectorAll(".song").forEach(existing=>{
+
+        const ex =
+        parseFloat(existing.style.left);
+
+        const ey =
+        parseFloat(existing.style.top);
+
+        const dx =
+        Math.abs(ex - x);
+
+        const dy =
+        Math.abs(ey - y);
+
+        if(dx < 98 && dy < 60){
+
+            overlapCount++;
+        }
+    });
+
+}while(tries < 30 && overlapCount > 2);
+
+       
+
+    song.style.left =
+    x + "px";
+
+    song.style.top =
+    y + "px";
+
+    /* title区域透明 */
+
+let fade = 1;
+
+if(isMobile){
+
+    if(y < 220){
+
+        fade =
+        Math.max(
+        0.08,
+        (y - 120) / 100
+        );
+    }
+
+}else{
+
+    if(y < 260){
+
+        fade =
+        Math.max(
+        0.08,
+        (y - 140) / 120
+        );
+    }
+}
+
+song.style.setProperty(
+"--fadeOpacity",
+fade
+);
+
+    song.style.animationDuration =
+    10 + Math.random()*8 + "s";
+
+    song.onclick = ()=>{
+
+    localStorage.setItem(
+    "bgmTime",
+    bgm.currentTime
+    );
+
+    localStorage.setItem(
+    "bgmPlaying",
+    "true"
+    );
+
+    window.location.href =
+    "song.html?song=" +
+    encodeURIComponent(songName);
+};
+
+    songArea.appendChild(song);
+});
 
 /* search */
 
@@ -1437,19 +1576,9 @@ function(){
             "true"
             );
 
-            div.onclick = ()=>{
-
-    targetCamera.set(
-
-        object.position.x,
-
-        object.position.y,
-
-        object.position.z + 400
-
-    );
-
-};
+            window.location.href =
+            "song.html?song=" +
+            encodeURIComponent(songName);
         };
 
         resultBox.appendChild(item);
@@ -1579,6 +1708,56 @@ menuOverlay.addEventListener(
 }
 );
 
+/* notes */
+
+let noteCount = 95;
+
+if(isMobile){
+
+    noteCount = 28;
+}
+
+for(let i=0;i<noteCount;i++){
+
+    const note =
+    document.createElement("div");
+
+    note.className = "note";
+
+    const symbols =
+    ["♪","♫","♬","♩","𝄞"];
+
+    note.innerText =
+    symbols[
+    Math.floor(
+    Math.random()*symbols.length
+    )];
+
+    if(isMobile){
+
+        note.style.left =
+        Math.random()*100 + "vw";
+
+        note.style.top =
+        Math.random()*1800 + "px";
+
+    }else{
+
+        note.style.left =
+        Math.random()*2200 + "px";
+
+        note.style.top =
+        Math.random()*1900 + "px";
+    }
+
+    note.style.fontSize =
+    16 + Math.random()*55 + "px";
+
+    note.style.animationDuration =
+    8 + Math.random()*8 + "s";
+
+    songArea.appendChild(note);
+}
 
 async function enterSite(){
 
@@ -1605,259 +1784,6 @@ async function enterSite(){
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
 
-<script>
-const songObjects = [];
-
-let selectedSong = null;
-
-let time = 0;
-
-const scene = new THREE.Scene();
-
-const camera =
-new THREE.PerspectiveCamera(
-70,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-);
-
-let targetCamera =
-new THREE.Vector3(
-0,
-0,
-1500
-);
-
-camera.position.z = 1500;
-
-const renderer =
-new THREE.WebGLRenderer({
-alpha:true,
-antialias:true
-});
-
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
-
-document.body.appendChild(
-renderer.domElement
-);
-
-const cssRenderer =
-new THREE.CSS3DRenderer();
-
-cssRenderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
-
-cssRenderer.domElement.style.position="fixed";
-cssRenderer.domElement.style.top="0";
-
-document.body.appendChild(
-cssRenderer.domElement
-);
-
-songs.forEach(songName=>{
-
-    const div =
-    document.createElement("div");
-
-    const sizes = [
-    "small",
-    "medium",
-    "large"
-
-];
-
-
-
-div.className =
-"song " +
-sizes[Math.floor(
-Math.random()*3
-)];
-
-    div.innerText=songName;
-
-    div.onclick = ()=>{
-
-    if(selectedSong === songName){
-
-        localStorage.setItem(
-            "bgmTime",
-            bgm.currentTime
-        );
-
-        localStorage.setItem(
-            "bgmPlaying",
-            "true"
-        );
-
-        window.location.href =
-        "song.html?song=" +
-        encodeURIComponent(songName);
-
-        return;
-    }
-
-    selectedSong = songName;
-
-    targetCamera.set(
-
-    object.position.x,
-
-    object.position.y,
-
-    object.position.z + 150
-
-);
-};
-
-    const object =
-    new THREE.CSS3DObject(div);
-
-    object.position.set(
-
-    Math.random()*1200-600,
-
-    Math.random()*800-400,
-
-    Math.random()*1200-600
-
-);
-    object.userData.baseX =
-object.position.x;
-
-object.userData.baseY =
-object.position.y;
-
-object.userData.baseZ =
-object.position.z;
-
-object.userData.offset =
-Math.random()*Math.PI*2;
-
-songObjects.push({
-    object,
-    songName
-});
-
-scene.add(object);
-
-});
-
-const notes = [];
-
-for(let i=0;i<80;i++){
-
-    const noteDiv =
-    document.createElement("div");
-
-    noteDiv.className="note";
-
-    noteDiv.innerHTML="♫";
-
-    const note =
-    new THREE.CSS3DObject(noteDiv);
-
-    note.userData.radius =
-    1200 + Math.random()*500;
-
-    note.userData.angle =
-    Math.random()*Math.PI*2;
-
-    note.userData.height =
-    Math.random()*1400 - 700;
-
-    scene.add(note);
-
-    notes.push(note);
-}
-
-function animate(){
-
-    requestAnimationFrame(
-        animate
-    );
-
-    time += 0.01;
-
-    songObjects.forEach(song=>{
-
-        song.object.position.y =
-
-        song.object.userData.baseY +
-
-        Math.sin(
-
-            time +
-
-            song.object.userData.offset
-
-        ) * 20;
-
-    });
-
-    songObjects.forEach(song=>{
-
-    song.object.lookAt(
-        camera.position
-    );
-
-});
-
-    notes.forEach(note=>{
-
-        note.userData.angle += 0.004;
-
-        note.position.x =
-
-        Math.cos(
-            note.userData.angle
-        )
-
-        *
-
-        note.userData.radius;
-
-        note.position.z =
-
-        Math.sin(
-            note.userData.angle
-        )
-
-        *
-
-        note.userData.radius;
-
-        note.position.y =
-        note.userData.height;
-
-    });
-
-    camera.position.lerp(
-    targetCamera,
-    0.08
-);
-
-    renderer.render(
-        scene,
-        camera
-    );
-
-    cssRenderer.render(
-        scene,
-        camera
-    );
-}
-
-animate();
-
-</script>
 
 </body>
 </html>
