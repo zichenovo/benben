@@ -1599,6 +1599,26 @@ async function enterSite(){
 <script>
     const scene = new THREE.Scene();
 
+    let targetRotationY = 0;
+
+    document.addEventListener(
+
+"mousemove",
+
+(e)=>{
+
+    targetRotationY =
+
+    (
+    e.clientX /
+    window.innerWidth
+
+    - 0.5
+
+    ) * 0.8;
+
+});
+
 const camera =
 new THREE.PerspectiveCamera(
 70,
@@ -1644,9 +1664,37 @@ songs.forEach(songName=>{
     const div =
     document.createElement("div");
 
-    div.className="song";
+    const sizes = [
+    "small",
+    "medium",
+    "large"
+];
+
+div.className =
+"song " +
+sizes[Math.floor(
+Math.random()*3
+)];
 
     div.innerText=songName;
+
+    div.onclick = ()=>{
+
+    localStorage.setItem(
+        "bgmTime",
+        bgm.currentTime
+    );
+
+    localStorage.setItem(
+        "bgmPlaying",
+        "true"
+    );
+
+    window.location.href =
+    "song.html?song=" +
+    encodeURIComponent(songName);
+
+};
 
     const object =
     new THREE.CSS3DObject(div);
@@ -1669,7 +1717,12 @@ function animate(){
         animate
     );
 
-    scene.rotation.y += 0.0004;
+    scene.rotation.y +=
+    (
+        targetRotationY
+        -
+        scene.rotation.y
+    ) * 0.03;
 
     renderer.render(
         scene,
