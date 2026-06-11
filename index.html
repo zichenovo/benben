@@ -1438,9 +1438,19 @@ function(){
             "true"
             );
 
-            window.location.href =
-            "song.html?song=" +
-            encodeURIComponent(songName);
+            div.onclick = ()=>{
+
+    targetCamera.set(
+
+        object.position.x,
+
+        object.position.y,
+
+        object.position.z + 400
+
+    );
+
+};
         };
 
         resultBox.appendChild(item);
@@ -1599,32 +1609,19 @@ async function enterSite(){
 <script>
     const scene = new THREE.Scene();
 
-    let targetRotationY = 0;
-
-    document.addEventListener(
-
-"mousemove",
-
-(e)=>{
-
-    targetRotationY =
-
-    (
-    e.clientX /
-    window.innerWidth
-
-    - 0.5
-
-    ) * 0.8;
-
-});
-
 const camera =
 new THREE.PerspectiveCamera(
 70,
 window.innerWidth/window.innerHeight,
 0.1,
 1000
+);
+
+let targetCamera =
+new THREE.Vector3(
+0,
+0,
+1500
 );
 
 camera.position.z = 1500;
@@ -1706,8 +1703,14 @@ Math.random()*3
     Math.random()*3000-1500
 
 );
+    const songObjects = [];
 
-    scene.add(object);
+    songObjects.push({
+    object,
+    songName
+});
+
+scene.add(object);
 
 });
 
@@ -1717,12 +1720,6 @@ function animate(){
         animate
     );
 
-    scene.rotation.y +=
-    (
-        targetRotationY
-        -
-        scene.rotation.y
-    ) * 0.03;
 
     renderer.render(
         scene,
@@ -1733,6 +1730,11 @@ function animate(){
         scene,
         camera
     );
+
+    camera.position.lerp(
+    targetCamera,
+    0.03
+);
 }
 
 animate();
