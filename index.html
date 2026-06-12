@@ -1262,12 +1262,15 @@ songs.forEach(songName=>{
     const random =
     Math.random();
 
-    const scale =
+    let scale = 1;
 
-Math.min(
-window.innerWidth / 1512,
-window.innerHeight / 982
-);
+if(!isMobile){
+
+    scale = Math.min(
+        window.innerWidth / 1512,
+        window.innerHeight / 982
+    );
+}
 
     let sizeClass = "small";
 
