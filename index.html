@@ -1288,19 +1288,21 @@ if(!isMobile){
     song.innerText =
     songName;
 
+    if(!isMobile){
+
     let baseSize = 18;
 
-if(sizeClass === "medium"){
-    baseSize = 30;
+    if(sizeClass === "medium"){
+        baseSize = 30;
+    }
+
+    if(sizeClass === "large"){
+        baseSize = 46;
+    }
+
+    song.style.fontSize =
+    (baseSize * scale) + "px";
 }
-
-if(sizeClass === "large"){
-    baseSize = 46;
-}
-
-song.style.fontSize =
-(baseSize * scale) + "px";
-
     const areaW =
 window.innerWidth;
 
